@@ -1,0 +1,14 @@
+language: dart
+os:
+  - linux
+sudo: false
+dart:
+- 2.1.0
+script:
+  - pub get
+  - pub run test_coverage
+after_success:
+  - bash <(curl -s https://codecov.io/bash)
+cache:
+  directories:
+    - $HOME/.pub-cache
