@@ -3,7 +3,7 @@
 /// Equatables override their own == and [hashCode] based on
 /// the provided `properties`.
 abstract class Equatable {
-  /// The [Set] of properties which will be used to determine whether
+  /// The [Set] of `props` (properties) which will be used to determine whether
   /// two [Equatables] are equal.
   final Set props;
 

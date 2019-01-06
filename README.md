@@ -4,6 +4,7 @@
 [![codecov](https://codecov.io/gh/felangel/equatable/branch/master/graph/badge.svg)](https://codecov.io/gh/felangel/equatable)
 [![Pub Package](https://img.shields.io/pub/v/equatable.svg)](https://pub.dartlang.org/packages/equatable)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+[![Gitter](https://img.shields.io/badge/gitter-equatable-yellow.svg)](https://gitter.im/equatable_package/community)
 
 ## Overview
 
@@ -69,7 +70,7 @@ it will be able to compare different instances of `Person`.
 
 You can see how this can quickly become a hassle when dealing with complex classes. This is where `Equatable` comes in!
 
-## Why Equatable
+## What does Equatable do?
 
 `Equatable` overrides `==` and `hashCode` for you so you don't have to waste your time writing lots of boilerplate code.
 
