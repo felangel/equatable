@@ -1,13 +1,23 @@
-<div style="text-align: left">
-    <img style="vertical-align: middle" src="https://raw.githubusercontent.com/felangel/equatable/master/docs/assets/equatable_logo.png" width="200" alt="logo" />
-    <span style="margin-left: 10px; font-size: 34px; font-family: roboto; font-weight: lighter">Equatable </span>
-</div>
+<img src="./docs/assets/equatable_logo_full.png" width="100%" alt="logo" />
 
-[![Build Status](https://travis-ci.org/felangel/equatable.svg?branch=master)](https://travis-ci.org/felangel/equatable)
-[![codecov](https://codecov.io/gh/felangel/equatable/branch/master/graph/badge.svg)](https://codecov.io/gh/felangel/equatable)
-[![Pub Package](https://img.shields.io/pub/v/equatable.svg)](https://pub.dartlang.org/packages/equatable)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Gitter](https://img.shields.io/badge/gitter-equatable-yellow.svg)](https://gitter.im/equatable_package/community)
+<p align="center">
+  <a href="https://travis-ci.org/felangel/equatable">
+    <img alt="Build Status" src="https://travis-ci.org/felangel/equatable.svg?branch=master">
+  </a>
+  <a href="https://codecov.io/gh/felangel/equatable">
+    <img alt="Code Coverage" src="https://codecov.io/gh/felangel/equatable/branch/master/graph/badge.svg">
+  </a>
+  <a href="https://pub.dartlang.org/packages/equatable">
+    <img alt="Pub Package" src="https://img.shields.io/pub/v/equatable.svg">
+  </a>
+  <br/>
+  <a href="https://opensource.org/licenses/MIT">
+    <img alt="MIT License" src="https://img.shields.io/badge/License-MIT-blue.svg">
+  </a>
+  <a href="https://gitter.im/equatable_package/community">
+    <img alt="Gitter" src="https://img.shields.io/badge/gitter-equatable-yellow.svg">
+  </a>
+</p>
 
 ---
 
@@ -23,9 +33,9 @@ Let's say we have the following class:
 
 ```dart
 class Person {
-    final String name;
+  final String name;
 
-    const Person(this.name);
+  const Person(this.name);
 }
 ```
 
@@ -33,7 +43,7 @@ We can create create instances of `Person` like so:
 
 ```dart
 void main() {
-    final Person bob = Person("Bob");
+  final Person bob = Person("Bob");
 }
 ```
 
@@ -49,19 +59,19 @@ In order to be able to compare two instances of `Person` we need to change our c
 
 ```dart
 class Person {
-    final String name;
+  final String name;
 
-    const Person(this.name);
+  const Person(this.name);
 
-    @override
-    bool operator ==(Object other) =>
-        identical(this, other) ||
-        other is Person &&
-        runtimeType == other.runtimeType &&
-        name == other.name;
+  @override
+  bool operator ==(Object other) =>
+    identical(this, other) ||
+    other is Person &&
+    runtimeType == other.runtimeType &&
+    name == other.name;
 
-    @override
-    int get hashCode => name.hashCode;
+  @override
+  int get hashCode => name.hashCode;
 }
 ```
 
@@ -108,10 +118,44 @@ Lastly, we need to extend `Equatable`
 import 'package:equatable/equatable.dart';
 
 class Person extends Equatable {
-    final String name;
+  final String name;
 
-    Person(this.name) : super([name]);
+  Person(this.name) : super([name]);
 }
 ```
 
 We can now compare instances of `Person` just like before without the pain of having to write all of that boilerplate.
+
+## Recap
+
+### Without Equatable
+
+```dart
+class Person {
+  final String name;
+
+  const Person(this.name);
+
+  @override
+  bool operator ==(Object other) =>
+    identical(this, other) ||
+    other is Person &&
+    runtimeType == other.runtimeType &&
+    name == other.name;
+
+  @override
+  int get hashCode => name.hashCode;
+}
+```
+
+### With Equatable
+
+```dart
+import 'package:equatable/equatable.dart';
+
+class Person extends Equatable {
+  final String name;
+
+  Person(this.name) : super([name]);
+}
+```
