@@ -1,10 +1,15 @@
-# Equatable
+<div style="text-align: left">
+    <img style="vertical-align: middle" src="https://raw.githubusercontent.com/felangel/equatable/master/docs/assets/equatable_logo.png" width="200" alt="logo" />
+    <span style="margin-left: 10px; font-size: 34px; font-family: roboto; font-weight: lighter">Equatable </span>
+</div>
 
 [![Build Status](https://travis-ci.org/felangel/equatable.svg?branch=master)](https://travis-ci.org/felangel/equatable)
 [![codecov](https://codecov.io/gh/felangel/equatable/branch/master/graph/badge.svg)](https://codecov.io/gh/felangel/equatable)
 [![Pub Package](https://img.shields.io/pub/v/equatable.svg)](https://pub.dartlang.org/packages/equatable)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 [![Gitter](https://img.shields.io/badge/gitter-equatable-yellow.svg)](https://gitter.im/equatable_package/community)
+
+---
 
 ## Overview
 
