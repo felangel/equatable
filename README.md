@@ -1,4 +1,4 @@
-<img src="https://github.com/felangel/equatable/raw/master/docs/assets/equatable_logo_full.png" width="100%" alt="logo" />
+<img src="https://github.com/felangel/equatable/raw/master/doc/assets/equatable_logo_full.png" width="100%" alt="logo" />
 <h2 align="center">
   Simplify Equality Comparisons
 </h2>
