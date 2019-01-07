@@ -1,3 +1,5 @@
+import 'package:collection/collection.dart';
+
 /// A class that helps implement equality
 /// without needing to explicitly override == and [hashCode].
 /// Equatables override their own == and [hashCode] based on
@@ -7,10 +9,10 @@ abstract class Equatable {
   /// two [Equatables] are equal.
   final List props;
 
-  /// The constructor takes an optional [Iterable] of `props` which
+  /// The constructor takes an optional [List] of `props` (properties) which
   /// will be used to determine whether two [Equatables] are equal.
   /// If no properties are provided, `props` will be initialized to
-  /// `Iterable.empty()`.
+  /// an empty [List].
   Equatable([this.props = const []]);
 
   @override
@@ -18,7 +20,7 @@ abstract class Equatable {
       identical(this, other) ||
       other is Equatable &&
           runtimeType == other.runtimeType &&
-          _propsAreEqual(props, other.props);
+          ListEquality().equals(props, other.props);
 
   @override
   int get hashCode => runtimeType.hashCode ^ _propsHashCode;
@@ -31,19 +33,5 @@ abstract class Equatable {
     });
 
     return hashCode;
-  }
-
-  bool _propsAreEqual(List props, List other) {
-    if (props.length != other.length) {
-      return false;
-    }
-
-    for (int i = 0; i < props.length; i++) {
-      if (props.elementAt(i) != other.elementAt(i)) {
-        return false;
-      }
-    }
-
-    return true;
   }
 }

@@ -21,3 +21,7 @@ Bug Fixes
 # 0.1.4
 
 Performance Optimizations
+
+# 0.1.5
+
+Additional Performance Optimizations & Documentation Updates
