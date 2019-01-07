@@ -1,5 +1,7 @@
 <img src="https://github.com/felangel/equatable/raw/master/docs/assets/equatable_logo_full.png" width="100%" alt="logo" />
-
+<p style="text-align: center; font-family: roboto; font-weight: bold">
+  Simplify Equality Comparisons
+</p>
 <p align="center">
   <a href="https://travis-ci.org/felangel/equatable">
     <img alt="Build Status" src="https://travis-ci.org/felangel/equatable.svg?branch=master">
@@ -99,7 +101,7 @@ First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^0.1.0
+  equatable: ^0.1.2
 ```
 
 Next, we need to install it:
