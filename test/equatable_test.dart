@@ -50,6 +50,11 @@ void main() {
       expect(instance == instance, true);
     });
 
+    test('should return correct hashCode', () {
+      final instance = EmptyEquatable();
+      expect(instance.hashCode, instance.runtimeType.hashCode);
+    });
+
     test('should return true when instances are different', () {
       final instanceA = EmptyEquatable();
       final instanceB = EmptyEquatable();
@@ -67,6 +72,14 @@ void main() {
     test('should return true when instance is the same', () {
       final instance = SimpleEquatable('simple');
       expect(instance == instance, true);
+    });
+
+    test('should return correct hashCode', () {
+      final instance = SimpleEquatable('simple');
+      expect(
+        instance.hashCode,
+        instance.runtimeType.hashCode ^ instance.data.hashCode,
+      );
     });
 
     test('should return true when instances are different', () {
@@ -100,6 +113,14 @@ void main() {
       expect(instance == instance, true);
     });
 
+    test('should return correct hashCode', () {
+      final instance = SimpleEquatable(0);
+      expect(
+        instance.hashCode,
+        instance.runtimeType.hashCode ^ instance.data.hashCode,
+      );
+    });
+
     test('should return true when instances are different', () {
       final instanceA = SimpleEquatable(0);
       final instanceB = SimpleEquatable(0);
@@ -123,6 +144,14 @@ void main() {
     test('should return true when instance is the same', () {
       final instance = SimpleEquatable(true);
       expect(instance == instance, true);
+    });
+
+    test('should return correct hashCode', () {
+      final instance = SimpleEquatable(true);
+      expect(
+        instance.hashCode,
+        instance.runtimeType.hashCode ^ instance.data.hashCode,
+      );
     });
 
     test('should return true when instances are different', () {
@@ -151,6 +180,17 @@ void main() {
         value: 'bar',
       ));
       expect(instance == instance, true);
+    });
+
+    test('should return correct hashCode', () {
+      final instance = SimpleEquatable(EquatableData(
+        key: 'foo',
+        value: 'bar',
+      ));
+      expect(
+        instance.hashCode,
+        instance.runtimeType.hashCode ^ instance.data.hashCode,
+      );
     });
 
     test('should return true when instances are different', () {
@@ -193,6 +233,16 @@ void main() {
       expect(instance == instance, true);
     });
 
+    test('should return correct hashCode', () {
+      final instance = MultipartEquatable("s1", "s2");
+      expect(
+        instance.hashCode,
+        instance.runtimeType.hashCode ^
+            instance.d1.hashCode ^
+            instance.d2.hashCode,
+      );
+    });
+
     test('should return true when instances are different', () {
       final instanceA = MultipartEquatable("s1", "s2");
       final instanceB = MultipartEquatable("s1", "s2");
@@ -224,6 +274,21 @@ void main() {
         hairColor: Color.black,
       );
       expect(instance == instance, true);
+    });
+
+    test('should return correct hashCode', () {
+      final instance = ComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+      );
+      expect(
+        instance.hashCode,
+        instance.runtimeType.hashCode ^
+            instance.name.hashCode ^
+            instance.age.hashCode ^
+            instance.hairColor.hashCode,
+      );
     });
 
     test('should return true when instances are different', () {
