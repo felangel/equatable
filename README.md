@@ -1,4 +1,4 @@
-<img src="./docs/assets/equatable_logo_full.png" width="100%" alt="logo" />
+<img src="https://github.com/felangel/equatable/raw/master/docs/assets/equatable_logo_full.png" width="100%" alt="logo" />
 
 <p align="center">
   <a href="https://travis-ci.org/felangel/equatable">
