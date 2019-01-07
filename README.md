@@ -1,7 +1,7 @@
 <img src="https://github.com/felangel/equatable/raw/master/docs/assets/equatable_logo_full.png" width="100%" alt="logo" />
-<p style="text-align: center; font-family: roboto; font-weight: bold">
+<h2 align="center">
   Simplify Equality Comparisons
-</p>
+</h2>
 <p align="center">
   <a href="https://travis-ci.org/felangel/equatable">
     <img alt="Build Status" src="https://travis-ci.org/felangel/equatable.svg?branch=master">
