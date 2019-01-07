@@ -3,8 +3,6 @@
 /// Equatables override their own == and [hashCode] based on
 /// the provided `properties`.
 abstract class Equatable {
-  final int _propHashCode;
-
   /// The [List] of `props` (properties) which will be used to determine whether
   /// two [Equatables] are equal.
   final List props;
@@ -13,8 +11,7 @@ abstract class Equatable {
   /// will be used to determine whether two [Equatables] are equal.
   /// If no properties are provided, `props` will be initialized to
   /// `Iterable.empty()`.
-  Equatable([this.props = const []])
-      : this._propHashCode = _computePropHashCode(props);
+  Equatable([this.props = const []]);
 
   @override
   bool operator ==(Object other) =>
@@ -24,9 +21,9 @@ abstract class Equatable {
           _propsAreEqual(props, other.props);
 
   @override
-  int get hashCode => runtimeType.hashCode ^ _propHashCode;
+  int get hashCode => runtimeType.hashCode ^ _propsHashCode;
 
-  static int _computePropHashCode(List props) {
+  int get _propsHashCode {
     int hashCode = 0;
 
     props.forEach((prop) {

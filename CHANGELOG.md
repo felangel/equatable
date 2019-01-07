@@ -17,3 +17,7 @@ Additional Updates to Documentation.
 # 0.1.3
 
 Bug Fixes
+
+# 0.1.4
+
+Performance Optimizations
