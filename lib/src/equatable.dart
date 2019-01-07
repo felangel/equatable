@@ -1,36 +1,52 @@
-/// A class that helps implement determine equality
+/// A class that helps implement equality
 /// without needing to explicitly override == and [hashCode].
 /// Equatables override their own == and [hashCode] based on
 /// the provided `properties`.
 abstract class Equatable {
-  /// The [Set] of `props` (properties) which will be used to determine whether
+  final int _propHashCode;
+
+  /// The [List] of `props` (properties) which will be used to determine whether
   /// two [Equatables] are equal.
-  final Set props;
+  final List props;
 
   /// The constructor takes an optional [Iterable] of `props` which
   /// will be used to determine whether two [Equatables] are equal.
   /// If no properties are provided, `props` will be initialized to
   /// `Iterable.empty()`.
-  Equatable([Iterable props])
-      : this.props = Set.from(props ?? Iterable.empty());
+  Equatable([this.props = const []])
+      : this._propHashCode = _computePropHashCode(props);
 
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       other is Equatable &&
           runtimeType == other.runtimeType &&
-          this.props.containsAll(other.props);
+          _propsAreEqual(props, other.props);
 
   @override
-  int get hashCode => _hashCode();
+  int get hashCode => runtimeType.hashCode ^ _propHashCode;
 
-  int _hashCode() {
-    int hashCode = runtimeType.hashCode;
+  static int _computePropHashCode(List props) {
+    int hashCode = 0;
 
     props.forEach((prop) {
       hashCode = hashCode ^ prop.hashCode;
     });
 
     return hashCode;
+  }
+
+  bool _propsAreEqual(List props, List other) {
+    if (props.length != other.length) {
+      return false;
+    }
+
+    for (int i = 0; i < props.length; i++) {
+      if (props.elementAt(i) != other.elementAt(i)) {
+        return false;
+      }
+    }
+
+    return true;
   }
 }

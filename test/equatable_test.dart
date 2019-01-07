@@ -12,6 +12,13 @@ class SimpleEquatable<T> extends Equatable {
   SimpleEquatable(this.data) : super([data]);
 }
 
+class MultipartEquatable<T> extends Equatable {
+  final T d1;
+  final T d2;
+
+  MultipartEquatable(this.d1, this.d2) : super([d1, d2]);
+}
+
 class OtherEquatable extends Equatable {
   final String data;
 
@@ -177,6 +184,35 @@ void main() {
         value: 'barz',
       ));
       expect(instanceA == instanceB, false);
+    });
+  });
+
+  group('Multipart Equatable', () {
+    test('should return true when instance is the same', () {
+      final instance = MultipartEquatable("s1", "s2");
+      expect(instance == instance, true);
+    });
+
+    test('should return true when instances are different', () {
+      final instanceA = MultipartEquatable("s1", "s2");
+      final instanceB = MultipartEquatable("s1", "s2");
+      expect(instanceA == instanceB, true);
+    });
+
+    test('should return false when compared to non-equatable', () {
+      final instanceA = MultipartEquatable("s1", "s2");
+      final instanceB = NonEquatable();
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when values are different', () {
+      final instanceA = MultipartEquatable("s1", "s2");
+      final instanceB = MultipartEquatable("s2", "s1");
+      expect(instanceA == instanceB, false);
+
+      final instanceC = MultipartEquatable("s1", "s1");
+      final instanceD = MultipartEquatable("s2", "s1");
+      expect(instanceC == instanceD, false);
     });
   });
 

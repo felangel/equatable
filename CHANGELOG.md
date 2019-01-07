@@ -13,3 +13,7 @@ Minor Updates to Documentation.
 Additional Updates to Documentation.
 
 - Logo Added
+
+# 0.1.3
+
+Bug Fixes
