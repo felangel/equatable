@@ -23,3 +23,6 @@ doc/api/
 # Test Coverage
 coverage/
 test/.test_coverage.dart
+
+# VSCode
+.vscode/
