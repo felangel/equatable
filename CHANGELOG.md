@@ -25,3 +25,9 @@ Performance Optimizations
 # 0.1.5
 
 Additional Performance Optimizations & Documentation Updates
+
+# 0.1.6
+
+Documentation Updates
+
+- Performance Tests

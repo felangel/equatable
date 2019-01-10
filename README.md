@@ -101,7 +101,7 @@ First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^0.1.5
+  equatable: ^0.1.6
 ```
 
 Next, we need to install it:
@@ -161,3 +161,28 @@ class Person extends Equatable {
   Person(this.name) : super([name]);
 }
 ```
+
+## Performance
+
+You might be wondering what the performance impact will be if you use `Equatable`.
+
+[Performance Tests](https://github.com/felangel/equatable/raw/master/performance_tests) have been written to test how `Equatable` stacks up to manually overriding `==` and `hashCode` in terms of class instantiation as well as equality comparison.
+
+
+### Results (average over 10 runs)
+
+#### Equality Comparison A == A
+
+| Class              | Runtime (microseconds) |
+| ------------------ | ---------------------- |
+| RAW                | 0.143                  |
+| Empty Equatable    | 0.124                  |
+| Hydrated Equatable | 0.126                  |
+
+#### Instantiation A()
+
+| Class              | Runtime (microseconds) |
+| ------------------ | ---------------------- |
+| RAW                | 0.099                  |
+| Empty Equatable    | 0.121                  |
+| Hydrated Equatable | 0.251                  |

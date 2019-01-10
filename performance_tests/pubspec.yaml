@@ -1,0 +1,9 @@
+name: equatable_performance_tests
+
+environment:
+  sdk: ">=2.0.0-dev.28.0 <3.0.0"
+
+dependencies:
+  equatable:
+    path: ../
+  benchmark_harness: 1.0.5

@@ -1,6 +1,6 @@
 name: equatable
 description: An abstract class that helps to implement equality without needing to explicitly override == and hashCode.
-version: 0.1.5
+version: 0.1.6
 author: felix.angelov <felangelov@gmail.com>
 homepage: https://github.com/felangel/equatable
 
