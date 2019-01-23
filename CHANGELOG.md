@@ -31,3 +31,7 @@ Additional Performance Optimizations & Documentation Updates
 Documentation Updates
 
 - Performance Tests
+
+# 0.1.7
+
+Added `toString` override
