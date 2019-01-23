@@ -31,9 +31,10 @@ class ComplexEquatable extends Equatable {
   final String name;
   final int age;
   final Color hairColor;
+  final List<String> children;
 
-  ComplexEquatable({this.name, this.age, this.hairColor})
-      : super([name, age, hairColor]);
+  ComplexEquatable({this.name, this.age, this.hairColor, this.children})
+      : super([name, age, hairColor, children]);
 }
 
 class EquatableData extends Equatable {
@@ -303,14 +304,16 @@ void main() {
         name: 'Joe',
         age: 40,
         hairColor: Color.black,
+        children: ['Bob'],
       );
-      expect(instance.toString(), '[Joe, 40, Color.black]');
+      expect(instance.toString(), '[Joe, 40, Color.black, [Bob]]');
     });
     test('should return true when instance is the same', () {
       final instance = ComplexEquatable(
         name: 'Joe',
         age: 40,
         hairColor: Color.black,
+        children: ['Bob'],
       );
       expect(instance == instance, true);
     });
@@ -320,13 +323,15 @@ void main() {
         name: 'Joe',
         age: 40,
         hairColor: Color.black,
+        children: ['Bob'],
       );
       expect(
         instance.hashCode,
         instance.runtimeType.hashCode ^
             instance.name.hashCode ^
             instance.age.hashCode ^
-            instance.hairColor.hashCode,
+            instance.hairColor.hashCode ^
+            instance.children.hashCode,
       );
     });
 
@@ -335,11 +340,13 @@ void main() {
         name: 'Joe',
         age: 40,
         hairColor: Color.black,
+        children: ['Bob'],
       );
       final instanceB = ComplexEquatable(
         name: 'Joe',
         age: 40,
         hairColor: Color.black,
+        children: ['Bob'],
       );
       expect(instanceA == instanceB, true);
     });
@@ -349,6 +356,7 @@ void main() {
         name: 'Joe',
         age: 40,
         hairColor: Color.black,
+        children: ['Bob'],
       );
       final instanceB = NonEquatable();
       expect(instanceA == instanceB, false);
@@ -359,11 +367,13 @@ void main() {
         name: 'Joe',
         age: 40,
         hairColor: Color.black,
+        children: ['Bob'],
       );
       final instanceB = ComplexEquatable(
         name: 'John',
-        age: 46,
+        age: 40,
         hairColor: Color.brown,
+        children: ['Bobby'],
       );
       expect(instanceA == instanceB, false);
     });

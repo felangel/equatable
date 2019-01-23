@@ -35,3 +35,7 @@ Documentation Updates
 # 0.1.7
 
 Added `toString` override
+
+# 0.1.8
+
+Support `Iterable` props
