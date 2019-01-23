@@ -16,4 +16,8 @@ void main() {
   print(credentialsB == credentialsB); // true
   print(credentialsA == credentialsB); // false
   print(credentialsB == credentialsC); // true
+
+  print(credentialsA); // [Joe, password123]
+  print(credentialsB); // [Bob, password!]
+  print(credentialsC); // [Bob, password!]
 }
