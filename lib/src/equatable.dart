@@ -34,4 +34,7 @@ abstract class Equatable {
 
     return hashCode;
   }
+
+  @override
+  String toString() => props.toString();
 }

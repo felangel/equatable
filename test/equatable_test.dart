@@ -45,6 +45,11 @@ class EquatableData extends Equatable {
 
 void main() {
   group('Empty Equatable', () {
+    test('should correct toString', () {
+      final instance = EmptyEquatable();
+      expect(instance.toString(), '[]');
+    });
+
     test('should return true when instance is the same', () {
       final instance = EmptyEquatable();
       expect(instance == instance, true);
@@ -69,6 +74,11 @@ void main() {
   });
 
   group('Simple Equatable (string)', () {
+    test('should correct toString', () {
+      final instance = SimpleEquatable('simple');
+      expect(instance.toString(), '[simple]');
+    });
+
     test('should return true when instance is the same', () {
       final instance = SimpleEquatable('simple');
       expect(instance == instance, true);
@@ -108,6 +118,11 @@ void main() {
   });
 
   group('Simple Equatable (number)', () {
+    test('should correct toString', () {
+      final instance = SimpleEquatable(0);
+      expect(instance.toString(), '[0]');
+    });
+
     test('should return true when instance is the same', () {
       final instance = SimpleEquatable(0);
       expect(instance == instance, true);
@@ -141,6 +156,11 @@ void main() {
   });
 
   group('Simple Equatable (bool)', () {
+    test('should correct toString', () {
+      final instance = SimpleEquatable(true);
+      expect(instance.toString(), '[true]');
+    });
+
     test('should return true when instance is the same', () {
       final instance = SimpleEquatable(true);
       expect(instance == instance, true);
@@ -174,6 +194,13 @@ void main() {
   });
 
   group('Simple Equatable (Equatable)', () {
+    test('should correct toString', () {
+      final instance = SimpleEquatable(EquatableData(
+        key: 'foo',
+        value: 'bar',
+      ));
+      expect(instance.toString(), '[[foo, bar]]');
+    });
     test('should return true when instance is the same', () {
       final instance = SimpleEquatable(EquatableData(
         key: 'foo',
@@ -228,6 +255,10 @@ void main() {
   });
 
   group('Multipart Equatable', () {
+    test('should correct toString', () {
+      final instance = MultipartEquatable("s1", "s2");
+      expect(instance.toString(), '[s1, s2]');
+    });
     test('should return true when instance is the same', () {
       final instance = MultipartEquatable("s1", "s2");
       expect(instance == instance, true);
@@ -267,6 +298,14 @@ void main() {
   });
 
   group('Complex Equatable', () {
+    test('should correct toString', () {
+      final instance = ComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+      );
+      expect(instance.toString(), '[Joe, 40, Color.black]');
+    });
     test('should return true when instance is the same', () {
       final instance = ComplexEquatable(
         name: 'Joe',
