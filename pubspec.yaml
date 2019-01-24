@@ -1,14 +1,11 @@
 name: equatable
 description: An abstract class that helps to implement equality without needing to explicitly override == and hashCode.
-version: 0.1.8
+version: 0.1.9
 author: felix.angelov <felangelov@gmail.com>
 homepage: https://github.com/felangel/equatable
 
 environment:
   sdk: ">=2.0.0-dev.28.0 <3.0.0"
-
-dependencies:
-  collection: ^1.14.11
 
 dev_dependencies:
   test: ">=1.3.0 <2.0.0"

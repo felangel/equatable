@@ -39,3 +39,7 @@ Added `toString` override
 # 0.1.8
 
 Support `Iterable` props
+
+# 0.1.9
+
+equatable has 0 dependencies
