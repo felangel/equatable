@@ -48,7 +48,7 @@ void main() {
   group('Empty Equatable', () {
     test('should correct toString', () {
       final instance = EmptyEquatable();
-      expect(instance.toString(), '[]');
+      expect(instance.toString(), "Instance of 'EmptyEquatable'");
     });
 
     test('should return true when instance is the same', () {

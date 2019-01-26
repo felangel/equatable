@@ -49,5 +49,5 @@ abstract class Equatable {
   }
 
   @override
-  String toString() => props.toString();
+  String toString() => props.isNotEmpty ? props.toString() : super.toString();
 }
