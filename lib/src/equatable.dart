@@ -2,16 +2,16 @@
 /// without needing to explicitly override == and [hashCode].
 /// Equatables override their own == and [hashCode] based on
 /// the provided `properties`.
-abstract class Equatable {
-  /// The [List] of `props` (properties) which will be used to determine whether
-  /// two [Equatables] are equal.
-  final List props;
-
+abstract class Equatable<T> {
   /// The constructor takes an optional [List] of `props` (properties) which
   /// will be used to determine whether two [Equatables] are equal.
   /// If no properties are provided, `props` will be initialized to
   /// an empty [List].
   const Equatable([this.props = const []]);
+
+  /// The [List] of `props` (properties) which will be used to determine whether
+  /// two [Equatables] are equal.
+  final List<T> props;
 
   @override
   bool operator ==(Object other) =>
@@ -26,7 +26,7 @@ abstract class Equatable {
   int get _propsHashCode {
     int hashCode = 0;
 
-    props.forEach((prop) {
+    props.forEach((T prop) {
       hashCode = hashCode ^ prop.hashCode;
     });
 
