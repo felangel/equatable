@@ -33,16 +33,26 @@ abstract class Equatable {
     return hashCode;
   }
 
-  bool _equals(list1, list2) {
-    if (identical(list1, list2)) return true;
-    if (list1 == null || list2 == null) return false;
-    int length = list1.length;
-    if (length != list2.length) return false;
+  bool _equals(dynamic list1, dynamic list2) {
+    if (identical(list1, list2)) {
+      return true;
+    }
+    if (list1 == null || list2 == null) {
+      return false;
+    }
+    final int length = list1?.length as int ?? 0;
+    if (length != list2.length) {
+      return false;
+    }
     for (int i = 0; i < length; i++) {
       if (list1[i] is Iterable) {
-        if (!_equals(list1[i], list2[i])) return false;
+        if (!_equals(list1[i], list2[i])) {
+          return false;
+        }
       } else {
-        if (list1[i] != list2[i]) return false;
+        if (list1[i] != list2[i]) {
+          return false;
+        }
       }
     }
     return true;
