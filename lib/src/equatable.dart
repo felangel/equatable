@@ -11,7 +11,7 @@ abstract class Equatable {
   /// will be used to determine whether two [Equatables] are equal.
   /// If no properties are provided, `props` will be initialized to
   /// an empty [List].
-  Equatable([this.props = const []]);
+  const Equatable([this.props = const []]);
 
   @override
   bool operator ==(Object other) =>
