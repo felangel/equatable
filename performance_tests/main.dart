@@ -1,20 +1,20 @@
-import 'package:equatable/equatable.dart';
 import 'package:benchmark_harness/benchmark_harness.dart';
+import 'package:equatable/equatable.dart';
 
 class EmptyEquatable extends Equatable {}
 
 class LoginEvent extends Equatable {
+  LoginEvent({this.username, this.password}) : super([username, password]);
+
   final String username;
   final String password;
-
-  LoginEvent({this.username, this.password}) : super([username, password]);
 }
 
 class LoginEventRaw {
+  const LoginEventRaw({this.username, this.password});
+
   final String username;
   final String password;
-
-  const LoginEventRaw({this.username, this.password});
 
   @override
   bool operator ==(Object other) =>
@@ -56,6 +56,7 @@ class TemplateBenchmarkComparisonRaw extends BenchmarkBase {
   TemplateBenchmarkComparisonRaw() : super("Template");
 
   LoginEventRaw eventA;
+  @override
   void run() {
     eventA == eventA;
   }
@@ -72,6 +73,7 @@ class TemplateBenchmarkComparison extends BenchmarkBase {
 
   LoginEvent eventA;
 
+  @override
   void run() {
     eventA == eventA;
   }
@@ -88,6 +90,7 @@ class TemplateBenchmarkComparisonEmpty extends BenchmarkBase {
 
   EmptyEquatable e;
 
+  @override
   void run() {
     e == e;
   }
@@ -102,6 +105,7 @@ class TemplateBenchmarkComparisonEmpty extends BenchmarkBase {
 class TemplateBenchmarkInstantiationRaw extends BenchmarkBase {
   TemplateBenchmarkInstantiationRaw() : super("Template");
 
+  @override
   void run() {
     LoginEventRaw(username: 'felix', password: 'password');
   }
@@ -110,6 +114,7 @@ class TemplateBenchmarkInstantiationRaw extends BenchmarkBase {
 class TemplateBenchmarkInstantiation extends BenchmarkBase {
   TemplateBenchmarkInstantiation() : super("Template");
 
+  @override
   void run() {
     LoginEvent(username: 'felix', password: 'password');
   }
@@ -118,6 +123,7 @@ class TemplateBenchmarkInstantiation extends BenchmarkBase {
 class TemplateBenchmarkInstantiationEmpty extends BenchmarkBase {
   TemplateBenchmarkInstantiationEmpty() : super("Template");
 
+  @override
   void run() {
     EmptyEquatable();
   }

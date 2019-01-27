@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 class Credentials extends Equatable {
+  Credentials({this.username, this.password}) : super([username, password]);
+
   final String username;
   final String password;
-
-  Credentials({this.username, this.password}) : super([username, password]);
 }
 
 void main() {

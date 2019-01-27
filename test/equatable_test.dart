@@ -1,47 +1,46 @@
-import 'package:test/test.dart';
-
 import 'package:equatable/equatable.dart';
+import 'package:test/test.dart';
 
 class NonEquatable {}
 
 class EmptyEquatable extends Equatable {}
 
 class SimpleEquatable<T> extends Equatable {
-  final T data;
-
   SimpleEquatable(this.data) : super([data]);
+
+  final T data;
 }
 
 class MultipartEquatable<T> extends Equatable {
+  MultipartEquatable(this.d1, this.d2) : super([d1, d2]);
+
   final T d1;
   final T d2;
-
-  MultipartEquatable(this.d1, this.d2) : super([d1, d2]);
 }
 
 class OtherEquatable extends Equatable {
-  final String data;
-
   OtherEquatable(this.data) : super([data]);
+
+  final String data;
 }
 
 enum Color { blonde, black, brown }
 
 class ComplexEquatable extends Equatable {
+  ComplexEquatable({this.name, this.age, this.hairColor, this.children})
+      : super([name, age, hairColor, children]);
+
   final String name;
   final int age;
   final Color hairColor;
   final List<String> children;
-
-  ComplexEquatable({this.name, this.age, this.hairColor, this.children})
-      : super([name, age, hairColor, children]);
 }
 
 class EquatableData extends Equatable {
+  EquatableData({this.key, this.value}) : super([key, value]);
+
   final String key;
   final dynamic value;
-
-  EquatableData({this.key, this.value}) : super([key, value]);
 }
 
 void main() {
