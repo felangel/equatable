@@ -162,6 +162,59 @@ class Person extends Equatable {
 }
 ```
 
+## EquatableMixin
+
+Sometimes it isn't possible to extend `Equatable` because your class already has a superclass.
+In this case, you can still get the benefits of `Equatable` by using the `EquatableMixin`.
+
+### Usage
+
+Let's say we want to make an `EquatableDateTime` class, we can use `EquatableMixinBase` and `EquatableMixin` like so:
+
+```dart
+class EquatableDateTime extends DateTime
+    with EquatableMixinBase, EquatableMixin {
+  EquatableDateTime(
+    int year, [
+    int month = 1,
+    int day = 1,
+    int hour = 0,
+    int minute = 0,
+    int second = 0,
+    int millisecond = 0,
+    int microsecond = 0,
+  ]) : super(year, month, day, hour, minute, second, millisecond, microsecond);
+
+  @override
+  List get props {
+    return [year, month, day, hour, minute, second, millisecond, microsecond];
+  }
+}
+```
+
+Now if we want to create a subclass of `EquatableDateTime`, we can continue to just use the `EquatableMixin` and override `props`.
+
+```dart
+class EquatableDateTimeSubclass extends EquatableDateTime with EquatableMixin {
+  final int century;
+
+  EquatableDateTime(
+    this.century,
+    int year,[
+    int month = 1,
+    int day = 1,
+    int hour = 0,
+    int minute = 0,
+    int second = 0,
+    int millisecond = 0,
+    int microsecond = 0,
+  ]) : super(year, month, day, hour, minute, second, millisecond, microsecond);
+
+  @override
+  List get props => super.props..addAll([century]);
+}
+```
+
 ## Performance
 
 You might be wondering what the performance impact will be if you use `Equatable`.

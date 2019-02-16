@@ -1,30 +1,22 @@
-# 0.1.0
+# 0.2.0
 
-Initial Version of the library.
+Add `EquatableMixin` and `EquatableMixinBase`
 
-- Includes the ability to extend `Equatable` and not have to override `==` and `hashCode`.
+# 0.1.10
 
-# 0.1.1
+Enhancements to `toString` override
 
-Minor Updates to Documentation.
+# 0.1.9
 
-# 0.1.2
+equatable has 0 dependencies
 
-Additional Updates to Documentation.
+# 0.1.8
 
-- Logo Added
+Support `Iterable` props
 
-# 0.1.3
+# 0.1.7
 
-Bug Fixes
-
-# 0.1.4
-
-Performance Optimizations
-
-# 0.1.5
-
-Additional Performance Optimizations & Documentation Updates
+Added `toString` override
 
 # 0.1.6
 
@@ -32,18 +24,30 @@ Documentation Updates
 
 - Performance Tests
 
-# 0.1.7
+# 0.1.5
 
-Added `toString` override
+Additional Performance Optimizations & Documentation Updates
 
-# 0.1.8
+# 0.1.4
 
-Support `Iterable` props
+Performance Optimizations
 
-# 0.1.9
+# 0.1.3
 
-equatable has 0 dependencies
+Bug Fixes
 
-# 0.1.10
+# 0.1.2
 
-Enhancements to `toString` override
+Additional Updates to Documentation.
+
+- Logo Added
+
+# 0.1.1
+
+Minor Updates to Documentation.
+
+# 0.1.0
+
+Initial Version of the library.
+
+- Includes the ability to extend `Equatable` and not have to override `==` and `hashCode`.
