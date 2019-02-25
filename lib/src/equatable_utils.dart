@@ -8,14 +8,14 @@ int mapPropsToHashCode(List props) {
   return hashCode;
 }
 
-bool equals(dynamic list1, dynamic list2) {
+bool equals(List list1, List list2) {
   if (identical(list1, list2)) return true;
   if (list1 == null || list2 == null) return false;
   int length = list1.length;
   if (length != list2.length) return false;
   for (int i = 0; i < length; i++) {
-    if (list1[i] is Iterable) {
-      if (!equals(list1[i], list2[i])) return false;
+    if (list1[i] is List && list1[i] is List) {
+      if (!equals(list1[i] as List, list2[i] as List)) return false;
     } else {
       if (list1[i] != list2[i]) return false;
     }
