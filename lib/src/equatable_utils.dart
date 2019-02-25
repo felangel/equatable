@@ -14,7 +14,7 @@ bool equals(List list1, List list2) {
   int length = list1.length;
   if (length != list2.length) return false;
   for (int i = 0; i < length; i++) {
-    if (list1[i] is List && list1[i] is List) {
+    if (list1[i] is List && list2[i] is List) {
       if (!equals(list1[i] as List, list2[i] as List)) return false;
     } else {
       if (list1[i] != list2[i]) return false;
