@@ -2,7 +2,9 @@ int mapPropsToHashCode(List props) {
   int hashCode = 0;
 
   props.forEach((prop) {
-    hashCode = hashCode ^ prop.hashCode;
+    final propHashCode =
+        prop is List ? mapPropsToHashCode(prop) : prop.hashCode;
+    hashCode = hashCode ^ propHashCode;
   });
 
   return hashCode;
