@@ -65,6 +65,7 @@ void main() {
       final instanceA = EmptyEquatable();
       final instanceB = EmptyEquatable();
       expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, true);
     });
 
     test('should return false when compared to non-equatable', () {
@@ -97,6 +98,7 @@ void main() {
       final instanceA = SimpleEquatable('simple');
       final instanceB = SimpleEquatable('simple');
       expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, true);
     });
 
     test('should return false when compared to non-equatable', () {
@@ -141,6 +143,7 @@ void main() {
       final instanceA = SimpleEquatable(0);
       final instanceB = SimpleEquatable(0);
       expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, true);
     });
 
     test('should return false when compared to non-equatable', () {
@@ -179,6 +182,7 @@ void main() {
       final instanceA = SimpleEquatable(true);
       final instanceB = SimpleEquatable(true);
       expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, true);
     });
 
     test('should return false when compared to non-equatable', () {
@@ -231,6 +235,7 @@ void main() {
         value: 'bar',
       ));
       expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, true);
     });
 
     test('should return false when compared to non-equatable', () {
@@ -279,6 +284,7 @@ void main() {
       final instanceA = MultipartEquatable("s1", "s2");
       final instanceB = MultipartEquatable("s1", "s2");
       expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, true);
     });
 
     test('should return false when compared to non-equatable', () {
@@ -331,7 +337,7 @@ void main() {
             instance.name.hashCode ^
             instance.age.hashCode ^
             instance.hairColor.hashCode ^
-            instance.children.hashCode,
+            instance.children[0].hashCode,
       );
     });
 
@@ -349,6 +355,7 @@ void main() {
         children: ['Bob'],
       );
       expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, true);
     });
 
     test('should return false when compared to non-equatable', () {

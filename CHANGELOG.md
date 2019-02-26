@@ -1,3 +1,8 @@
+# 0.2.2
+
+Bug Fixes:
+- `Equatable` instances that are equal now have the same `hashCode` ([#8](https://github.com/felangel/equatable/issues/8))
+
 # 0.2.1
 
 Update Dart support to `>=2.0.0 <3.0.0`
