@@ -126,6 +126,21 @@ class Person extends Equatable {
 }
 ```
 
+For work with json:
+```dart
+import 'package:equatable/equatable.dart';
+
+class Person extends Equatable {
+  final String name;
+
+  Person(this.name) : super([name]);
+
+  Person.fromJson(Map<String, dynamic> json) : super([json]) {
+    name = json['name'].toString();
+  }
+}
+```
+
 We can now compare instances of `Person` just like before without the pain of having to write all of that boilerplate.
 
 ## Recap
@@ -220,7 +235,6 @@ class EquatableDateTimeSubclass extends EquatableDateTime with EquatableMixin {
 You might be wondering what the performance impact will be if you use `Equatable`.
 
 [Performance Tests](https://github.com/felangel/equatable/raw/master/performance_tests) have been written to test how `Equatable` stacks up to manually overriding `==` and `hashCode` in terms of class instantiation as well as equality comparison.
-
 
 ### Results (average over 10 runs)
 

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:test/test.dart';
 
 import 'package:equatable/equatable.dart';
@@ -42,6 +44,25 @@ class EquatableData extends Equatable {
   final dynamic value;
 
   EquatableData({this.key, this.value}) : super([key, value]);
+}
+
+class Credentials extends Equatable {
+  String username;
+  String password;
+
+  Credentials({this.username, this.password}) : super([username, password]);
+
+  Credentials.fromJson(Map<String, dynamic> json) : super([json]) {
+    username = json['username'].toString();
+    password = json['password'].toString();
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['username'] = this.username;
+    data['password'] = this.password;
+    return data;
+  }
 }
 
 void main() {
@@ -383,6 +404,26 @@ void main() {
         children: ['Bobby'],
       );
       expect(instanceA == instanceB, false);
+    });
+  });
+
+  group('From Json Equatable', () {
+    test('should correct json', () {
+      final credentialsA = Credentials.fromJson(json.decode("""
+    {
+  "username":"Admin",
+  "password":"admin"
+}
+    """) as Map<String, dynamic>);
+      final credentialsB = Credentials.fromJson(json.decode("""
+    {
+  "username":"Guest",
+  "password":"guest"
+}
+    """) as Map<String, dynamic>);
+      expect(credentialsA == credentialsA, true);
+      expect(credentialsB, credentialsB);
+      expect(credentialsA == credentialsB, false);
     });
   });
 }
