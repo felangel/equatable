@@ -126,7 +126,7 @@ class Person extends Equatable {
 }
 ```
 
-For work with json:
+When working with json:
 ```dart
 import 'package:equatable/equatable.dart';
 

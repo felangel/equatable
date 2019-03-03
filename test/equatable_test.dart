@@ -409,18 +409,22 @@ void main() {
 
   group('From Json Equatable', () {
     test('should correct json', () {
-      final credentialsA = Credentials.fromJson(json.decode("""
-    {
-  "username":"Admin",
-  "password":"admin"
-}
-    """) as Map<String, dynamic>);
-      final credentialsB = Credentials.fromJson(json.decode("""
-    {
-  "username":"Guest",
-  "password":"guest"
-}
-    """) as Map<String, dynamic>);
+      final credentialsA = Credentials.fromJson(json.decode(
+        """
+        {
+          "username":"Admin",
+          "password":"admin"
+        }
+        """,
+      ) as Map<String, dynamic>);
+      final credentialsB = Credentials.fromJson(json.decode(
+        """
+        {
+          "username":"Guest",
+          "password":"guest"
+        }
+        """,
+      ) as Map<String, dynamic>);
       expect(credentialsA == credentialsA, true);
       expect(credentialsB, credentialsB);
       expect(credentialsA == credentialsB, false);
