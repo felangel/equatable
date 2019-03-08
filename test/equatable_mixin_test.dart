@@ -1,5 +1,6 @@
-import 'package:test/test.dart';
+import 'dart:convert';
 
+import 'package:test/test.dart';
 import 'package:equatable/equatable.dart';
 
 class NonEquatable {}
@@ -58,6 +59,30 @@ class EquatableData extends EquatableBase with EquatableMixin {
 
   @override
   List get props => super.props..addAll([key, value]);
+}
+
+class Credentials extends EquatableBase with EquatableMixin {
+  final String username;
+  final String password;
+
+  Credentials({this.username, this.password});
+
+  @override
+  List get props => super.props..addAll([username, password]);
+
+  factory Credentials.fromJson(Map<String, dynamic> json) {
+    return Credentials(
+      username: json['username'] as String,
+      password: json['password'] as String,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['username'] = this.username;
+    data['password'] = this.password;
+    return data;
+  }
 }
 
 void main() {
@@ -398,6 +423,103 @@ void main() {
         hairColor: Color.brown,
         children: ['Bobby'],
       );
+      expect(instanceA == instanceB, false);
+    });
+  });
+
+  group('Json Equatable', () {
+    test('should correct toString', () {
+      final instance = Credentials.fromJson(json.decode(
+        """
+        {
+          "username":"Admin",
+          "password":"admin"
+        }
+        """,
+      ) as Map<String, dynamic>);
+      expect(instance.toString(), '[Admin, admin]');
+    });
+
+    test('should return true when instance is the same', () {
+      final instance = Credentials.fromJson(json.decode(
+        """
+        {
+          "username":"Admin",
+          "password":"admin"
+        }
+        """,
+      ) as Map<String, dynamic>);
+      expect(instance == instance, true);
+    });
+
+    test('should return correct hashCode', () {
+      final instance = Credentials.fromJson(json.decode(
+        """
+        {
+          "username":"Admin",
+          "password":"admin"
+        }
+        """,
+      ) as Map<String, dynamic>);
+      expect(
+        instance.hashCode,
+        instance.runtimeType.hashCode ^
+            instance.username.hashCode ^
+            instance.password.hashCode,
+      );
+    });
+
+    test('should return true when instances are different', () {
+      final instanceA = Credentials.fromJson(json.decode(
+        """
+        {
+          "username":"Admin",
+          "password":"admin"
+        }
+        """,
+      ) as Map<String, dynamic>);
+      final instanceB = Credentials.fromJson(json.decode(
+        """
+        {
+          "username":"Admin",
+          "password":"admin"
+        }
+        """,
+      ) as Map<String, dynamic>);
+      expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, true);
+    });
+
+    test('should return false when compared to non-equatable', () {
+      final instanceA = Credentials.fromJson(json.decode(
+        """
+        {
+          "username":"Admin",
+          "password":"admin"
+        }
+        """,
+      ) as Map<String, dynamic>);
+      final instanceB = NonEquatable();
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when values are different', () {
+      final instanceA = Credentials.fromJson(json.decode(
+        """
+        {
+          "username":"Admin",
+          "password":"admin"
+        }
+        """,
+      ) as Map<String, dynamic>);
+      final instanceB = Credentials.fromJson(json.decode(
+        """
+        {
+          "username":"Admin",
+          "password":"password"
+        }
+        """,
+      ) as Map<String, dynamic>);
       expect(instanceA == instanceB, false);
     });
   });

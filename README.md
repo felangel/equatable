@@ -135,8 +135,8 @@ class Person extends Equatable {
 
   Person(this.name) : super([name]);
 
-  Person.fromJson(Map<String, dynamic> json) : super([json]) {
-    name = json['name'].toString();
+  factory Person.fromJson(Map<String, dynamic> json) {
+    return Person(json['name']);
   }
 }
 ```
