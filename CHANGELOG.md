@@ -1,3 +1,7 @@
+# 0.2.4
+
+Additional Minor Documentation Updates
+
 # 0.2.3
 
 Documentation Updates
