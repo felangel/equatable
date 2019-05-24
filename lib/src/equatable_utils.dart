@@ -11,9 +11,9 @@ int mapPropsToHashCode(dynamic props) {
   } else if (props is List || props is Iterable || props is Set) {
     props.forEach((prop) {
       final propHashCode =
-      (prop is List || prop is Iterable || prop is Set || prop is Map)
-          ? mapPropsToHashCode(prop)
-          : prop.hashCode;
+          (prop is List || prop is Iterable || prop is Set || prop is Map)
+              ? mapPropsToHashCode(prop)
+              : prop.hashCode;
       hashCode = hashCode ^ propHashCode;
     });
   } else {

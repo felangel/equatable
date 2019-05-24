@@ -1,3 +1,7 @@
+# 0.2.5
+
+Improved support for `Iterable`, `List`, `Map`, and `Set` props ([#17](https://github.com/felangel/equatable/issues/17))
+
 # 0.2.4
 
 Additional Minor Documentation Updates
