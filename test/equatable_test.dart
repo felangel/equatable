@@ -512,18 +512,21 @@ void main() {
         final instanceA = SimpleEquatable<Iterable>(["A", "B"]);
         final instanceB = SimpleEquatable<Iterable>(["A", "B"]);
         expect(instanceA == instanceB, true);
+        expect(instanceA.hashCode == instanceB.hashCode, true);
       });
 
       test('should return when values are different', () {
         final instanceA = SimpleEquatable<Iterable>(["A", "B"]);
         final instanceB = SimpleEquatable<Iterable>(["a", "b"]);
         expect(instanceA != instanceB, true);
+        expect(instanceA.hashCode != instanceB.hashCode, true);
       });
 
       test('should return when values are different', () {
         final instanceA = SimpleEquatable<Iterable>(["A", "B"]);
         final instanceB = SimpleEquatable<Iterable>(["C", "D"]);
         expect(instanceA != instanceB, true);
+        expect(instanceA.hashCode != instanceB.hashCode, true);
       });
     });
 
@@ -532,18 +535,21 @@ void main() {
         final instanceA = SimpleEquatable<List>(["A", "B"]);
         final instanceB = SimpleEquatable<List>(["A", "B"]);
         expect(instanceA == instanceB, true);
+        expect(instanceA.hashCode == instanceB.hashCode, true);
       });
 
       test('should return when values are different', () {
         final instanceA = SimpleEquatable<List>(["A", "B"]);
         final instanceB = SimpleEquatable<List>(["a", "b"]);
         expect(instanceA != instanceB, true);
+        expect(instanceA.hashCode != instanceB.hashCode, true);
       });
 
       test('should return when values are different', () {
         final instanceA = SimpleEquatable<List>(["A", "B"]);
         final instanceB = SimpleEquatable<List>(["C", "D"]);
         expect(instanceA != instanceB, true);
+        expect(instanceA.hashCode != instanceB.hashCode, true);
       });
     });
 
@@ -552,18 +558,21 @@ void main() {
         final instanceA = SimpleEquatable<Map>({1: "A", 2: "B"});
         final instanceB = SimpleEquatable<Map>({1: "A", 2: "B"});
         expect(instanceA == instanceB, true);
+        expect(instanceA.hashCode == instanceB.hashCode, true);
       });
 
       test('should return when values are different', () {
         final instanceA = SimpleEquatable<Map>({1: "A", 2: "B"});
         final instanceB = SimpleEquatable<Map>({1: "a", 2: "b"});
         expect(instanceA != instanceB, true);
+        expect(instanceA.hashCode != instanceB.hashCode, true);
       });
 
       test('should return when values are different', () {
         final instanceA = SimpleEquatable<Map>({1: "A", 2: "B"});
         final instanceB = SimpleEquatable<Map>({1: "C", 2: "D"});
         expect(instanceA != instanceB, true);
+        expect(instanceA.hashCode != instanceB.hashCode, true);
       });
     });
 
@@ -572,24 +581,28 @@ void main() {
         final instanceA = SimpleEquatable<Set>(Set.from(["A", "B"]));
         final instanceB = SimpleEquatable<Set>(Set.from(["A", "B"]));
         expect(instanceA == instanceB, true);
+        expect(instanceA.hashCode == instanceB.hashCode, true);
       });
 
       test('should return when values are same', () {
         final instanceA = SimpleEquatable<Set>(Set.from(["A", "B", "A"]));
         final instanceB = SimpleEquatable<Set>(Set.from(["A", "B"]));
         expect(instanceA == instanceB, true);
+        expect(instanceA.hashCode == instanceB.hashCode, true);
       });
 
       test('should return when values are different', () {
         final instanceA = SimpleEquatable<Set>(Set.from(["A", "B"]));
         final instanceB = SimpleEquatable<Set>(Set.from(["a", "b"]));
         expect(instanceA != instanceB, true);
+        expect(instanceA.hashCode != instanceB.hashCode, true);
       });
 
       test('should return when values are different', () {
         final instanceA = SimpleEquatable<Set>(Set.from(["A", "B"]));
         final instanceB = SimpleEquatable<Set>(Set.from(["C", "D"]));
         expect(instanceA != instanceB, true);
+        expect(instanceA.hashCode != instanceB.hashCode, true);
       });
     });
   });

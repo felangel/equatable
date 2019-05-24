@@ -1,13 +1,24 @@
 import 'package:collection/collection.dart';
 
-int mapPropsToHashCode(List props) {
+int mapPropsToHashCode(dynamic props) {
   int hashCode = 0;
 
-  props.forEach((prop) {
-    final propHashCode =
-        prop is List ? mapPropsToHashCode(prop) : prop.hashCode;
-    hashCode = hashCode ^ propHashCode;
-  });
+  if (props is Map) {
+    props.forEach((key, value) {
+      final propHashCode = mapPropsToHashCode(key) ^ mapPropsToHashCode(value);
+      hashCode = hashCode ^ propHashCode;
+    });
+  } else if (props is List || props is Iterable || props is Set) {
+    props.forEach((prop) {
+      final propHashCode =
+      (prop is List || prop is Iterable || prop is Set || prop is Map)
+          ? mapPropsToHashCode(prop)
+          : prop.hashCode;
+      hashCode = hashCode ^ propHashCode;
+    });
+  } else {
+    hashCode = hashCode ^ props.hashCode;
+  }
 
   return hashCode;
 }
@@ -26,7 +37,7 @@ bool equals(List list1, List list2) {
 
     if (unit1?.runtimeType != unit2?.runtimeType) return false;
 
-    if (unit1 is Iterable || unit1 is List || unit1 is Map || unit1 is Set ) {
+    if (unit1 is Iterable || unit1 is List || unit1 is Map || unit1 is Set) {
       if (!_equality.equals(unit1, unit2)) return false;
     } else {
       if (unit1 != unit2) return false;
