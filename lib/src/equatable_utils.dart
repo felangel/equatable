@@ -35,12 +35,12 @@ bool equals(List list1, List list2) {
     final unit1 = list1[i];
     final unit2 = list2[i];
 
-    if (unit1?.runtimeType != unit2?.runtimeType) return false;
-
     if (unit1 is Iterable || unit1 is List || unit1 is Map || unit1 is Set) {
       if (!_equality.equals(unit1, unit2)) return false;
-    } else {
-      if (unit1 != unit2) return false;
+    } else if (unit1?.runtimeType != unit2?.runtimeType) {
+      return false;
+    } else if (unit1 != unit2) {
+      return false;
     }
   }
   return true;
