@@ -4,6 +4,8 @@ import 'package:test/test.dart';
 
 import 'package:equatable/equatable.dart';
 
+import 'custom_list.dart';
+
 class NonEquatable {}
 
 class EmptyEquatable extends Equatable {}
@@ -550,6 +552,14 @@ void main() {
         final instanceB = SimpleEquatable<List>(["C", "D"]);
         expect(instanceA != instanceB, true);
         expect(instanceA.hashCode != instanceB.hashCode, true);
+      });
+
+      test("should return when contents are same but different kind of List",
+          () {
+        final instanceA = SimpleEquatable<List>(CustomList(["A", "B"], true));
+        final instanceB = SimpleEquatable<List>(["A", "B"]);
+        expect(instanceA == instanceB, true);
+        expect(instanceA.hashCode == instanceB.hashCode, true);
       });
     });
 
