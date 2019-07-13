@@ -119,7 +119,7 @@ void main() {
   group('Simple Equatable (string)', () {
     test('should correct toString', () {
       final instance = SimpleEquatable('simple');
-      expect(instance.toString(), '[simple]');
+      expect(instance.toString(), "Instance of 'SimpleEquatable<String>'");
     });
 
     test('should return true when instance is the same', () {
@@ -164,7 +164,7 @@ void main() {
   group('Simple Equatable (number)', () {
     test('should correct toString', () {
       final instance = SimpleEquatable(0);
-      expect(instance.toString(), '[0]');
+      expect(instance.toString(), "Instance of 'SimpleEquatable<int>'");
     });
 
     test('should return true when instance is the same', () {
@@ -203,7 +203,7 @@ void main() {
   group('Simple Equatable (bool)', () {
     test('should correct toString', () {
       final instance = SimpleEquatable(true);
-      expect(instance.toString(), '[true]');
+      expect(instance.toString(), "Instance of 'SimpleEquatable<bool>'");
     });
 
     test('should return true when instance is the same', () {
@@ -245,7 +245,8 @@ void main() {
         key: 'foo',
         value: 'bar',
       ));
-      expect(instance.toString(), '[[foo, bar]]');
+      expect(
+          instance.toString(), "Instance of 'SimpleEquatable<EquatableData>'");
     });
     test('should return true when instance is the same', () {
       final instance = SimpleEquatable(EquatableData(
@@ -304,7 +305,7 @@ void main() {
   group('Multipart Equatable', () {
     test('should correct toString', () {
       final instance = MultipartEquatable("s1", "s2");
-      expect(instance.toString(), '[s1, s2]');
+      expect(instance.toString(), "Instance of 'MultipartEquatable<String>'");
     });
     test('should return true when instance is the same', () {
       final instance = MultipartEquatable("s1", "s2");
@@ -353,7 +354,7 @@ void main() {
         hairColor: Color.black,
         children: ['Bob'],
       );
-      expect(instance.toString(), '[Joe, 40, Color.black, [Bob]]');
+      expect(instance.toString(), "Instance of 'ComplexEquatable'");
     });
     test('should return true when instance is the same', () {
       final instance = ComplexEquatable(
@@ -437,7 +438,7 @@ void main() {
         }
         """,
       ) as Map<String, dynamic>);
-      expect(instance.toString(), '[Admin, admin]');
+      expect(instance.toString(), "Instance of 'Credentials'");
     });
 
     test('should return true when instance is the same', () {

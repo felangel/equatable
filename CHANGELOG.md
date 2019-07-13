@@ -1,3 +1,7 @@
+# 0.3.0
+
+Enforce Immutability ([#25](https://github.com/felangel/equatable/issues/25))
+
 # 0.2.6
 
 Improved support for collection types ([#19](https://github.com/felangel/equatable/issues/19))
