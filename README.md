@@ -101,7 +101,7 @@ First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^0.2.0
+  equatable: ^0.3.0
 ```
 
 Next, we need to install it:
@@ -127,6 +127,7 @@ class Person extends Equatable {
 ```
 
 When working with json:
+
 ```dart
 import 'package:equatable/equatable.dart';
 
@@ -142,6 +143,7 @@ class Person extends Equatable {
 ```
 
 We can now compare instances of `Person` just like before without the pain of having to write all of that boilerplate.
+**Note:** Equatable is designed to only work with immutable objects so all member variables must be final.
 
 ## Recap
 
