@@ -27,4 +27,7 @@ abstract class Equatable {
 
   @override
   int get hashCode => runtimeType.hashCode ^ mapPropsToHashCode(props);
+
+  @override
+  String toString() => '$runtimeType';
 }

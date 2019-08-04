@@ -26,4 +26,7 @@ mixin EquatableMixin on EquatableMixinBase {
 
   @override
   int get hashCode => runtimeType.hashCode ^ mapPropsToHashCode(props);
+
+  @override
+  String toString() => '$runtimeType';
 }
