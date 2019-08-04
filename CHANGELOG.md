@@ -1,3 +1,7 @@
+# 0.4.0
+
+Update `toString` to default to `runtimeType` ([#27](https://github.com/felangel/equatable/issues/27))
+
 # 0.3.0
 
 Enforce Immutability ([#25](https://github.com/felangel/equatable/issues/25))
