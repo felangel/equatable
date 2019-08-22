@@ -7,8 +7,7 @@ class Credentials extends Equatable {
   Credentials({this.username, this.password}) : super([username, password]);
 }
 
-class EquatableDateTime extends DateTime
-    with EquatableMixinBase, EquatableMixin {
+class EquatableDateTime extends DateTime with EquatableMixin {
   EquatableDateTime(
     int year, [
     int month = 1,

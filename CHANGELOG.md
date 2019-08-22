@@ -1,3 +1,9 @@
+# 0.5.0
+
+- Removed `EquatableMixinBase`, now covered by `EquatableMixin`.
+- Typed `EquatableMixin` from `List<dynamic>` to `List<Object>`, to fix linter
+  issues with `implicit-dynamic: false`.
+
 # 0.4.0
 
 Update `toString` to default to `runtimeType` ([#27](https://github.com/felangel/equatable/issues/27))

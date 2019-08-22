@@ -1,21 +1,12 @@
-import 'package:meta/meta.dart';
 import './equatable_utils.dart';
 
-/// You must define the [EquatableMixinBase] on the class
-/// which you want to make Equatable.
-/// `class EquatableDateTime extends DateTime with EquatableMixinBase, EquatableMixin { ... }`
-/// This exposes the `props` getter which can then be overridden to include custom props in subclasses.
-/// The `props` getter is used to override `==` and `hashCode` in the [EquatableMixin].
-@immutable
-mixin EquatableMixinBase on Object {
-  List get props => [];
-}
-
 /// You must define the [EquatableMixin] on the class
-/// which you want to make Equatable and the class
-/// must also be a descendent of [EquatableMixinBase].
+/// which you want to make Equatable.
+///
 /// [EquatableMixin] does the override of the `==` operator as well as `hashCode`.
-mixin EquatableMixin on EquatableMixinBase {
+mixin EquatableMixin {
+  List<Object> get props;
+
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
