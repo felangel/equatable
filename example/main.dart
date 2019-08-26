@@ -37,10 +37,6 @@ void main() {
   print(credentialsA == credentialsB); // false
   print(credentialsB == credentialsC); // true
 
-  print(credentialsA); // [Joe, password123]
-  print(credentialsB); // [Bob, password!]
-  print(credentialsC); // [Bob, password!]
-
   // Equatable Mixin
   final dateTimeA = EquatableDateTime(2019);
   final dateTimeB = EquatableDateTime(2019, 2, 20, 19, 46);
@@ -51,8 +47,4 @@ void main() {
   print(dateTimeC == dateTimeC); // true
   print(dateTimeA == dateTimeB); // false
   print(dateTimeB == dateTimeC); // true
-
-  print(dateTimeA); // 2019-01-01 00:00:00.000
-  print(dateTimeB); // 2019-02-20 19:46:00.000
-  print(dateTimeC); // 2019-02-20 19:46:00.000
 }
