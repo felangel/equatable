@@ -186,11 +186,10 @@ In this case, you can still get the benefits of `Equatable` by using the `Equata
 
 ### Usage
 
-Let's say we want to make an `EquatableDateTime` class, we can use `EquatableMixinBase` and `EquatableMixin` like so:
+Let's say we want to make an `EquatableDateTime` class, we can use `EquatableMixin` like so:
 
 ```dart
-class EquatableDateTime extends DateTime
-    with EquatableMixinBase, EquatableMixin {
+class EquatableDateTime extends DateTime with EquatableMixin {
   EquatableDateTime(
     int year, [
     int month = 1,
@@ -203,16 +202,16 @@ class EquatableDateTime extends DateTime
   ]) : super(year, month, day, hour, minute, second, millisecond, microsecond);
 
   @override
-  List get props {
+  List<Object> get props {
     return [year, month, day, hour, minute, second, millisecond, microsecond];
   }
 }
 ```
 
-Now if we want to create a subclass of `EquatableDateTime`, we can continue to just use the `EquatableMixin` and override `props`.
+Now if we want to create a subclass of `EquatableDateTime`, we can just override `props`.
 
 ```dart
-class EquatableDateTimeSubclass extends EquatableDateTime with EquatableMixin {
+class EquatableDateTimeSubclass extends EquatableDateTime {
   final int century;
 
   EquatableDateTime(
@@ -228,7 +227,7 @@ class EquatableDateTimeSubclass extends EquatableDateTime with EquatableMixin {
   ]) : super(year, month, day, hour, minute, second, millisecond, microsecond);
 
   @override
-  List get props => super.props..addAll([century]);
+  List<Object> get props => super.props..addAll([century]);
 }
 ```
 

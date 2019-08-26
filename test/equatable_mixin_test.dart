@@ -5,41 +5,44 @@ import 'package:equatable/equatable.dart';
 
 class NonEquatable {}
 
-class EquatableBase with EquatableMixinBase, EquatableMixin {}
+abstract class EquatableBase with EquatableMixin {}
 
-class EmptyEquatable extends EquatableBase with EquatableMixin {}
+class EmptyEquatable extends EquatableBase {
+  @override
+  List<Object> get props => const [];
+}
 
-class SimpleEquatable<T> extends EquatableBase with EquatableMixin {
+class SimpleEquatable<T> extends EquatableBase {
   final T data;
 
   SimpleEquatable(this.data);
 
   @override
-  List get props => super.props..addAll([data]);
+  List get props => [data];
 }
 
-class MultipartEquatable<T> extends EquatableBase with EquatableMixin {
+class MultipartEquatable<T> extends EquatableBase {
   final T d1;
   final T d2;
 
   MultipartEquatable(this.d1, this.d2);
 
   @override
-  List get props => super.props..addAll([d1, d2]);
+  List get props => [d1, d2];
 }
 
-class OtherEquatable extends EquatableBase with EquatableMixin {
+class OtherEquatable extends EquatableBase {
   final String data;
 
   OtherEquatable(this.data);
 
   @override
-  List get props => super.props..addAll([data]);
+  List get props => [data];
 }
 
 enum Color { blonde, black, brown }
 
-class ComplexEquatable extends EquatableBase with EquatableMixin {
+class ComplexEquatable extends EquatableBase {
   final String name;
   final int age;
   final Color hairColor;
@@ -48,27 +51,27 @@ class ComplexEquatable extends EquatableBase with EquatableMixin {
   ComplexEquatable({this.name, this.age, this.hairColor, this.children});
 
   @override
-  List get props => super.props..addAll([name, age, hairColor, children]);
+  List get props => [name, age, hairColor, children];
 }
 
-class EquatableData extends EquatableBase with EquatableMixin {
+class EquatableData extends EquatableBase {
   final String key;
   final dynamic value;
 
   EquatableData({this.key, this.value});
 
   @override
-  List get props => super.props..addAll([key, value]);
+  List get props => [key, value];
 }
 
-class Credentials extends EquatableBase with EquatableMixin {
+class Credentials extends EquatableBase {
   final String username;
   final String password;
 
   Credentials({this.username, this.password});
 
   @override
-  List get props => super.props..addAll([username, password]);
+  List get props => [username, password];
 
   factory Credentials.fromJson(Map<String, dynamic> json) {
     return Credentials(
