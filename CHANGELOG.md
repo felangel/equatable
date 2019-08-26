@@ -1,7 +1,7 @@
 # 0.5.0
 
-- Removed `EquatableMixinBase`, now covered by `EquatableMixin`.
-- Typed `EquatableMixin` from `List<dynamic>` to `List<Object>`, to fix linter
+- Removed `EquatableMixinBase` (now covered by `EquatableMixin`).
+- Typed `EquatableMixin` from `List<dynamic>` to `List<Object>` to fix linter
   issues with `implicit-dynamic: false`.
 
 # 0.4.0
