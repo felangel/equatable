@@ -1,3 +1,7 @@
+# 0.5.1
+
+- Allow const constructors on `Equatable` class
+
 # 0.5.0
 
 - Removed `EquatableMixinBase` (now covered by `EquatableMixin`).
