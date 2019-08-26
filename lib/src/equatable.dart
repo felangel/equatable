@@ -1,6 +1,21 @@
 import 'package:meta/meta.dart';
 import './equatable_utils.dart';
 
+/// A base class to facilitate [operator==] and [hashCode] overrides.
+///
+/// const constructors are possible, but must be performed by overriding
+/// [props] instead of using the super constructor:
+///
+/// ```dart
+/// class ConstTest extends Equatable {
+///   const ConstTest(this.a);
+///
+///   final int a;
+///
+///   @override
+///   List<Object> get props => [a];
+/// }
+/// ```
 @immutable
 abstract class Equatable {
   /// The [List] of `props` (properties) which will be used to determine whether
@@ -16,7 +31,7 @@ abstract class Equatable {
   /// will be used to determine whether two [Equatables] are equal.
   /// If no properties are provided, `props` will be initialized to
   /// an empty [List].
-  Equatable([this.props = const []]);
+  const Equatable([this.props = const []]);
 
   @override
   bool operator ==(Object other) =>
