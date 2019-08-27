@@ -14,6 +14,5 @@ abstract class Equatable with EquatableMixin {
   /// will be used to determine whether two [Equatables] are equal.
   /// If no properties are provided, `props` will be initialized to
   /// an empty [List].
-  // `const` can be used after this analyzer bug gets fixed https://github.com/dart-lang/sdk/issues/37810
-  /*const*/ Equatable([this.props = const []]);
+  const Equatable([this.props = const []]);
 }
