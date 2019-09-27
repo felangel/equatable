@@ -1,13 +1,21 @@
 import 'package:equatable/equatable.dart';
 import 'package:benchmark_harness/benchmark_harness.dart';
 
-class EmptyEquatable extends Equatable {}
+class EmptyEquatable extends Equatable {
+  const EmptyEquatable();
+
+  @override
+  List<Object> get props => null;
+}
 
 class LoginEvent extends Equatable {
   final String username;
   final String password;
 
-  LoginEvent({this.username, this.password}) : super([username, password]);
+  const LoginEvent({this.username, this.password});
+
+  @override
+  List get props => [username, password];
 }
 
 class LoginEventRaw {

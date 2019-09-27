@@ -5,6 +5,8 @@ import './equatable_utils.dart';
 ///
 /// [EquatableMixin] does the override of the `==` operator as well as `hashCode`.
 mixin EquatableMixin {
+  /// The [List] of `props` (properties) which will be used to determine whether
+  /// two [Equatables] are equal.
   List<Object> get props;
 
   @override

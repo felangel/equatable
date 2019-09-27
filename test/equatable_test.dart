@@ -8,25 +8,39 @@ import 'custom_list.dart';
 
 class NonEquatable {}
 
-class EmptyEquatable extends Equatable {}
+class EmptyEquatable extends Equatable {
+  @override
+  List<Object> get props => [];
+
+  const EmptyEquatable();
+}
 
 class SimpleEquatable<T> extends Equatable {
   final T data;
 
-  SimpleEquatable(this.data) : super([data]);
+  const SimpleEquatable(this.data);
+
+  @override
+  List<Object> get props => [data];
 }
 
 class MultipartEquatable<T> extends Equatable {
   final T d1;
   final T d2;
 
-  MultipartEquatable(this.d1, this.d2) : super([d1, d2]);
+  MultipartEquatable(this.d1, this.d2);
+
+  @override
+  List<Object> get props => [d1, d2];
 }
 
 class OtherEquatable extends Equatable {
   final String data;
 
-  OtherEquatable(this.data) : super([data]);
+  const OtherEquatable(this.data);
+
+  @override
+  List<Object> get props => [data];
 }
 
 enum Color { blonde, black, brown }
@@ -37,22 +51,27 @@ class ComplexEquatable extends Equatable {
   final Color hairColor;
   final List<String> children;
 
-  ComplexEquatable({this.name, this.age, this.hairColor, this.children})
-      : super([name, age, hairColor, children]);
+  const ComplexEquatable({this.name, this.age, this.hairColor, this.children});
+
+  @override
+  List<Object> get props => [name, age, hairColor, children];
 }
 
 class EquatableData extends Equatable {
   final String key;
   final dynamic value;
 
-  EquatableData({this.key, this.value}) : super([key, value]);
+  const EquatableData({this.key, this.value});
+
+  @override
+  List<Object> get props => [key, value];
 }
 
 class Credentials extends Equatable {
   final String username;
   final String password;
 
-  Credentials({this.username, this.password}) : super([username, password]);
+  const Credentials({this.username, this.password});
 
   factory Credentials.fromJson(Map<String, dynamic> json) {
     return Credentials(
@@ -67,6 +86,9 @@ class Credentials extends Equatable {
     data['password'] = this.password;
     return data;
   }
+
+  @override
+  List<Object> get props => [username, password];
 }
 
 void main() {
