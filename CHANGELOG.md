@@ -1,3 +1,8 @@
+# 0.6.0
+
+- The `props` getter override is required for both `Equatable` and `EquatableMixin`
+- Performance Improvements
+
 # 0.5.1
 
 - Allow const constructors on `Equatable` class

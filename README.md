@@ -101,7 +101,7 @@ First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^0.5.0
+  equatable: ^0.6.0
 ```
 
 Next, we need to install it:
@@ -122,7 +122,10 @@ import 'package:equatable/equatable.dart';
 class Person extends Equatable {
   final String name;
 
-  Person(this.name) : super([name]);
+  Person(this.name);
+
+  @override
+  List<Object> get props => [name];
 }
 ```
 
@@ -134,7 +137,10 @@ import 'package:equatable/equatable.dart';
 class Person extends Equatable {
   final String name;
 
-  Person(this.name) : super([name]);
+  Person(this.name);
+
+  @override
+  List<Object> get props => [name];
 
   factory Person.fromJson(Map<String, dynamic> json) {
     return Person(json['name']);
@@ -145,7 +151,7 @@ class Person extends Equatable {
 We can now compare instances of `Person` just like before without the pain of having to write all of that boilerplate.
 **Note:** Equatable is designed to only work with immutable objects so all member variables must be final.
 
-Equatable also supports `const` constructors but you'll need to override `props` instead of passing the props to super.
+Equatable also supports `const` constructors:
 
 ```dart
 import 'package:equatable/equatable.dart';
@@ -190,7 +196,10 @@ import 'package:equatable/equatable.dart';
 class Person extends Equatable {
   final String name;
 
-  Person(this.name) : super([name]);
+  Person(this.name);
+
+  @override
+  List<Object> get props => [name];
 }
 ```
 
@@ -256,16 +265,18 @@ You might be wondering what the performance impact will be if you use `Equatable
 
 #### Equality Comparison A == A
 
-| Class              | Runtime (microseconds) |
-| ------------------ | ---------------------- |
-| RAW                | 0.143                  |
-| Empty Equatable    | 0.124                  |
-| Hydrated Equatable | 0.126                  |
+| Class              | Runtime (μs) |
+| ------------------ | ------------ |
+| RAW                | 0.193        |
+| Empty Equatable    | 0.191        |
+| Hydrated Equatable | 0.190        |
 
 #### Instantiation A()
 
-| Class              | Runtime (microseconds) |
-| ------------------ | ---------------------- |
-| RAW                | 0.099                  |
-| Empty Equatable    | 0.121                  |
-| Hydrated Equatable | 0.251                  |
+| Class              | Runtime (μs) |
+| ------------------ | ------------ |
+| RAW                | 0.165        |
+| Empty Equatable    | 0.181        |
+| Hydrated Equatable | 0.182        |
+
+\*_Performance Tests run using: Dart VM version: 2.4.0_

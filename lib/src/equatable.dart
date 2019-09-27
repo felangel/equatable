@@ -20,18 +20,12 @@ import './equatable_utils.dart';
 abstract class Equatable {
   /// The [List] of `props` (properties) which will be used to determine whether
   /// two [Equatables] are equal.
-  final List props;
+  List<Object> get props;
 
   /// A class that helps implement equality
   /// without needing to explicitly override == and [hashCode].
-  /// Equatables override their own == and [hashCode] based on
-  /// the provided `properties`.
-  ///
-  /// The constructor takes an optional [List] of `props` (properties) which
-  /// will be used to determine whether two [Equatables] are equal.
-  /// If no properties are provided, `props` will be initialized to
-  /// an empty [List].
-  const Equatable([this.props = const []]);
+  /// Equatables override their own `==` operator and [hashCode] based on their `props`.
+  const Equatable();
 
   @override
   bool operator ==(Object other) =>
