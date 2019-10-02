@@ -1,3 +1,7 @@
+# 0.6.1
+
+- Minor documentation updates
+
 # 0.6.0
 
 - The `props` getter override is required for both `Equatable` and `EquatableMixin`

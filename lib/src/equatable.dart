@@ -3,9 +3,6 @@ import './equatable_utils.dart';
 
 /// A base class to facilitate [operator==] and [hashCode] overrides.
 ///
-/// const constructors are possible, but must be performed by overriding
-/// [props] instead of using the super constructor:
-///
 /// ```dart
 /// class ConstTest extends Equatable {
 ///   const ConstTest(this.a);
