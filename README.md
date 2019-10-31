@@ -101,7 +101,7 @@ First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^0.6.0
+  equatable: ^0.6.1
 ```
 
 Next, we need to install it:
