@@ -3,8 +3,8 @@
   Simplify Equality Comparisons
 </h2>
 <p align="center">
-  <a href="https://travis-ci.org/felangel/equatable">
-    <img alt="Build Status" src="https://travis-ci.org/felangel/equatable.svg?branch=master">
+  <a href="https://travis-ci.com/felangel/equatable">
+    <img alt="Build Status" src="https://travis-ci.com/felangel/equatable.svg?branch=master">
   </a>
   <a href="https://codecov.io/gh/felangel/equatable">
     <img alt="Code Coverage" src="https://codecov.io/gh/felangel/equatable/branch/master/graph/badge.svg">
