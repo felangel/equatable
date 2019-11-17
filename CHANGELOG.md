@@ -1,3 +1,8 @@
+# 1.0.0
+
+- Update hashCode implementation to use `Jenkins Hash` ([#39](https://github.com/felangel/equatable/issues/39)).
+- Documentation Updates
+
 # 0.6.1
 
 - Minor documentation updates

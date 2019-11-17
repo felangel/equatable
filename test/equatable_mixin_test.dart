@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:equatable/src/equatable_utils.dart';
 import 'package:test/test.dart';
 import 'package:equatable/equatable.dart';
 
@@ -102,7 +103,10 @@ void main() {
 
     test('should return correct hashCode', () {
       final instance = EmptyEquatable();
-      expect(instance.hashCode, instance.runtimeType.hashCode);
+      expect(
+        instance.hashCode,
+        instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
+      );
     });
 
     test('should return true when instances are different', () {
@@ -134,7 +138,7 @@ void main() {
       final instance = SimpleEquatable('simple');
       expect(
         instance.hashCode,
-        instance.runtimeType.hashCode ^ instance.data.hashCode,
+        instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
       );
     });
 
@@ -179,7 +183,7 @@ void main() {
       final instance = SimpleEquatable(0);
       expect(
         instance.hashCode,
-        instance.runtimeType.hashCode ^ instance.data.hashCode,
+        instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
       );
     });
 
@@ -218,7 +222,7 @@ void main() {
       final instance = SimpleEquatable(true);
       expect(
         instance.hashCode,
-        instance.runtimeType.hashCode ^ instance.data.hashCode,
+        instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
       );
     });
 
@@ -265,7 +269,7 @@ void main() {
       ));
       expect(
         instance.hashCode,
-        instance.runtimeType.hashCode ^ instance.data.hashCode,
+        instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
       );
     });
 
@@ -309,6 +313,7 @@ void main() {
       final instance = MultipartEquatable("s1", "s2");
       expect(instance.toString(), 'MultipartEquatable<String>');
     });
+
     test('should return true when instance is the same', () {
       final instance = MultipartEquatable("s1", "s2");
       expect(instance == instance, true);
@@ -318,10 +323,15 @@ void main() {
       final instance = MultipartEquatable("s1", "s2");
       expect(
         instance.hashCode,
-        instance.runtimeType.hashCode ^
-            instance.d1.hashCode ^
-            instance.d2.hashCode,
+        instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
       );
+    });
+
+    test('should return different hashCodes when property order has changed',
+        () {
+      final instance1 = MultipartEquatable("s1", "s2");
+      final instance2 = MultipartEquatable("s2", "s1");
+      expect(instance1.hashCode == instance2.hashCode, isFalse);
     });
 
     test('should return true when instances are different', () {
@@ -377,11 +387,7 @@ void main() {
       );
       expect(
         instance.hashCode,
-        instance.runtimeType.hashCode ^
-            instance.name.hashCode ^
-            instance.age.hashCode ^
-            instance.hairColor.hashCode ^
-            instance.children[0].hashCode,
+        instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
       );
     });
 
@@ -466,9 +472,7 @@ void main() {
       ) as Map<String, dynamic>);
       expect(
         instance.hashCode,
-        instance.runtimeType.hashCode ^
-            instance.username.hashCode ^
-            instance.password.hashCode,
+        instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
       );
     });
 
