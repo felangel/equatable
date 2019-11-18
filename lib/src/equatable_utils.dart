@@ -1,27 +1,7 @@
 import 'package:collection/collection.dart';
 
-int mapPropsToHashCode(dynamic props) {
-  int hashCode = 0;
-
-  if (props is Map) {
-    props.forEach((key, value) {
-      final propHashCode = mapPropsToHashCode(key) ^ mapPropsToHashCode(value);
-      hashCode = hashCode ^ propHashCode;
-    });
-  } else if (props is List || props is Iterable || props is Set) {
-    props.forEach((prop) {
-      final propHashCode =
-          (prop is List || prop is Iterable || prop is Set || prop is Map)
-              ? mapPropsToHashCode(prop)
-              : prop.hashCode;
-      hashCode = hashCode ^ propHashCode;
-    });
-  } else {
-    hashCode = hashCode ^ props.hashCode;
-  }
-
-  return hashCode;
-}
+int mapPropsToHashCode(Iterable props) =>
+    _finish(props.fold(0, (hash, object) => _combine(hash, object)));
 
 const DeepCollectionEquality _equality = DeepCollectionEquality();
 
@@ -44,4 +24,27 @@ bool equals(List list1, List list2) {
     }
   }
   return true;
+}
+
+/// Jenkins Hash Functions
+/// https://en.wikipedia.org/wiki/Jenkins_hash_function
+int _combine(int hash, dynamic object) {
+  if (object is Map) {
+    object.forEach((key, value) {
+      hash = _combine(hash, [key, value]);
+    });
+    return hash;
+  }
+  if (object is Iterable) {
+    return mapPropsToHashCode(object);
+  }
+  hash = 0x1fffffff & (hash + object.hashCode);
+  hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
+  return hash ^ (hash >> 6);
+}
+
+int _finish(int hash) {
+  hash = 0x1fffffff & (hash + ((0x03ffffff & hash) << 3));
+  hash = hash ^ (hash >> 11);
+  return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
 }
