@@ -1,3 +1,7 @@
+# 1.0.1
+
+- Fix `hashCode` collisions with `Map` properties ([#43](https://github.com/felangel/equatable/issues/43)).
+
 # 1.0.0
 
 - Update hashCode implementation to use `Jenkins Hash` ([#39](https://github.com/felangel/equatable/issues/39)).
