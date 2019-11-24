@@ -15,7 +15,7 @@ bool equals(List list1, List list2) {
     final unit1 = list1[i];
     final unit2 = list2[i];
 
-    if (unit1 is Iterable || unit1 is List || unit1 is Map || unit1 is Set) {
+    if (unit1 is Iterable || unit1 is Map) {
       if (!_equality.equals(unit1, unit2)) return false;
     } else if (unit1?.runtimeType != unit2?.runtimeType) {
       return false;
@@ -31,13 +31,11 @@ bool equals(List list1, List list2) {
 int _combine(int hash, dynamic object) {
   if (object is Map) {
     object.forEach((key, value) {
-      hash = _combine(hash, [key, value]);
+      hash = hash ^ _combine(hash, [key, value]);
     });
     return hash;
   }
-  if (object is Iterable) {
-    return mapPropsToHashCode(object);
-  }
+  if (object is Iterable) return mapPropsToHashCode(object);
   hash = 0x1fffffff & (hash + object.hashCode);
   hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
   return hash ^ (hash >> 6);

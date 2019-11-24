@@ -442,6 +442,38 @@ void main() {
       );
       expect(instanceA == instanceB, false);
     });
+
+    test('should return false when values only differ in list', () {
+      final instanceA = ComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+      );
+      final instanceB = ComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bobby'],
+      );
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when values only differ in single property', () {
+      final instanceA = ComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+      );
+      final instanceB = ComplexEquatable(
+        name: 'Joe',
+        age: 41,
+        hairColor: Color.black,
+        children: ['Bob'],
+      );
+      expect(instanceA == instanceB, false);
+    });
   });
 
   group('Json Equatable', () {
@@ -592,28 +624,70 @@ void main() {
         expect(instanceA == instanceB, true);
         expect(instanceA.hashCode == instanceB.hashCode, true);
       });
+
+      test(
+          'should return different hashCode when instance properties are different',
+          () {
+        final instanceA = SimpleEquatable<List>(["A", "B"]);
+        final instanceB = SimpleEquatable<List>(["B"]);
+
+        expect(instanceA != instanceB, true);
+        expect(instanceA.hashCode != instanceB.hashCode, true);
+      });
+
+      test(
+          'should return different hashCode when instance properties are modified',
+          () {
+        final list = ["A", "B"];
+        final instanceA = SimpleEquatable<List>(list);
+        final hashCodeA = instanceA.hashCode;
+        list.removeLast();
+        final hashCodeB = instanceA.hashCode;
+        expect(hashCodeA != hashCodeB, true);
+      });
     });
 
     group('Map Equatable', () {
-      test('should return when values are same', () {
+      test('should return true when values are same', () {
         final instanceA = SimpleEquatable<Map>({1: "A", 2: "B"});
         final instanceB = SimpleEquatable<Map>({1: "A", 2: "B"});
         expect(instanceA == instanceB, true);
         expect(instanceA.hashCode == instanceB.hashCode, true);
       });
 
-      test('should return when values are different', () {
+      test('should return false when values are different', () {
         final instanceA = SimpleEquatable<Map>({1: "A", 2: "B"});
         final instanceB = SimpleEquatable<Map>({1: "a", 2: "b"});
         expect(instanceA != instanceB, true);
         expect(instanceA.hashCode != instanceB.hashCode, true);
       });
 
-      test('should return when values are different', () {
+      test('should return false when values are different', () {
         final instanceA = SimpleEquatable<Map>({1: "A", 2: "B"});
         final instanceB = SimpleEquatable<Map>({1: "C", 2: "D"});
         expect(instanceA != instanceB, true);
         expect(instanceA.hashCode != instanceB.hashCode, true);
+      });
+
+      test(
+          'should return different hashCode when instance properties are different',
+          () {
+        final instanceA = SimpleEquatable<Map>({1: "A", 2: "B"});
+        final instanceB = SimpleEquatable<Map>({2: "B"});
+
+        expect(instanceA != instanceB, true);
+        expect(instanceA.hashCode != instanceB.hashCode, true);
+      });
+
+      test(
+          'should return different hashCode when instance properties are modified',
+          () {
+        final map = {1: "A", 2: "B"};
+        final instanceA = SimpleEquatable<Map>(map);
+        final hashCodeA = instanceA.hashCode;
+        map.remove(1);
+        final hashCodeB = instanceA.hashCode;
+        expect(hashCodeA != hashCodeB, true);
       });
     });
 
