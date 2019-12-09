@@ -46,3 +46,6 @@ int _finish(int hash) {
   hash = hash ^ (hash >> 11);
   return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
 }
+
+String toStringWithProps(Type runtimeType, List<Object> props) =>
+    '$runtimeType${props.map((prop) => prop != null ? prop.toString() : '')}';

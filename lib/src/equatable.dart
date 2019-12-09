@@ -1,4 +1,5 @@
 import 'package:meta/meta.dart';
+
 import './equatable_utils.dart';
 
 /// A base class to facilitate [operator==] and [hashCode] overrides.
@@ -19,6 +20,8 @@ abstract class Equatable {
   /// two [Equatables] are equal.
   List<Object> get props;
 
+  bool get stringable => false;
+
   /// A class that helps implement equality
   /// without needing to explicitly override == and [hashCode].
   /// Equatables override their own `==` operator and [hashCode] based on their `props`.
@@ -35,5 +38,6 @@ abstract class Equatable {
   int get hashCode => runtimeType.hashCode ^ mapPropsToHashCode(props);
 
   @override
-  String toString() => '$runtimeType';
+  String toString() =>
+      stringable ? toStringWithProps(runtimeType, props) : '$runtimeType';
 }

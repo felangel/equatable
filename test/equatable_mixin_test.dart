@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:equatable/src/equatable_utils.dart';
 import 'package:test/test.dart';
-import 'package:equatable/equatable.dart';
 
 class NonEquatable {}
 
@@ -87,6 +87,19 @@ class Credentials extends EquatableBase {
     data['password'] = this.password;
     return data;
   }
+}
+
+class ComplexStringable extends ComplexEquatable {
+  final String name;
+  final int age;
+  final Color hairColor;
+
+  ComplexStringable({this.name, this.age, this.hairColor});
+
+  @override
+  List get props => [name, age, hairColor];
+  @override
+  bool get stringable => true;
 }
 
 void main() {
@@ -528,6 +541,17 @@ void main() {
         """,
       ) as Map<String, dynamic>);
       expect(instanceA == instanceB, false);
+    });
+  });
+  group('To String Equatable', () {
+    test('Complex stringable', () {
+      final instanceA = ComplexStringable();
+      final instanceB = ComplexStringable(name: "Bob", hairColor: Color.black);
+      final instanceC =
+          ComplexStringable(name: "Joe", age: 50, hairColor: Color.blonde);
+      expect(instanceA.toString(), 'ComplexStringable(, , )');
+      expect(instanceB.toString(), 'ComplexStringable(Bob, , Color.black)');
+      expect(instanceC.toString(), 'ComplexStringable(Joe, 50, Color.blonde)');
     });
   });
 }

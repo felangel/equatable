@@ -8,6 +8,9 @@ class Credentials extends Equatable {
 
   @override
   List<Object> get props => [username, password];
+
+  @override
+  bool get stringable => false;
 }
 
 class EquatableDateTime extends DateTime with EquatableMixin {
@@ -26,6 +29,9 @@ class EquatableDateTime extends DateTime with EquatableMixin {
   List get props {
     return [year, month, day, hour, minute, second, millisecond, microsecond];
   }
+
+  @override
+  bool get stringable => true;
 }
 
 void main() {
@@ -39,6 +45,7 @@ void main() {
   print(credentialsC == credentialsC); // true
   print(credentialsA == credentialsB); // false
   print(credentialsB == credentialsC); // true
+  print(credentialsA.toString()); // Credentials
 
   // Equatable Mixin
   final dateTimeA = EquatableDateTime(2019);
@@ -50,4 +57,5 @@ void main() {
   print(dateTimeC == dateTimeC); // true
   print(dateTimeA == dateTimeB); // false
   print(dateTimeB == dateTimeC); // true
+  print(dateTimeA.toString()); // EquatableDateTime(2019, 1, 1, 0, 0, 0, 0, 0)
 }
