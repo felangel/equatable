@@ -166,6 +166,39 @@ class Person extends Equatable {
 }
 ```
 
+### `toString` Implementation
+Equatable can implement `toString` method including all the given props. If you want that behaviour, just include the following:
+```
+  @override
+  bool get stringable => true;
+```
+
+For instance:
+
+```dart
+import 'package:equatable/equatable.dart';
+
+class Person extends Equatable {
+  final String name;
+
+  const Person(this.name);
+
+  @override
+  List<Object> get props => [name];
+  
+  @override
+  bool get stringable => true;
+}
+```
+For the name `Bob`, the outuput will be:
+```
+Person(Bob)
+```
+This flag by default is false and `toString` will return just the type:
+```
+Person
+```
+
 ## Recap
 
 ### Without Equatable
