@@ -434,6 +434,22 @@ void main() {
       );
       expect(instanceA == instanceB, false);
     });
+
+    test('should return different hashCode even for empty list', () {
+      final instance = ComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: [],
+      );
+      final instance2 = ComplexEquatable(
+        name: 'John',
+        age: 40,
+        hairColor: Color.black,
+        children: [],
+      );
+      expect(instance.hashCode != instance2.hashCode, true);
+    });
   });
 
   group('Json Equatable', () {
