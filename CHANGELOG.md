@@ -1,3 +1,7 @@
+# 1.0.3
+
+- Fix `hashCode` collisions for lists within props ([#53](https://github.com/felangel/equatable/pull/53))
+
 # 1.0.2
 
 - Fix internal lint warnings
