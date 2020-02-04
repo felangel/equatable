@@ -149,7 +149,7 @@ class Person extends Equatable {
 ```
 
 We can now compare instances of `Person` just like before without the pain of having to write all of that boilerplate.
-**Note:** Equatable is designed to only work with immutable objects so all member variables must be final.
+**Note:** Equatable is designed to only work with immutable objects so all member variables must be final (This is not just a feature of `Equatable` - [overriding a `hashCode` with a mutable value can break hash-based collections](https://dart.dev/guides/language/effective-dart/design#avoid-defining-custom-equality-for-mutable-classes)).
 
 Equatable also supports `const` constructors:
 
