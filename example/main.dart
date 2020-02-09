@@ -10,7 +10,7 @@ class Credentials extends Equatable {
   List<Object> get props => [username, password];
 
   @override
-  bool get stringable => false;
+  bool get stringify => false;
 }
 
 class EquatableDateTime extends DateTime with EquatableMixin {
@@ -31,7 +31,7 @@ class EquatableDateTime extends DateTime with EquatableMixin {
   }
 
   @override
-  bool get stringable => true;
+  bool get stringify => true;
 }
 
 void main() {

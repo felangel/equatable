@@ -91,17 +91,28 @@ class Credentials extends Equatable {
   List<Object> get props => [username, password];
 }
 
-class ComplexStringable extends Equatable {
+class ComplexStringify extends Equatable {
   final String name;
   final int age;
   final Color hairColor;
 
-  ComplexStringable({this.name, this.age, this.hairColor});
+  ComplexStringify({this.name, this.age, this.hairColor});
 
   @override
   List get props => [name, age, hairColor];
+
   @override
-  bool get stringable => true;
+  bool get stringify => true;
+}
+
+class NullProps extends Equatable {
+  NullProps();
+
+  @override
+  List get props => null;
+
+  @override
+  bool get stringify => true;
 }
 
 void main() {
@@ -733,15 +744,35 @@ void main() {
       });
     });
   });
+
   group('To String Equatable', () {
-    test('Complex stringable', () {
-      final instanceA = ComplexStringable();
-      final instanceB = ComplexStringable(name: "Bob", hairColor: Color.black);
+    test('with Complex stringify', () {
+      final instanceA = ComplexStringify();
+      final instanceB = ComplexStringify(name: "Bob", hairColor: Color.black);
       final instanceC =
-          ComplexStringable(name: "Joe", age: 50, hairColor: Color.blonde);
-      expect(instanceA.toString(), 'ComplexStringable(, , )');
-      expect(instanceB.toString(), 'ComplexStringable(Bob, , Color.black)');
-      expect(instanceC.toString(), 'ComplexStringable(Joe, 50, Color.blonde)');
+          ComplexStringify(name: "Joe", age: 50, hairColor: Color.blonde);
+      expect(instanceA.toString(), 'ComplexStringify(, , )');
+      expect(instanceB.toString(), 'ComplexStringify(Bob, , Color.black)');
+      expect(instanceC.toString(), 'ComplexStringify(Joe, 50, Color.blonde)');
+    });
+  });
+
+  group('Null props Equatable', () {
+    test('should not crash invoking equals method', () {
+      final instanceA = NullProps();
+      final instanceB = NullProps();
+      expect(instanceA == instanceB, true);
+    });
+
+    test('should not crash invoking hascode method', () {
+      final instanceA = NullProps();
+      final instanceB = NullProps();
+      expect(instanceA.hashCode == instanceB.hashCode, true);
+    });
+
+    test('should not crash invoking toString method', () {
+      final instance = NullProps();
+      expect(instance.toString(), 'NullProps()');
     });
   });
 }

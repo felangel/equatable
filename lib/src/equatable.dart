@@ -20,7 +20,9 @@ abstract class Equatable {
   /// two [Equatables] are equal.
   List<Object> get props;
 
-  bool get stringable => false;
+  /// If the value is [true], the `toString` method will be overrided to print
+  /// the equatable `props`.
+  bool get stringify => false;
 
   /// A class that helps implement equality
   /// without needing to explicitly override == and [hashCode].
@@ -39,5 +41,5 @@ abstract class Equatable {
 
   @override
   String toString() =>
-      stringable ? toStringWithProps(runtimeType, props) : '$runtimeType';
+      stringify ? mapPropsToString(runtimeType, props) : '$runtimeType';
 }

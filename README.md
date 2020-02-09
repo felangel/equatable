@@ -170,7 +170,7 @@ class Person extends Equatable {
 Equatable can implement `toString` method including all the given props. If you want that behaviour, just include the following:
 ```
   @override
-  bool get stringable => true;
+  bool get stringify => true;
 ```
 
 For instance:
@@ -187,7 +187,7 @@ class Person extends Equatable {
   List<Object> get props => [name];
   
   @override
-  bool get stringable => true;
+  bool get stringify => true;
 }
 ```
 For the name `Bob`, the outuput will be:
