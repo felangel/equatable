@@ -49,4 +49,4 @@ int _finish(int hash) {
 }
 
 String mapPropsToString(Type runtimeType, List<Object> props) =>
-    '$runtimeType${props.map((prop) => prop != null ? prop.toString() : '')}';
+    '$runtimeType${props?.map((prop) => prop?.toString() ?? '') ?? '()'}';
