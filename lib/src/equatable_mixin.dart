@@ -9,6 +9,10 @@ mixin EquatableMixin {
   /// two [Equatables] are equal.
   List<Object> get props;
 
+  /// If the value is [true], the `toString` method will be overrided to print
+  /// the equatable `props`.
+  bool get stringify => false;
+
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
@@ -21,5 +25,6 @@ mixin EquatableMixin {
   int get hashCode => runtimeType.hashCode ^ mapPropsToHashCode(props);
 
   @override
-  String toString() => '$runtimeType';
+  String toString() =>
+      stringify ? mapPropsToString(runtimeType, props) : '$runtimeType';
 }

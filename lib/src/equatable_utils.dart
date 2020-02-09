@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 
 int mapPropsToHashCode(Iterable props) =>
-    _finish(props.fold(0, (hash, object) => _combine(hash, object)));
+    _finish(props?.fold(0, (hash, object) => _combine(hash, object)) ?? 0);
 
 const DeepCollectionEquality _equality = DeepCollectionEquality();
 
@@ -47,3 +47,6 @@ int _finish(int hash) {
   hash = hash ^ (hash >> 11);
   return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
 }
+
+String mapPropsToString(Type runtimeType, List<Object> props) =>
+    '$runtimeType${props?.map((prop) => prop?.toString() ?? '') ?? '()'}';
