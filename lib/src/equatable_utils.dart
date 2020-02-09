@@ -1,7 +1,7 @@
 import 'package:collection/collection.dart';
 
 int mapPropsToHashCode(Iterable props) =>
-    _finish(props.fold(0, (hash, object) => _combine(hash, object)));
+    _finish(props?.fold(0, (hash, object) => _combine(hash, object)) ?? 0);
 
 const DeepCollectionEquality _equality = DeepCollectionEquality();
 
