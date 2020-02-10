@@ -1,4 +1,4 @@
-# 1.0.4
+# 1.1.0
 
 - Fix `hashCode` error when `props` is null
 - Added `stringify` feature (optional `toString` override)
