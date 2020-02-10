@@ -1,10 +1,12 @@
 import 'package:collection/collection.dart';
 
+/// Retuns a hash code for [props].
 int mapPropsToHashCode(Iterable props) =>
-    _finish(props?.fold(0, (hash, object) => _combine(hash, object)) ?? 0);
+    _finish(props?.fold(0, _combine) ?? 0);
 
 const DeepCollectionEquality _equality = DeepCollectionEquality();
 
+/// Determines an equality between [list1] and [list2].
 bool equals(List list1, List list2) {
   if (identical(list1, list2)) return true;
   if (list1 == null || list2 == null) return false;
@@ -48,5 +50,6 @@ int _finish(int hash) {
   return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
 }
 
+/// Returns a string for [props].
 String mapPropsToString(Type runtimeType, List<Object> props) =>
     '$runtimeType${props?.map((prop) => prop?.toString() ?? '') ?? '()'}';
