@@ -1,7 +1,7 @@
 # 1.1.0
 
-- Fix `hashCode` error when `props` is null
-- Added `stringify` feature (optional `toString` override)
+- Fix `hashCode` error when `props` is `null` ([#45](https://github.com/felangel/equatable/pull/45))
+- Added `stringify` feature (optional `toString` override) ([#45](https://github.com/felangel/equatable/pull/45))
 
 # 1.0.3
 
