@@ -1,10 +1,11 @@
 import 'package:collection/collection.dart';
 
-int mapPropsToHashCode(Iterable props) =>
-    _finish(props.fold(0, (hash, object) => _combine(hash, object)));
+/// Maps hash code to [props].
+int mapPropsToHashCode(Iterable props) => _finish(props.fold(0, _combine));
 
 const DeepCollectionEquality _equality = DeepCollectionEquality();
 
+/// Determines equality between [list1] and [list2].
 bool equals(List list1, List list2) {
   if (identical(list1, list2)) return true;
   if (list1 == null || list2 == null) return false;

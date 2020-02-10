@@ -21,7 +21,8 @@ abstract class Equatable {
 
   /// A class that helps implement equality
   /// without needing to explicitly override == and [hashCode].
-  /// Equatables override their own `==` operator and [hashCode] based on their `props`.
+  /// Equatables override their own `==` operator and [hashCode] based on their
+  /// `props`.
   const Equatable();
 
   @override

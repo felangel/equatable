@@ -82,9 +82,9 @@ class Credentials extends Equatable {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.username;
-    data['password'] = this.password;
+    final data = <String, dynamic>{};
+    data['username'] = username;
+    data['password'] = password;
     return data;
   }
 
@@ -619,15 +619,16 @@ void main() {
 
       test("should return when contents are same but different kind of List",
           () {
-        final instanceA = SimpleEquatable<List>(CustomList(["A", "B"], true));
+        final instanceA =
+            SimpleEquatable<List>(CustomList(["A", "B"], growable: true));
         final instanceB = SimpleEquatable<List>(["A", "B"]);
         expect(instanceA == instanceB, true);
         expect(instanceA.hashCode == instanceB.hashCode, true);
       });
 
       test(
-          'should return different hashCode when instance properties are different',
-          () {
+          'should return different hashCode '
+          'when instance properties are different', () {
         final instanceA = SimpleEquatable<List>(["A", "B"]);
         final instanceB = SimpleEquatable<List>(["B"]);
 
@@ -636,8 +637,8 @@ void main() {
       });
 
       test(
-          'should return different hashCode when instance properties are modified',
-          () {
+          'should return different hashCode '
+          'when instance properties are modified', () {
         final list = ["A", "B"];
         final instanceA = SimpleEquatable<List>(list);
         final hashCodeA = instanceA.hashCode;
@@ -670,8 +671,8 @@ void main() {
       });
 
       test(
-          'should return different hashCode when instance properties are different',
-          () {
+          'should return different hashCode '
+          'when instance properties are different', () {
         final instanceA = SimpleEquatable<Map>({1: "A", 2: "B"});
         final instanceB = SimpleEquatable<Map>({2: "B"});
 
@@ -680,8 +681,8 @@ void main() {
       });
 
       test(
-          'should return different hashCode when instance properties are modified',
-          () {
+          'should return different hashCode '
+          'when instance properties are modified', () {
         final map = {1: "A", 2: "B"};
         final instanceA = SimpleEquatable<Map>(map);
         final hashCodeA = instanceA.hashCode;
@@ -693,28 +694,36 @@ void main() {
 
     group('Set Equatable', () {
       test('should return when values are same', () {
+        // ignore: prefer_collection_literals
         final instanceA = SimpleEquatable<Set>(Set.from(["A", "B"]));
+        // ignore: prefer_collection_literals
         final instanceB = SimpleEquatable<Set>(Set.from(["A", "B"]));
         expect(instanceA == instanceB, true);
         expect(instanceA.hashCode == instanceB.hashCode, true);
       });
 
       test('should return when values are same', () {
+        // ignore: prefer_collection_literals
         final instanceA = SimpleEquatable<Set>(Set.from(["A", "B", "A"]));
+        // ignore: prefer_collection_literals
         final instanceB = SimpleEquatable<Set>(Set.from(["A", "B"]));
         expect(instanceA == instanceB, true);
         expect(instanceA.hashCode == instanceB.hashCode, true);
       });
 
       test('should return when values are different', () {
+        // ignore: prefer_collection_literals
         final instanceA = SimpleEquatable<Set>(Set.from(["A", "B"]));
+        // ignore: prefer_collection_literals
         final instanceB = SimpleEquatable<Set>(Set.from(["a", "b"]));
         expect(instanceA != instanceB, true);
         expect(instanceA.hashCode != instanceB.hashCode, true);
       });
 
       test('should return when values are different', () {
+        // ignore: prefer_collection_literals
         final instanceA = SimpleEquatable<Set>(Set.from(["A", "B"]));
+        // ignore: prefer_collection_literals
         final instanceB = SimpleEquatable<Set>(Set.from(["C", "D"]));
         expect(instanceA != instanceB, true);
         expect(instanceA.hashCode != instanceB.hashCode, true);
