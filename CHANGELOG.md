@@ -1,3 +1,8 @@
+# 1.0.4
+
+- Fix `hashCode` error when `props` is null
+- Added `stringify` feature (optional `toString` override)
+
 # 1.0.3
 
 - Fix `hashCode` collisions for lists within props ([#53](https://github.com/felangel/equatable/pull/53))
