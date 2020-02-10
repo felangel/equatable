@@ -1,3 +1,12 @@
+# 1.1.0
+
+- Fix `hashCode` error when `props` is `null` ([#45](https://github.com/felangel/equatable/pull/45))
+- Added `stringify` feature (optional `toString` override) ([#45](https://github.com/felangel/equatable/pull/45))
+
+# 1.0.3
+
+- Fix `hashCode` collisions for lists within props ([#53](https://github.com/felangel/equatable/pull/53))
+
 # 1.0.2
 
 - Fix internal lint warnings

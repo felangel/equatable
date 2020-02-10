@@ -104,7 +104,7 @@ First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^1.0.0
+  equatable: ^1.1.0
 ```
 
 Next, we need to install it:
@@ -167,6 +167,39 @@ class Person extends Equatable {
   @override
   List<Object> get props => [name];
 }
+```
+
+### `toString` Implementation
+Equatable can implement `toString` method including all the given props. If you want that behaviour, just include the following:
+```dart
+  @override
+  bool get stringify => true;
+```
+
+For instance:
+
+```dart
+import 'package:equatable/equatable.dart';
+
+class Person extends Equatable {
+  final String name;
+
+  const Person(this.name);
+
+  @override
+  List<Object> get props => [name];
+  
+  @override
+  bool get stringify => true;
+}
+```
+For the name `Bob`, the outuput will be:
+```
+Person(Bob)
+```
+This flag by default is false and `toString` will return just the type:
+```
+Person
 ```
 
 ## Recap

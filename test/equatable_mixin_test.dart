@@ -1,8 +1,8 @@
 import 'dart:convert';
 
+import 'package:equatable/equatable.dart';
 import 'package:equatable/src/equatable_utils.dart';
 import 'package:test/test.dart';
-import 'package:equatable/equatable.dart';
 
 class NonEquatable {}
 
@@ -87,6 +87,30 @@ class Credentials extends EquatableBase {
     data['password'] = password;
     return data;
   }
+}
+
+class ComplexStringify extends ComplexEquatable {
+  final String name;
+  final int age;
+  final Color hairColor;
+
+  ComplexStringify({this.name, this.age, this.hairColor});
+
+  @override
+  List get props => [name, age, hairColor];
+
+  @override
+  bool get stringify => true;
+}
+
+class NullProps extends Equatable {
+  NullProps();
+
+  @override
+  List get props => null;
+
+  @override
+  bool get stringify => true;
 }
 
 void main() {
@@ -434,6 +458,22 @@ void main() {
       );
       expect(instanceA == instanceB, false);
     });
+
+    test('should return different hashCode even for empty list', () {
+      final instance = ComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: [],
+      );
+      final instance2 = ComplexEquatable(
+        name: 'John',
+        age: 40,
+        hairColor: Color.black,
+        children: [],
+      );
+      expect(instance.hashCode != instance2.hashCode, true);
+    });
   });
 
   group('Json Equatable', () {
@@ -528,6 +568,37 @@ void main() {
         """,
       ) as Map<String, dynamic>);
       expect(instanceA == instanceB, false);
+    });
+  });
+
+  group('To String Equatable', () {
+    test('Complex stringify', () {
+      final instanceA = ComplexStringify();
+      final instanceB = ComplexStringify(name: "Bob", hairColor: Color.black);
+      final instanceC =
+          ComplexStringify(name: "Joe", age: 50, hairColor: Color.blonde);
+      expect(instanceA.toString(), 'ComplexStringify(, , )');
+      expect(instanceB.toString(), 'ComplexStringify(Bob, , Color.black)');
+      expect(instanceC.toString(), 'ComplexStringify(Joe, 50, Color.blonde)');
+    });
+  });
+
+  group('Null props Equatable', () {
+    test('should not crash invoking equals method', () {
+      final instanceA = NullProps();
+      final instanceB = NullProps();
+      expect(instanceA == instanceB, true);
+    });
+
+    test('should not crash invoking hascode method', () {
+      final instanceA = NullProps();
+      final instanceB = NullProps();
+      expect(instanceA.hashCode == instanceB.hashCode, true);
+    });
+
+    test('should not crash invoking toString method', () {
+      final instance = NullProps();
+      expect(instance.toString(), 'NullProps()');
     });
   });
 }

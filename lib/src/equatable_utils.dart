@@ -36,8 +36,9 @@ int _combine(int hash, dynamic object) {
     });
     return hash;
   }
-  if (object is Iterable) return mapPropsToHashCode(object);
-  hash = 0x1fffffff & (hash + object.hashCode);
+  final objectHashCode =
+      object is Iterable ? mapPropsToHashCode(object) : object.hashCode;
+  hash = 0x1fffffff & (hash + objectHashCode);
   hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
   return hash ^ (hash >> 6);
 }
@@ -47,3 +48,6 @@ int _finish(int hash) {
   hash = hash ^ (hash >> 11);
   return 0x1fffffff & (hash + ((0x00003fff & hash) << 15));
 }
+
+String mapPropsToString(Type runtimeType, List<Object> props) =>
+    '$runtimeType${props?.map((prop) => prop?.toString() ?? '') ?? '()'}';
