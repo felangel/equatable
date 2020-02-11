@@ -13,6 +13,9 @@
     <img alt="Pub Package" src="https://img.shields.io/pub/v/equatable.svg">
   </a>
   <br/>
+  <a href="https://github.com/tenhobi/effective_dart">
+    <img alt="style: effective dart" src="https://img.shields.io/badge/style-effective_dart-40c4ff.svg">
+  </a>
   <a href="https://opensource.org/licenses/MIT">
     <img alt="MIT License" src="https://img.shields.io/badge/License-MIT-blue.svg">
   </a>

@@ -7,10 +7,12 @@ import 'dart:math';
 
 class CustomList<E> implements List<E> {
   bool _copyBeforeWrite;
-  bool _growable;
+  final bool _growable;
   List<E> _list;
 
-  CustomList(this._list, this._growable) : _copyBeforeWrite = true;
+  CustomList(this._list, {growable = false})
+      : _copyBeforeWrite = true,
+        _growable = growable;
 
   // Read-only methods: just forward.
 
@@ -30,7 +32,7 @@ class CustomList<E> implements List<E> {
   Map<int, E> asMap() => _list.asMap();
 
   @override
-  List<T> cast<T>() => new CustomList<T>(_list.cast<T>(), _growable);
+  List<T> cast<T>() => CustomList<T>(_list.cast<T>(), growable: _growable);
 
   @override
   bool contains(Object element) => _list.contains(element);
@@ -276,6 +278,6 @@ class CustomList<E> implements List<E> {
   void _maybeCopyBeforeWrite() {
     if (!_copyBeforeWrite) return;
     _copyBeforeWrite = false;
-    _list = new List<E>.from(_list, growable: _growable);
+    _list = List<E>.from(_list, growable: _growable);
   }
 }
