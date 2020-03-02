@@ -1,3 +1,7 @@
+# 1.1.1
+
+- Updates to `EquatableUtils` documentation
+
 # 1.1.0
 
 - Fix `hashCode` error when `props` is `null` ([#45](https://github.com/felangel/equatable/pull/45))
