@@ -8,7 +8,7 @@ import './equatable_utils.dart';
 mixin EquatableMixin {
   /// The [List] of `props` (properties) which will be used to determine whether
   /// two [Equatables] are equal.
-  List<Object> get props;
+  List<Object> get props => const [];
 
   /// If the value is [true], the `toString` method will be overrided to print
   /// the equatable `props`.
