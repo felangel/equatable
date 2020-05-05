@@ -11,6 +11,9 @@ abstract class EquatableBase with EquatableMixin {}
 class EmptyEquatable extends EquatableBase {
   @override
   List<Object> get props => const [];
+
+  @override
+  bool get stringify => false;
 }
 
 class SimpleEquatable<T> extends EquatableBase {
@@ -20,6 +23,9 @@ class SimpleEquatable<T> extends EquatableBase {
 
   @override
   List get props => [data];
+
+  @override
+  bool get stringify => false;
 }
 
 class MultipartEquatable<T> extends EquatableBase {
@@ -30,6 +36,9 @@ class MultipartEquatable<T> extends EquatableBase {
 
   @override
   List get props => [d1, d2];
+
+  @override
+  bool get stringify => false;
 }
 
 class OtherEquatable extends EquatableBase {
@@ -53,6 +62,9 @@ class ComplexEquatable extends EquatableBase {
 
   @override
   List get props => [name, age, hairColor, children];
+
+  @override
+  bool get stringify => false;
 }
 
 class EquatableData extends EquatableBase {
@@ -73,6 +85,9 @@ class Credentials extends EquatableBase {
 
   @override
   List get props => [username, password];
+
+  @override
+  bool get stringify => false;
 
   factory Credentials.fromJson(Map<String, dynamic> json) {
     return Credentials(
@@ -108,9 +123,6 @@ class NullProps extends Equatable {
 
   @override
   List get props => null;
-
-  @override
-  bool get stringify => true;
 }
 
 void main() {

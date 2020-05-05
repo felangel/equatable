@@ -9,10 +9,13 @@ import 'custom_list.dart';
 class NonEquatable {}
 
 class EmptyEquatable extends Equatable {
+  const EmptyEquatable();
+
   @override
   List<Object> get props => [];
 
-  const EmptyEquatable();
+  @override
+  bool get stringify => false;
 }
 
 class SimpleEquatable<T> extends Equatable {
@@ -22,6 +25,9 @@ class SimpleEquatable<T> extends Equatable {
 
   @override
   List<Object> get props => [data];
+
+  @override
+  bool get stringify => false;
 }
 
 class MultipartEquatable<T> extends Equatable {
@@ -32,6 +38,9 @@ class MultipartEquatable<T> extends Equatable {
 
   @override
   List<Object> get props => [d1, d2];
+
+  @override
+  bool get stringify => false;
 }
 
 class OtherEquatable extends Equatable {
@@ -55,6 +64,9 @@ class ComplexEquatable extends Equatable {
 
   @override
   List<Object> get props => [name, age, hairColor, children];
+
+  @override
+  bool get stringify => false;
 }
 
 class EquatableData extends Equatable {
@@ -89,6 +101,9 @@ class Credentials extends Equatable {
 
   @override
   List<Object> get props => [username, password];
+
+  @override
+  bool get stringify => false;
 }
 
 class ComplexStringify extends Equatable {
@@ -100,9 +115,6 @@ class ComplexStringify extends Equatable {
 
   @override
   List get props => [name, age, hairColor];
-
-  @override
-  bool get stringify => true;
 }
 
 class NullProps extends Equatable {
@@ -110,9 +122,6 @@ class NullProps extends Equatable {
 
   @override
   List get props => null;
-
-  @override
-  bool get stringify => true;
 }
 
 void main() {

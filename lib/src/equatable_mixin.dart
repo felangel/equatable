@@ -10,9 +10,9 @@ mixin EquatableMixin {
   /// two [Equatables] are equal.
   List<Object> get props;
 
-  /// If the value is [true], the `toString` method will be overrided to print
+  /// If the value is [true], the `toString` method will be overridden to print
   /// the equatable `props`.
-  bool get stringify => false;
+  bool get stringify => true;
 
   @override
   bool operator ==(Object other) {
