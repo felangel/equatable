@@ -3,7 +3,7 @@
 class EquatableConfig {
   /// Global [stringify] setting for all [Equatable] instances.
   /// If [stringify] is overridden for a particular [Equatable] instance,
-  /// then the local [stringify] value takes precendence
+  /// then the local [stringify] value takes precedence
   /// over `EquatableConfig.stringify`.
   /// This value defaults to false.
   static bool stringify = false;
