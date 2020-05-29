@@ -1,6 +1,6 @@
 # 1.2.0
 
-- Added `EquatableConfig` for global `stringify` configuration
+- Added `EquatableConfig` for global `stringify` configuration ([#69](https://github.com/felangel/equatable/pull/69))
 
 # 1.1.1
 
