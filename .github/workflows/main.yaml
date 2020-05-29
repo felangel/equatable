@@ -1,4 +1,4 @@
-name: equatable
+name: build
 
 on:
   push:

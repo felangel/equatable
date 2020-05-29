@@ -5,7 +5,7 @@
 
 <p align="center">
   <a href="https://github.com/felangel/equatable/actions">
-    <img alt="Build Status" src="https://github.com/felangel/equatable/workflows/equatable/badge.svg">
+    <img alt="Build Status" src="https://github.com/felangel/equatable/workflows/build/badge.svg">
   </a>
   <a href="https://github.com/felangel/equatable/actions">
     <img alt="Code Coverage" src="https://github.com/felangel/equatable/blob/master/coverage_badge.svg">
