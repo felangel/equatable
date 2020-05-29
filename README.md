@@ -170,7 +170,9 @@ class Person extends Equatable {
 ```
 
 ### `toString` Implementation
+
 Equatable can implement `toString` method including all the given props. If you want that behaviour, just include the following:
+
 ```dart
   @override
   bool get stringify => true;
@@ -188,19 +190,30 @@ class Person extends Equatable {
 
   @override
   List<Object> get props => [name];
-  
+
   @override
   bool get stringify => true;
 }
 ```
-For the name `Bob`, the outuput will be:
-```
-Person(Bob)
-```
+
+For the name `Bob`, the output will be:
+
+`Person(Bob)`
+
 This flag by default is false and `toString` will return just the type:
+
+`Person`
+
+#### EquatableConfig
+
+`stringify` can also be configured globally for all `Equatable` instances via `EquatableConfig`
+
+```dart
+EquatableConfig.stringify = true;
 ```
-Person
-```
+
+If `stringify` is overridden for a specific `Equatable` class, then the value of `EquatableConfig.stringify` is ignored.
+In other words, the local configuration always takes precedence over the global configuration.
 
 ## Recap
 

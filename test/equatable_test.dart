@@ -105,6 +105,20 @@ class ComplexStringify extends Equatable {
   bool get stringify => true;
 }
 
+class ExplicitStringifyFalse extends Equatable {
+  final String name;
+  final int age;
+  final Color hairColor;
+
+  ExplicitStringifyFalse({this.name, this.age, this.hairColor});
+
+  @override
+  List get props => [name, age, hairColor];
+
+  @override
+  bool get stringify => false;
+}
+
 class NullProps extends Equatable {
   NullProps();
 
@@ -116,6 +130,7 @@ class NullProps extends Equatable {
 }
 
 void main() {
+  EquatableConfig.stringify = false;
   group('Empty Equatable', () {
     test('should correct toString', () {
       final instance = EmptyEquatable();
@@ -763,6 +778,17 @@ void main() {
       expect(instanceA.toString(), 'ComplexStringify(, , )');
       expect(instanceB.toString(), 'ComplexStringify(Bob, , Color.black)');
       expect(instanceC.toString(), 'ComplexStringify(Joe, 50, Color.blonde)');
+    });
+
+    test('with ExplicitStringifyFalse stringify', () {
+      final instanceA = ExplicitStringifyFalse();
+      final instanceB =
+          ExplicitStringifyFalse(name: "Bob", hairColor: Color.black);
+      final instanceC =
+          ExplicitStringifyFalse(name: "Joe", age: 50, hairColor: Color.blonde);
+      expect(instanceA.toString(), 'ExplicitStringifyFalse');
+      expect(instanceB.toString(), 'ExplicitStringifyFalse');
+      expect(instanceC.toString(), 'ExplicitStringifyFalse');
     });
   });
 
