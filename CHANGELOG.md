@@ -1,3 +1,7 @@
+# 1.2.0
+
+- Added `EquatableConfig` for global `stringify` configuration
+
 # 1.1.1
 
 - Updates to `EquatableUtils` documentation

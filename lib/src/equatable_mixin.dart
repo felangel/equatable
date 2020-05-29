@@ -1,4 +1,5 @@
-import './equatable_utils.dart';
+import 'equatable_config.dart';
+import 'equatable_utils.dart';
 
 /// You must define the [EquatableMixin] on the class
 /// which you want to make Equatable.
@@ -26,6 +27,16 @@ mixin EquatableMixin {
   int get hashCode => runtimeType.hashCode ^ mapPropsToHashCode(props);
 
   @override
-  String toString() =>
-      stringify ? mapPropsToString(runtimeType, props) : '$runtimeType';
+  String toString() {
+    switch (stringify) {
+      case true:
+        return mapPropsToString(runtimeType, props);
+      case false:
+        return '$runtimeType';
+      default:
+        return EquatableConfig.stringify == true
+            ? mapPropsToString(runtimeType, props)
+            : '$runtimeType';
+    }
+  }
 }
