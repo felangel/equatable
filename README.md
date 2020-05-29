@@ -2,12 +2,13 @@
 <h2 align="center">
   Simplify Equality Comparisons
 </h2>
+
 <p align="center">
-  <a href="https://travis-ci.com/felangel/equatable">
-    <img alt="Build Status" src="https://travis-ci.com/felangel/equatable.svg?branch=master">
+  <a href="https://github.com/felangel/equatable/actions">
+    <img alt="Build Status" src="https://github.com/felangel/equatable/workflows/build/badge.svg">
   </a>
-  <a href="https://codecov.io/gh/felangel/equatable">
-    <img alt="Code Coverage" src="https://codecov.io/gh/felangel/equatable/branch/master/graph/badge.svg">
+  <a href="https://github.com/felangel/equatable/actions">
+    <img alt="Code Coverage" src="https://github.com/felangel/equatable/blob/master/coverage_badge.svg">
   </a>
   <a href="https://pub.dartlang.org/packages/equatable">
     <img alt="Pub Package" src="https://img.shields.io/pub/v/equatable.svg">
