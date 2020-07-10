@@ -1,4 +1,5 @@
 import 'package:equatable/equatable.dart';
+import 'package:collection/collection.dart';
 
 class Credentials extends Equatable {
   final String username;
@@ -32,6 +33,15 @@ class EquatableDateTime extends DateTime with EquatableMixin {
 
   @override
   bool get stringify => true;
+}
+
+class T<E> extends Equatable{
+  final E value;
+
+  T(this.value);
+
+  @override
+  List<Object> get props => [value];
 }
 
 void main() {
