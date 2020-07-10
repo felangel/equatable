@@ -38,9 +38,9 @@ int _combine(int hash, dynamic object) {
     return hash;
   }
   if (object is Iterable) {
-    object.forEach((value) {
+    for(final value in object){
       hash = hash ^ _combine(hash, value);
-    });
+    }
     return hash ^ object.length;
   }
 
