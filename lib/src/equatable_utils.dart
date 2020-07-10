@@ -1,8 +1,7 @@
 import 'package:collection/collection.dart';
 
 /// Returns a `hashCode` for [props].
-int mapPropsToHashCode(Iterable props) =>
-    _finish(props?.fold(0, _combine) ?? 0);
+int mapPropsToHashCode(Iterable props) => _finish(props?.fold(0, _combine) ?? 0);
 
 const DeepCollectionEquality _equality = DeepCollectionEquality();
 
@@ -37,8 +36,15 @@ int _combine(int hash, dynamic object) {
     });
     return hash;
   }
-  final objectHashCode =
-      object is Iterable ? mapPropsToHashCode(object) : object.hashCode;
+
+  var objectHashCode = 0;
+  if (object is Iterable) {
+    Function deepEq = const DeepCollectionEquality().equals;
+    objectHashCode = deepEq(object).hashCode;
+  } else {
+    objectHashCode = object.hashCode;
+  }
+
   hash = 0x1fffffff & (hash + objectHashCode);
   hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
   return hash ^ (hash >> 6);
