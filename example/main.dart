@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:collection/collection.dart';
 
 class Credentials extends Equatable {
   final String username;
