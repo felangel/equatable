@@ -41,7 +41,7 @@ int _combine(int hash, dynamic object) {
     object.forEach((value) {
       hash = hash ^ _combine(hash, value);
     });
-    return hash + object.length;
+    return hash ^ object.length;
   }
 
   hash = 0x1fffffff & (hash + object.hashCode);
