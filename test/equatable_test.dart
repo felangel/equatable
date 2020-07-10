@@ -612,10 +612,9 @@ void main() {
 
   group('Collection Equatable', () {
     group('Iterable Equatable', () {
-
       test('list of zeros same hashcode check', () {
-        final s0 = SimpleEquatable([0,0]);
-        final s1 = SimpleEquatable([0,0,0]);
+        final s0 = SimpleEquatable([0, 0]);
+        final s1 = SimpleEquatable([0, 0, 0]);
         expect(s0.hashCode != s1.hashCode, true);
       });
 
