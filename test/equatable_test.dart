@@ -131,6 +131,7 @@ class NullProps extends Equatable {
 
 void main() {
   EquatableConfig.stringify = false;
+
   group('Empty Equatable', () {
     test('should correct toString', () {
       final instance = EmptyEquatable();
@@ -611,6 +612,13 @@ void main() {
 
   group('Collection Equatable', () {
     group('Iterable Equatable', () {
+
+      test('list of zeros same hashcode check', () {
+        final s0 = SimpleEquatable([0,0]);
+        final s1 = SimpleEquatable([0,0,0]);
+        expect(s0.hashCode != s1.hashCode, true);
+      });
+
       test('should return when values are same', () {
         final instanceA = SimpleEquatable<Iterable>(["A", "B"]);
         final instanceB = SimpleEquatable<Iterable>(["A", "B"]);
