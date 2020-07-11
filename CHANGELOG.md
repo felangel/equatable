@@ -1,3 +1,7 @@
+# 1.2.2
+
+- Documentation badge fixes and updates
+
 # 1.2.1
 
 - Fix `hashCode` computation for `Iterables` ([#74](https://github.com/felangel/equatable/issues/74))

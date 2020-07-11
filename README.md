@@ -8,20 +8,23 @@
     <img alt="Build Status" src="https://github.com/felangel/equatable/workflows/build/badge.svg">
   </a>
   <a href="https://github.com/felangel/equatable/actions">
-    <img alt="Code Coverage" src="https://github.com/felangel/equatable/blob/master/coverage_badge.svg">
+    <img alt="Code Coverage" src="https://raw.githubusercontent.com/felangel/equatable/master/coverage_badge.svg">
   </a>
   <a href="https://pub.dartlang.org/packages/equatable">
     <img alt="Pub Package" src="https://img.shields.io/pub/v/equatable.svg">
   </a>
   <br/>
+  <a href="https://github.com/felangel/equatable">
+    <img src="https://img.shields.io/github/stars/felangel/equatable.svg?style=flat&logo=github&colorB=deeppink&label=stars" alt="Star on GitHub">
+  </a>
   <a href="https://github.com/tenhobi/effective_dart">
     <img alt="style: effective dart" src="https://img.shields.io/badge/style-effective_dart-40c4ff.svg">
+  </a>  
+  <a href="https://discord.gg/Hc5KD3g">
+    <img src="https://img.shields.io/discord/649708778631200778.svg?logo=discord&color=blue" alt="Discord">
   </a>
   <a href="https://opensource.org/licenses/MIT">
     <img alt="MIT License" src="https://img.shields.io/badge/License-MIT-blue.svg">
-  </a>
-  <a href="https://gitter.im/equatable_package/community">
-    <img alt="Gitter" src="https://img.shields.io/badge/gitter-equatable-yellow.svg">
   </a>
 </p>
 
