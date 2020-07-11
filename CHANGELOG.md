@@ -1,3 +1,8 @@
+# 1.2.1
+
+- Fix `hashCode` computation for `Iterables` ([#74](https://github.com/felangel/equatable/issues/74))
+- Minor documentation improvements
+
 # 1.2.0
 
 - Added `EquatableConfig` for global `stringify` configuration ([#69](https://github.com/felangel/equatable/pull/69))
