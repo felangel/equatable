@@ -37,9 +37,14 @@ int _combine(int hash, dynamic object) {
     });
     return hash;
   }
-  final objectHashCode =
-      object is Iterable ? mapPropsToHashCode(object) : object.hashCode;
-  hash = 0x1fffffff & (hash + objectHashCode);
+  if (object is Iterable) {
+    for (final value in object) {
+      hash = hash ^ _combine(hash, value);
+    }
+    return hash ^ object.length;
+  }
+
+  hash = 0x1fffffff & (hash + object.hashCode);
   hash = 0x1fffffff & (hash + ((0x0007ffff & hash) << 10));
   return hash ^ (hash >> 6);
 }
