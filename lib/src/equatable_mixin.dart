@@ -1,18 +1,16 @@
 import 'equatable_config.dart';
 import 'equatable_utils.dart';
 
-/// You must define the [EquatableMixin] on the class
-/// which you want to make Equatable.
+/// A mixin that helps implement equality
+/// without needing to explicitly override [operator ==] and [hashCode].
 ///
-/// [EquatableMixin] does the override of the `==` operator as well as
-/// `hashCode`.
+/// Like with extending [Equatable], the [EquatableMixin] overrides the
+/// [operator ==] as well as the [hashCode] based on the provided [props].
 mixin EquatableMixin {
-  /// The [List] of `props` (properties) which will be used to determine whether
-  /// two [Equatables] are equal.
+  /// {@macro equatable_props}
   List<Object> get props;
 
-  /// If the value is [true], the `toString` method will be overrided to print
-  /// the equatable `props`.
+  /// {@macro equatable_stringify}
   bool get stringify => false;
 
   @override
