@@ -1,10 +1,10 @@
 import 'package:equatable/equatable.dart';
 
 class Credentials extends Equatable {
+  const Credentials({this.username, this.password});
+
   final String username;
   final String password;
-
-  const Credentials({this.username, this.password});
 
   @override
   List<Object> get props => [username, password];
@@ -26,7 +26,7 @@ class EquatableDateTime extends DateTime with EquatableMixin {
   ]) : super(year, month, day, hour, minute, second, millisecond, microsecond);
 
   @override
-  List get props {
+  List<Object> get props {
     return [year, month, day, hour, minute, second, millisecond, microsecond];
   }
 
@@ -36,9 +36,9 @@ class EquatableDateTime extends DateTime with EquatableMixin {
 
 void main() {
   // Extending Equatable
-  final credentialsA = Credentials(username: 'Joe', password: 'password123');
-  final credentialsB = Credentials(username: 'Bob', password: 'password!');
-  final credentialsC = Credentials(username: 'Bob', password: 'password!');
+  const credentialsA = Credentials(username: 'Joe', password: 'password123');
+  const credentialsB = Credentials(username: 'Bob', password: 'password!');
+  const credentialsC = Credentials(username: 'Bob', password: 'password!');
 
   print(credentialsA == credentialsA); // true
   print(credentialsB == credentialsB); // true

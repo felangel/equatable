@@ -108,7 +108,7 @@ First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^1.2.1
+  equatable: ^1.2.3
 ```
 
 Next, we need to install it:
@@ -312,15 +312,13 @@ class EquatableDateTimeSubclass extends EquatableDateTime {
 
 You might be wondering what the performance impact will be if you use `Equatable`.
 
-[Performance Tests](https://github.com/felangel/equatable/raw/master/performance_tests) have been written to test how `Equatable` stacks up to manually overriding `==` and `hashCode` in terms of class instantiation as well as equality comparison.
-
 ### Results (average over 10 runs)
 
 #### Equality Comparison A == A
 
 | Class              | Runtime (μs) |
 | ------------------ | ------------ |
-| RAW                | 0.193        |
+| Manual             | 0.193        |
 | Empty Equatable    | 0.191        |
 | Hydrated Equatable | 0.190        |
 
@@ -328,8 +326,12 @@ You might be wondering what the performance impact will be if you use `Equatable
 
 | Class              | Runtime (μs) |
 | ------------------ | ------------ |
-| RAW                | 0.165        |
+| Manual             | 0.165        |
 | Empty Equatable    | 0.181        |
 | Hydrated Equatable | 0.182        |
 
 \*_Performance Tests run using: Dart VM version: 2.4.0_
+
+## Maintainers
+
+- [Felix Angelov](https://github.com/felangel)
