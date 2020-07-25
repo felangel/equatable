@@ -3,7 +3,7 @@ import 'package:meta/meta.dart';
 import './equatable_config.dart';
 import './equatable_utils.dart';
 
-/// A base class to facilitate [operator==] and [hashCode] overrides.
+/// A base class to facilitate [operator ==] and [hashCode] overrides.
 ///
 /// ```dart
 /// class ConstTest extends Equatable {
@@ -17,19 +17,31 @@ import './equatable_utils.dart';
 /// ```
 @immutable
 abstract class Equatable {
-  /// The [List] of `props` (properties) which will be used to determine whether
-  /// two [Equatables] are equal.
+  /// {@template equatable_props}
+  /// The list of properies that will be used to determine whether
+  /// two [Equatable]s are equal.
+  /// {@endtemplate}
   List<Object> get props;
 
-  /// If the value is [true], the `toString` method will be overrided to print
-  /// the equatable `props`.
+  /// {@template equatable_stringify}
+  /// If set to `true`, the [toString] method will be overridden to output
+  /// this [Equatable]'s [props].
+  ///
+  /// A global default value for [stringify] can be set using
+  /// [EquatableConfig.stringify].
+  ///
+  /// If this [Equatable]'s [stringify] is set to null, the value of
+  /// [EquatableConfig.stringify] will be used instead. That value deafults to
+  /// `false`.
+  /// {@endtemplate}
   // ignore: avoid_returning_null
   bool get stringify => null;
 
   /// A class that helps implement equality
-  /// without needing to explicitly override == and [hashCode].
-  /// Equatables override their own `==` operator and [hashCode] based on their
-  /// `props`.
+  /// without needing to explicitly override [operator ==] and [hashCode].
+  ///
+  /// [Equatable]s override their own [operator ==] and [hashCode] based on
+  /// their [props].
   const Equatable();
 
   @override
