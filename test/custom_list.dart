@@ -6,13 +6,13 @@
 import 'dart:math';
 
 class CustomList<E> implements List<E> {
+  CustomList(this._list, {bool growable = false})
+      : _copyBeforeWrite = true,
+        _growable = growable;
+
   bool _copyBeforeWrite;
   final bool _growable;
   List<E> _list;
-
-  CustomList(this._list, {growable = false})
-      : _copyBeforeWrite = true,
-        _growable = growable;
 
   // Read-only methods: just forward.
 
@@ -83,7 +83,7 @@ class CustomList<E> implements List<E> {
   Iterator<E> get iterator => _list.iterator;
 
   @override
-  String join([String separator = ""]) => _list.join(separator);
+  String join([String separator = '']) => _list.join(separator);
 
   @override
   E get last => _list.last;

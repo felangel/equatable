@@ -1,3 +1,4 @@
+import 'equatable.dart';
 import 'equatable_config.dart';
 import 'equatable_utils.dart';
 

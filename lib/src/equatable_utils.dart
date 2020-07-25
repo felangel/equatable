@@ -14,8 +14,8 @@ bool equals(List list1, List list2) {
   if (length != list2.length) return false;
 
   for (var i = 0; i < length; i++) {
-    final unit1 = list1[i];
-    final unit2 = list2[i];
+    final dynamic unit1 = list1[i];
+    final dynamic unit2 = list2[i];
 
     if (unit1 is Iterable || unit1 is Map) {
       if (!_equality.equals(unit1, unit2)) return false;
@@ -32,8 +32,8 @@ bool equals(List list1, List list2) {
 /// https://en.wikipedia.org/wiki/Jenkins_hash_function
 int _combine(int hash, dynamic object) {
   if (object is Map) {
-    object.forEach((key, value) {
-      hash = hash ^ _combine(hash, [key, value]);
+    object.forEach((dynamic key, dynamic value) {
+      hash = hash ^ _combine(hash, <dynamic>[key, value]);
     });
     return hash;
   }

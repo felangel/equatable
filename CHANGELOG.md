@@ -1,3 +1,8 @@
+# 1.2.3
+
+- docs: inline, public documentation improvements ([#78](https://github.com/felangel/equatable/pull/78)).
+- refactor: stricter analysis/lint rules
+
 # 1.2.2
 
 - Documentation badge fixes and updates

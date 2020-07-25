@@ -1,6 +1,6 @@
 name: equatable
 description: An abstract class that helps to implement equality without needing to explicitly override == and hashCode.
-version: 1.2.2
+version: 1.2.3
 repository: https://github.com/felangel/equatable
 issue_tracker: https://github.com/felangel/equatable/issues
 homepage: https://github.com/felangel/equatable
@@ -11,7 +11,7 @@ environment:
 
 dependencies:
   collection: ^1.14.11
-  meta: ^1.1.6
+  meta: ^1.1.8
 
 dev_dependencies:
   effective_dart: ^1.2.0

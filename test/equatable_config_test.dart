@@ -1,12 +1,13 @@
+// ignore_for_file: prefer_const_constructors
 import 'package:equatable/equatable.dart';
 import 'package:test/test.dart';
 
 class Credentials extends Equatable {
+  const Credentials({this.username, this.password, this.shouldStringify});
+
   final String username;
   final String password;
   final bool shouldStringify;
-
-  const Credentials({this.username, this.password, this.shouldStringify});
 
   @override
   List<Object> get props => [username, password];
@@ -18,14 +19,14 @@ class Credentials extends Equatable {
 abstract class EquatableBase with EquatableMixin {}
 
 class CredentialsMixin extends EquatableBase {
+  CredentialsMixin({this.username, this.password, this.shouldStringify});
+
   final String username;
   final String password;
   final bool shouldStringify;
 
-  CredentialsMixin({this.username, this.password, this.shouldStringify});
-
   @override
-  List get props => [username, password];
+  List<Object> get props => [username, password];
 
   @override
   bool get stringify => shouldStringify;
