@@ -12,7 +12,8 @@ mixin EquatableMixin {
   List<Object> get props;
 
   /// {@macro equatable_stringify}
-  bool get stringify => false;
+  // ignore: avoid_returning_null
+  bool get stringify => null;
 
   @override
   bool operator ==(Object other) {
