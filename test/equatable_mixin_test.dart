@@ -120,6 +120,7 @@ class NullProps extends Equatable {
 }
 
 void main() {
+  EquatableConfig.stringify = false;
   group('Empty Equatable', () {
     test('should correct toString', () {
       final instance = EmptyEquatable();
