@@ -22,6 +22,6 @@ jobs:
       - name: Analyze
         run: dartanalyzer --fatal-infos --fatal-warnings lib test
       - name: Run tests
-        run: pub run test
-      # - name: Check Code Coverage
-      #   uses: ChicagoFlutter/lcov-cop@v1.0.0
+        run: pub run test_coverage
+      - name: Check Code Coverage
+        uses: ChicagoFlutter/lcov-cop@v1.0.0
