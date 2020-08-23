@@ -133,7 +133,9 @@ class NullProps extends Equatable {
 }
 
 void main() {
-  EquatableConfig.stringify = false;
+  setUp(() {
+    EquatableConfig.stringify = false;
+  });
 
   group('Empty Equatable', () {
     test('should correct toString', () {
@@ -172,6 +174,13 @@ void main() {
     test('should correct toString', () {
       final instance = SimpleEquatable('simple');
       expect(instance.toString(), 'SimpleEquatable<String>');
+    });
+
+    test('should correct toString when EquatableConfig.stringify is true', () {
+      EquatableConfig.stringify = true;
+      final instance = SimpleEquatable('simple');
+      expect(instance.toString(), 'SimpleEquatable<String>(simple)');
+      EquatableConfig.stringify = null;
     });
 
     test('should return true when instance is the same', () {

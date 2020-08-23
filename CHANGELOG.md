@@ -1,3 +1,7 @@
+# 1.2.4
+
+- fix: `EquatableMixin` stringify respects `EquatableConfig.stringify` ([#81](https://github.com/felangel/equatable/issues/81))
+
 # 1.2.3
 
 - docs: inline, public documentation improvements ([#78](https://github.com/felangel/equatable/pull/78)).
