@@ -24,19 +24,19 @@ abstract class Equatable {
 
   /// {@template equatable_props}
   /// The list of properies that will be used to determine whether
-  /// two [Equatable]s are equal.
+  /// two instances are equal.
   /// {@endtemplate}
   List<Object> get props;
 
   /// {@template equatable_stringify}
   /// If set to `true`, the [toString] method will be overridden to output
-  /// this [Equatable]'s [props].
+  /// this instance's [props].
   ///
   /// A global default value for [stringify] can be set using
-  /// [EquatableConfig.stringify].
+  /// `EquatableConfig.stringify`.
   ///
-  /// If this [Equatable]'s [stringify] is set to null, the value of
-  /// [EquatableConfig.stringify] will be used instead. That value deafults to
+  /// If this instance's [stringify] is set to null, the value of
+  /// `EquatableConfig.stringify` will be used instead. This defaults to
   /// `false`.
   /// {@endtemplate}
   // ignore: avoid_returning_null

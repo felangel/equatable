@@ -1,3 +1,8 @@
+# 1.2.5
+
+- docs: dartdoc improvements ([#80](https://github.com/felangel/equatable/issues/80))
+- docs: minor inline documentation improvements
+
 # 1.2.4
 
 - fix: `EquatableMixin` stringify respects `EquatableConfig.stringify` ([#81](https://github.com/felangel/equatable/issues/81))
