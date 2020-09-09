@@ -35,7 +35,7 @@ class CustomList<E> implements List<E> {
   List<T> cast<T>() => CustomList<T>(_list.cast<T>(), growable: _growable);
 
   @override
-  bool contains(Object element) => _list.contains(element);
+  bool contains(Object? element) => _list.contains(element);
 
   @override
   E elementAt(int index) => _list.elementAt(index);
@@ -50,7 +50,7 @@ class CustomList<E> implements List<E> {
   E get first => _list.first;
 
   @override
-  E firstWhere(bool test(E element), {E orElse()}) =>
+  E firstWhere(bool test(E element), {E orElse()?}) =>
       _list.firstWhere(test, orElse: orElse);
 
   @override
@@ -89,14 +89,14 @@ class CustomList<E> implements List<E> {
   E get last => _list.last;
 
   @override
-  int lastIndexOf(E element, [int start]) => _list.lastIndexOf(element, start);
+  int lastIndexOf(E element, [int? start]) => _list.lastIndexOf(element, start);
 
   @override
-  int lastIndexWhere(bool test(E element), [int start]) =>
+  int lastIndexWhere(bool test(E element), [int? start]) =>
       _list.lastIndexWhere(test, start);
 
   @override
-  E lastWhere(bool test(E element), {E orElse()}) =>
+  E lastWhere(bool test(E element), {E orElse()?}) =>
       _list.lastWhere(test, orElse: orElse);
 
   @override
@@ -112,7 +112,7 @@ class CustomList<E> implements List<E> {
   E get single => _list.single;
 
   @override
-  E singleWhere(bool test(E element), {E orElse()}) =>
+  E singleWhere(bool test(E element), {E orElse()?}) =>
       _list.singleWhere(test, orElse: orElse);
 
   @override
@@ -122,7 +122,7 @@ class CustomList<E> implements List<E> {
   Iterable<E> skipWhile(bool test(E value)) => _list.skipWhile(test);
 
   @override
-  List<E> sublist(int start, [int end]) => _list.sublist(start, end);
+  List<E> sublist(int start, [int? end]) => _list.sublist(start, end);
 
   @override
   Iterable<E> take(int count) => _list.take(count);
@@ -181,13 +181,13 @@ class CustomList<E> implements List<E> {
   }
 
   @override
-  void sort([int compare(E a, E b)]) {
+  void sort([int compare(E a, E b)?]) {
     _maybeCopyBeforeWrite();
     _list.sort(compare);
   }
 
   @override
-  void shuffle([Random random]) {
+  void shuffle([Random? random]) {
     _maybeCopyBeforeWrite();
     _list.shuffle(random);
   }
@@ -217,7 +217,7 @@ class CustomList<E> implements List<E> {
   }
 
   @override
-  bool remove(Object value) {
+  bool remove(Object? value) {
     _maybeCopyBeforeWrite();
     return _list.remove(value);
   }
@@ -259,7 +259,7 @@ class CustomList<E> implements List<E> {
   }
 
   @override
-  void fillRange(int start, int end, [E fillValue]) {
+  void fillRange(int start, int end, [E? fillValue]) {
     _maybeCopyBeforeWrite();
     _list.fillRange(start, end, fillValue);
   }
