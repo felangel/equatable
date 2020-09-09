@@ -12,7 +12,7 @@ jobs:
   build:
     runs-on: ubuntu-latest
     container:
-      image: google/dart:2.8.4
+      image: google/dart:2.10.0-99.0.dev
     steps:
       - uses: actions/checkout@v2
       - name: Install Dependencies
@@ -20,8 +20,8 @@ jobs:
       - name: Format
         run: dartfmt --dry-run --set-exit-if-changed .
       - name: Analyze
-        run: dartanalyzer --fatal-infos --fatal-warnings lib test
+        run: dartanalyzer --enable-experiment=non-nullable --fatal-infos --fatal-warnings lib test
       - name: Run tests
-        run: pub run test_coverage
-      - name: Check Code Coverage
-        uses: ChicagoFlutter/lcov-cop@v1.0.0
+        run: pub run --enable-experiment=non-nullable test
+      # - name: Check Code Coverage
+      #   uses: ChicagoFlutter/lcov-cop@v1.0.0

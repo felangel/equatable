@@ -14,7 +14,7 @@ class EmptyEquatable extends EquatableBase {
   List<Object> get props => const [];
 }
 
-class SimpleEquatable<T> extends EquatableBase {
+class SimpleEquatable<T extends Object> extends EquatableBase {
   SimpleEquatable(this.data);
 
   final T data;
@@ -23,7 +23,7 @@ class SimpleEquatable<T> extends EquatableBase {
   List<Object> get props => [data];
 }
 
-class MultipartEquatable<T> extends EquatableBase {
+class MultipartEquatable<T extends Object> extends EquatableBase {
   MultipartEquatable(this.d1, this.d2);
 
   final T d1;
@@ -47,27 +47,27 @@ enum Color { blonde, black, brown }
 class ComplexEquatable extends EquatableBase {
   ComplexEquatable({this.name, this.age, this.hairColor, this.children});
 
-  final String name;
-  final int age;
-  final Color hairColor;
-  final List<String> children;
+  final String? name;
+  final int? age;
+  final Color? hairColor;
+  final List<String>? children;
 
   @override
-  List<Object> get props => [name, age, hairColor, children];
+  List<Object?> get props => [name, age, hairColor, children];
 }
 
 class EquatableData extends EquatableBase {
   EquatableData({this.key, this.value});
 
-  final String key;
+  final String? key;
   final dynamic value;
 
   @override
-  List<Object> get props => [key, value];
+  List<Object?> get props => [key, value];
 }
 
 class Credentials extends EquatableBase {
-  Credentials({this.username, this.password});
+  Credentials({required this.username, required this.password});
 
   factory Credentials.fromJson(Map<String, dynamic> json) {
     return Credentials(
@@ -91,7 +91,7 @@ class Credentials extends EquatableBase {
 }
 
 class ComplexStringify extends ComplexEquatable {
-  ComplexStringify({String name, int age, Color hairColor})
+  ComplexStringify({String? name, int? age, Color? hairColor})
       : super(name: name, age: age, hairColor: hairColor);
 
   @override
@@ -99,28 +99,18 @@ class ComplexStringify extends ComplexEquatable {
 }
 
 class ExplicitStringifyFalse extends ComplexEquatable {
-  ExplicitStringifyFalse({String name, int age, Color hairColor})
+  ExplicitStringifyFalse({String? name, int? age, Color? hairColor})
       : super(name: name, age: age, hairColor: hairColor);
 
   @override
-  List<Object> get props => [name, age, hairColor];
+  List<Object?> get props => [name, age, hairColor];
 
   @override
   bool get stringify => false;
 }
 
-class NullProps extends Equatable {
-  NullProps();
-
-  @override
-  List<Object> get props => null;
-
-  @override
-  bool get stringify => true;
-}
-
 class IterableWithFlag<T> extends Iterable<T> with EquatableMixin {
-  IterableWithFlag({this.list, this.flag});
+  IterableWithFlag({required this.list, required this.flag});
 
   final bool flag;
   final List<T> list;
@@ -180,7 +170,7 @@ void main() {
       EquatableConfig.stringify = true;
       final instance = SimpleEquatable('simple');
       expect(instance.toString(), 'SimpleEquatable<String>(simple)');
-      EquatableConfig.stringify = null;
+      EquatableConfig.stringify = false;
     });
 
     test('should return true when instance is the same', () {
@@ -630,25 +620,6 @@ void main() {
       expect(instanceA.toString(), 'ExplicitStringifyFalse');
       expect(instanceB.toString(), 'ExplicitStringifyFalse');
       expect(instanceC.toString(), 'ExplicitStringifyFalse');
-    });
-  });
-
-  group('Null props Equatable', () {
-    test('should not crash invoking equals method', () {
-      final instanceA = NullProps();
-      final instanceB = NullProps();
-      expect(instanceA == instanceB, true);
-    });
-
-    test('should not crash invoking hascode method', () {
-      final instanceA = NullProps();
-      final instanceB = NullProps();
-      expect(instanceA.hashCode == instanceB.hashCode, true);
-    });
-
-    test('should not crash invoking toString method', () {
-      final instance = NullProps();
-      expect(instance.toString(), 'NullProps()');
     });
   });
 

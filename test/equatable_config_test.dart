@@ -3,33 +3,41 @@ import 'package:equatable/equatable.dart';
 import 'package:test/test.dart';
 
 class Credentials extends Equatable {
-  const Credentials({this.username, this.password, this.shouldStringify});
+  const Credentials({
+    required this.username,
+    required this.password,
+    this.shouldStringify,
+  });
 
   final String username;
   final String password;
-  final bool shouldStringify;
+  final bool? shouldStringify;
 
   @override
   List<Object> get props => [username, password];
 
   @override
-  bool get stringify => shouldStringify;
+  bool? get stringify => shouldStringify;
 }
 
 abstract class EquatableBase with EquatableMixin {}
 
 class CredentialsMixin extends EquatableBase {
-  CredentialsMixin({this.username, this.password, this.shouldStringify});
+  CredentialsMixin({
+    required this.username,
+    required this.password,
+    this.shouldStringify,
+  });
 
   final String username;
   final String password;
-  final bool shouldStringify;
+  final bool? shouldStringify;
 
   @override
   List<Object> get props => [username, password];
 
   @override
-  bool get stringify => shouldStringify;
+  bool? get stringify => shouldStringify;
 }
 
 void main() {
