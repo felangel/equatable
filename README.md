@@ -291,7 +291,7 @@ Now if we want to create a subclass of `EquatableDateTime`, we can just override
 class EquatableDateTimeSubclass extends EquatableDateTime {
   final int century;
 
-  EquatableDateTime(
+  EquatableDateTimeSubclass(
     this.century,
     int year,[
     int month = 1,
