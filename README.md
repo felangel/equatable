@@ -108,7 +108,7 @@ First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^1.2.3
+  equatable: ^1.2.5
 ```
 
 Next, we need to install it:
@@ -291,7 +291,7 @@ Now if we want to create a subclass of `EquatableDateTime`, we can just override
 class EquatableDateTimeSubclass extends EquatableDateTime {
   final int century;
 
-  EquatableDateTime(
+  EquatableDateTimeSubclass(
     this.century,
     int year,[
     int month = 1,

@@ -23,7 +23,7 @@ abstract class Equatable {
   const Equatable();
 
   /// {@template equatable_props}
-  /// The list of properies that will be used to determine whether
+  /// The list of properties that will be used to determine whether
   /// two instances are equal.
   /// {@endtemplate}
   List<Object?> get props;
