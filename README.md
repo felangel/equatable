@@ -108,7 +108,7 @@ First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^1.2.5
+  equatable: ^2.0.0-nullsafety.0
 ```
 
 Next, we need to install it:
@@ -178,8 +178,8 @@ class Person extends Equatable {
 Equatable can implement `toString` method including all the given props. If you want that behaviour, just include the following:
 
 ```dart
-  @override
-  bool get stringify => true;
+@override
+bool get stringify => true;
 ```
 
 For instance:

@@ -4,8 +4,6 @@ analyzer:
     implicit-dynamic: false
   errors:
     close_sinks: ignore
-  enable-experiment:
-    - non-nullable
 
 linter:
   rules:
