@@ -1,3 +1,9 @@
+# 2.0.0-nullsafety.0
+
+- **BREAKING**: opt into null safety
+- feat!: upgrade Dart SDK constraints to `>=2.12.0-0 <3.0.0`
+- docs: minor updates to `README` and `example`
+
 # 1.2.5
 
 - docs: dartdoc improvements ([#80](https://github.com/felangel/equatable/issues/80))

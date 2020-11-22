@@ -742,11 +742,9 @@ void main() {
 
     group('Set Equatable', () {
       test('should return when values are same', () {
-        // ignore: prefer_collection_literals
         final instanceA = SimpleEquatable<Set<String>>(
           Set.from(<String>['A', 'B']),
         );
-        // ignore: prefer_collection_literals
         final instanceB = SimpleEquatable<Set<String>>(
           Set.from(<String>['A', 'B']),
         );
@@ -755,11 +753,10 @@ void main() {
       });
 
       test('should return when values are same', () {
-        // ignore: prefer_collection_literals
         final instanceA = SimpleEquatable<Set<String>>(
           Set.from(<String>['A', 'B', 'A']),
         );
-        // ignore: prefer_collection_literals
+
         final instanceB = SimpleEquatable<Set<String>>(
           Set.from(<String>['A', 'B']),
         );
@@ -768,11 +765,10 @@ void main() {
       });
 
       test('should return when values are different', () {
-        // ignore: prefer_collection_literals
         final instanceA = SimpleEquatable<Set<String>>(
           Set.from(<String>['A', 'B']),
         );
-        // ignore: prefer_collection_literals
+
         final instanceB = SimpleEquatable<Set<String>>(
           Set.from(<String>['a', 'b']),
         );
@@ -781,11 +777,10 @@ void main() {
       });
 
       test('should return when values are different', () {
-        // ignore: prefer_collection_literals
         final instanceA = SimpleEquatable<Set<String>>(
           Set.from(<String>['A', 'B']),
         );
-        // ignore: prefer_collection_literals
+
         final instanceB = SimpleEquatable<Set<String>>(
           Set.from(<String>['C', 'D']),
         );
