@@ -811,8 +811,8 @@ void main() {
       final instanceB = ComplexStringify(name: 'Bob', hairColor: Color.black);
       final instanceC =
           ComplexStringify(name: 'Joe', age: 50, hairColor: Color.blonde);
-      expect(instanceA.toString(), 'ComplexStringify(, , )');
-      expect(instanceB.toString(), 'ComplexStringify(Bob, , Color.black)');
+      expect(instanceA.toString(), 'ComplexStringify(null, null, null)');
+      expect(instanceB.toString(), 'ComplexStringify(Bob, null, Color.black)');
       expect(instanceC.toString(), 'ComplexStringify(Joe, 50, Color.blonde)');
     });
 
