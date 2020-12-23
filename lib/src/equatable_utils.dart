@@ -56,5 +56,16 @@ int _finish(int hash) {
 }
 
 /// Returns a string for [props].
-String mapPropsToString(Type runtimeType, List<Object> props) =>
-    '$runtimeType${props?.map((prop) => prop?.toString() ?? '') ?? '()'}';
+String mapPropsToString(Type runtimeType, List<Object> props) {
+  var strings = <String>[];
+
+  for (var prop in props) {
+    final str = prop?.toString() ?? '';
+    if (str.isNotEmpty) {
+      strings.add(str);
+    }
+  }
+
+  return '$runtimeType(${strings.join(', ')})' ;
+}
+
