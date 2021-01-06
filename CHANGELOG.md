@@ -1,3 +1,7 @@
+# 2.0.0-nullsafety.1
+
+- **BREAKING**: stringify prints "null" for null properties instead of ""
+
 # 2.0.0-nullsafety.0
 
 - **BREAKING**: opt into null safety
