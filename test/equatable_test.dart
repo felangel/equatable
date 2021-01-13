@@ -835,17 +835,18 @@ void main() {
 
     test('with SuperLongProperties stringify', () {
       final instance = SuperLongPropertiesStringify(
-        "aaaaaaaaaaaaaaa",
-        "aaaaaaaaaaaaaaa",
-        "aaaaaaaaaaaaaaa",
-        "aaaaaaaaaaaaaaa",
-        "aaaaaaaaaaaaaaa",
-        "aaaaaaaaaaaaaaa",
+        'aaaaaaaaaaaaaaa',
+        'aaaaaaaaaaaaaaa',
+        'aaaaaaaaaaaaaaa',
+        'aaaaaaaaaaaaaaa',
+        'aaaaaaaaaaaaaaa',
+        'aaaaaaaaaaaaaaa',
       );
       expect(
         instance.toString(),
-        'SuperLongPropertiesStringify(aaaaaaaaaaaaaaa, aaaaaaaaaaaaaaa, aaaaaaaaaaaaaaa, '
-        'aaaaaaaaaaaaaaa, aaaaaaaaaaaaaaa, aaaaaaaaaaaaaaa)',
+        'SuperLongPropertiesStringify(aaaaaaaaaaaaaaa, aaaaaaaaaaaaaaa, '
+        'aaaaaaaaaaaaaaa, aaaaaaaaaaaaaaa, aaaaaaaaaaaaaaa, '
+        'aaaaaaaaaaaaaaa)',
       );
     });
 
