@@ -1,4 +1,5 @@
 import 'package:collection/collection.dart';
+import 'package:equatable/equatable.dart';
 
 /// Returns a `hashCode` for [props].
 int mapPropsToHashCode(Iterable props) =>
@@ -17,7 +18,9 @@ bool equals(List list1, List list2) {
     final dynamic unit1 = list1[i];
     final dynamic unit2 = list2[i];
 
-    if (unit1 is Iterable || unit1 is Map) {
+    if (_isEquatable(unit1) && _isEquatable(unit2)) {
+      if (unit1 != unit2) return false;
+    } else if (unit1 is Iterable || unit1 is Map) {
       if (!_equality.equals(unit1, unit2)) return false;
     } else if (unit1?.runtimeType != unit2?.runtimeType) {
       return false;
@@ -26,6 +29,10 @@ bool equals(List list1, List list2) {
     }
   }
   return true;
+}
+
+bool _isEquatable(dynamic object) {
+  return object is Equatable || object is EquatableMixin;
 }
 
 /// Jenkins Hash Functions
