@@ -108,7 +108,7 @@ First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^2.0.0-nullsafety.1
+  equatable: ^2.0.0-nullsafety.3
 ```
 
 Next, we need to install it:
