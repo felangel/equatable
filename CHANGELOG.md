@@ -1,3 +1,8 @@
+# 1.2.6
+
+- fix: iterable equality comparisons ([#101](https://github.com/felangel/equatable/issues/101))
+- fix: stringify instance with long properties ([#94](https://github.com/felangel/equatable/issues/94))
+
 # 1.2.5
 
 - docs: dartdoc improvements ([#80](https://github.com/felangel/equatable/issues/80))
