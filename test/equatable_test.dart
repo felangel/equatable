@@ -108,6 +108,23 @@ class ComplexStringify extends Equatable {
   bool get stringify => true;
 }
 
+class SuperLongPropertiesStringify extends Equatable {
+  SuperLongPropertiesStringify(this.a, this.b, this.c, this.d, this.e, this.f);
+
+  final String a;
+  final String b;
+  final String c;
+  final String d;
+  final String e;
+  final String f;
+
+  @override
+  List<Object> get props => [a, b, c, d, e, f];
+
+  @override
+  bool get stringify => true;
+}
+
 class ExplicitStringifyFalse extends Equatable {
   ExplicitStringifyFalse({this.name, this.age, this.hairColor});
 
@@ -806,6 +823,23 @@ void main() {
       expect(instanceA.toString(), 'ComplexStringify(null, null, null)');
       expect(instanceB.toString(), 'ComplexStringify(Bob, null, Color.black)');
       expect(instanceC.toString(), 'ComplexStringify(Joe, 50, Color.blonde)');
+    });
+
+    test('with SuperLongProperties stringify', () {
+      final instance = SuperLongPropertiesStringify(
+        'aaaaaaaaaaaaaaa',
+        'aaaaaaaaaaaaaaa',
+        'aaaaaaaaaaaaaaa',
+        'aaaaaaaaaaaaaaa',
+        'aaaaaaaaaaaaaaa',
+        'aaaaaaaaaaaaaaa',
+      );
+      expect(
+        instance.toString(),
+        'SuperLongPropertiesStringify(aaaaaaaaaaaaaaa, aaaaaaaaaaaaaaa, '
+        'aaaaaaaaaaaaaaa, aaaaaaaaaaaaaaa, aaaaaaaaaaaaaaa, '
+        'aaaaaaaaaaaaaaa)',
+      );
     });
 
     test('with ExplicitStringifyFalse stringify', () {
