@@ -1,3 +1,9 @@
+# 2.0.0-nullsafety.3
+
+- chore: update dependencies
+  - `collection: ^1.15.0`
+  - `meta: ^1.3.0`
+
 # 2.0.0-nullsafety.2
 
 - fix: iterable equality comparisons ([#101](https://github.com/felangel/equatable/issues/101))
