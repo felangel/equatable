@@ -1,3 +1,8 @@
+# 2.0.0-nullsafety.2
+
+- fix: iterable equality comparisons ([#101](https://github.com/felangel/equatable/issues/101))
+- fix: stringify instance with long properties ([#94](https://github.com/felangel/equatable/issues/94))
+
 # 2.0.0-nullsafety.1
 
 - **BREAKING**: stringify prints "null" for null properties instead of ""
