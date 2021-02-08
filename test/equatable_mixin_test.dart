@@ -120,7 +120,7 @@ class NullProps extends Equatable {
 }
 
 class IterableWithFlag<T> extends Iterable<T> with EquatableMixin {
-  const IterableWithFlag({this.list, this.flag});
+  IterableWithFlag({this.list, this.flag});
 
   final bool flag;
   final List<T> list;
@@ -651,18 +651,19 @@ void main() {
       expect(instance.toString(), 'NullProps()');
     });
   });
+
   group('Iterable Equatable', () {
     test('should be equal when different instances have same values', () {
-      const instanceA = IterableWithFlag(flag: true, list: [1, 2]);
-      const instanceB = IterableWithFlag(flag: true, list: [1, 2]);
+      final instanceA = IterableWithFlag(flag: true, list: [1, 2]);
+      final instanceB = IterableWithFlag(flag: true, list: [1, 2]);
 
       expect(instanceA == instanceB, isTrue);
     });
 
     test('should not be equal when different instances have different values',
         () {
-      const instanceA = IterableWithFlag(flag: false, list: [1, 2]);
-      const instanceB = IterableWithFlag(flag: true, list: [1, 2]);
+      final instanceA = IterableWithFlag(flag: false, list: [1, 2]);
+      final instanceB = IterableWithFlag(flag: true, list: [1, 2]);
 
       expect(instanceA == instanceB, isFalse);
     });
@@ -670,10 +671,10 @@ void main() {
     test('wrapper should be equal when different instances have same values',
         () {
       final instanceA = SimpleEquatable(
-        const IterableWithFlag(flag: true, list: [1, 2]),
+        IterableWithFlag(flag: true, list: [1, 2]),
       );
       final instanceB = SimpleEquatable(
-        const IterableWithFlag(flag: true, list: [1, 2]),
+        IterableWithFlag(flag: true, list: [1, 2]),
       );
 
       expect(instanceA == instanceB, isTrue);
@@ -683,10 +684,10 @@ void main() {
         'wrapper should not be equal '
         'when different instances have different values', () {
       final instanceA = SimpleEquatable(
-        const IterableWithFlag(flag: true, list: [1, 2]),
+        IterableWithFlag(flag: true, list: [1, 2]),
       );
       final instanceB = SimpleEquatable(
-        const IterableWithFlag(flag: false, list: [1, 2]),
+        IterableWithFlag(flag: false, list: [1, 2]),
       );
 
       expect(instanceA == instanceB, isFalse);
