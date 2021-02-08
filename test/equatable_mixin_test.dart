@@ -119,6 +119,19 @@ class NullProps extends Equatable {
   bool get stringify => true;
 }
 
+class IterableWithFlag<T> extends Iterable<T> with EquatableMixin {
+  IterableWithFlag({this.list, this.flag});
+
+  final bool flag;
+  final List<T> list;
+
+  @override
+  List<Object> get props => [flag, list];
+
+  @override
+  Iterator<T> get iterator => list.iterator;
+}
+
 void main() {
   setUp(() {
     EquatableConfig.stringify = false;
@@ -636,6 +649,48 @@ void main() {
     test('should not crash invoking toString method', () {
       final instance = NullProps();
       expect(instance.toString(), 'NullProps()');
+    });
+  });
+
+  group('Iterable Equatable', () {
+    test('should be equal when different instances have same values', () {
+      final instanceA = IterableWithFlag(flag: true, list: [1, 2]);
+      final instanceB = IterableWithFlag(flag: true, list: [1, 2]);
+
+      expect(instanceA == instanceB, isTrue);
+    });
+
+    test('should not be equal when different instances have different values',
+        () {
+      final instanceA = IterableWithFlag(flag: false, list: [1, 2]);
+      final instanceB = IterableWithFlag(flag: true, list: [1, 2]);
+
+      expect(instanceA == instanceB, isFalse);
+    });
+
+    test('wrapper should be equal when different instances have same values',
+        () {
+      final instanceA = SimpleEquatable(
+        IterableWithFlag(flag: true, list: [1, 2]),
+      );
+      final instanceB = SimpleEquatable(
+        IterableWithFlag(flag: true, list: [1, 2]),
+      );
+
+      expect(instanceA == instanceB, isTrue);
+    });
+
+    test(
+        'wrapper should not be equal '
+        'when different instances have different values', () {
+      final instanceA = SimpleEquatable(
+        IterableWithFlag(flag: true, list: [1, 2]),
+      );
+      final instanceB = SimpleEquatable(
+        IterableWithFlag(flag: false, list: [1, 2]),
+      );
+
+      expect(instanceA == instanceB, isFalse);
     });
   });
 }
