@@ -6,9 +6,9 @@
 
 ```dart
 class Person extends Equatable {
-    final String name;
+    const Person(this.name) : super([name]);
 
-    Person(this.name) : super([name]);
+    final String name;
 }
 ```
 
@@ -16,9 +16,9 @@ class Person extends Equatable {
 
 ```dart
 class Person extends Equatable {
-    final String name;
+    const Person(this.name);
 
-    Person(this.name);
+    final String name;
 
     @override
     List<Object> get props => [name];
@@ -58,9 +58,9 @@ class MyClass extends Equatable {
 }
 
 class MySubClass extends MyClass {
-    final int data;
+    const MySubClass(this.data) : super([data]);
 
-    MySubClass(this.data) : super([data]);
+    final int data;
 }
 ```
 
@@ -72,10 +72,10 @@ class MyClass extends Equatable {
 }
 
 class MySubClass extends MyClass {
-    final int data;
-
     const MySubClass(this.data);
 
+    final int data;
+    
     @override
     List<Object> get props => [data];
 }
