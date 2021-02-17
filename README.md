@@ -42,9 +42,9 @@ Let's say we have the following class:
 
 ```dart
 class Person {
-  final String name;
-
   const Person(this.name);
+
+  final String name;
 }
 ```
 
@@ -68,9 +68,9 @@ In order to be able to compare two instances of `Person` we need to change our c
 
 ```dart
 class Person {
-  final String name;
-
   const Person(this.name);
+
+  final String name;
 
   @override
   bool operator ==(Object other) =>
@@ -127,9 +127,9 @@ Lastly, we need to extend `Equatable`
 import 'package:equatable/equatable.dart';
 
 class Person extends Equatable {
-  final String name;
+  const Person(this.name);
 
-  Person(this.name);
+  final String name;
 
   @override
   List<Object> get props => [name];
@@ -142,9 +142,9 @@ When working with json:
 import 'package:equatable/equatable.dart';
 
 class Person extends Equatable {
-  final String name;
+  const Person(this.name);
 
-  Person(this.name);
+  final String name;
 
   @override
   List<Object> get props => [name];
@@ -164,9 +164,9 @@ Equatable also supports `const` constructors:
 import 'package:equatable/equatable.dart';
 
 class Person extends Equatable {
-  final String name;
-
   const Person(this.name);
+
+  final String name;
 
   @override
   List<Object> get props => [name];
@@ -188,9 +188,9 @@ For instance:
 import 'package:equatable/equatable.dart';
 
 class Person extends Equatable {
-  final String name;
-
   const Person(this.name);
+
+  final String name;
 
   @override
   List<Object> get props => [name];
@@ -225,9 +225,9 @@ In other words, the local configuration always takes precedence over the global 
 
 ```dart
 class Person {
-  final String name;
-
   const Person(this.name);
+
+  final String name;
 
   @override
   bool operator ==(Object other) =>
@@ -247,10 +247,10 @@ class Person {
 import 'package:equatable/equatable.dart';
 
 class Person extends Equatable {
+  const Person(this.name);
+
   final String name;
-
-  Person(this.name);
-
+  
   @override
   List<Object> get props => [name];
 }
