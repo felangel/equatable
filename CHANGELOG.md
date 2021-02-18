@@ -1,3 +1,7 @@
+# 2.0.0-nullsafety.4
+
+- fix: equality override now allows `Object?`.
+
 # 2.0.0-nullsafety.3
 
 - chore: update dependencies
