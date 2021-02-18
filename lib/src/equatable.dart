@@ -43,7 +43,7 @@ abstract class Equatable {
   bool? get stringify => null;
 
   @override
-  bool operator ==(Object other) =>
+  bool operator ==(Object? other) =>
       identical(this, other) ||
       other is Equatable &&
           runtimeType == other.runtimeType &&
