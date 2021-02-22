@@ -15,6 +15,18 @@ class EquatableConfig {
   /// then the local [stringify] value takes precedence
   /// over [EquatableConfig.stringify].
   ///
-  /// This value defaults to false.
-  static bool stringify = false;
+  /// This value defaults to true in debug mode and false in release mode.
+  static bool get stringify {
+    if (_stringify == null) {
+      assert(() {
+        _stringify = true;
+        return true;
+      }());
+    }
+    return _stringify ??= false;
+  }
+
+  static set stringify(bool value) => _stringify = value;
+
+  static bool? _stringify;
 }
