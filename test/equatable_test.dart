@@ -240,7 +240,7 @@ void main() {
   });
 
   group('Simple Equatable (number)', () {
-    test('should correct toString', () {
+    test('should return correct toString', () {
       final instance = SimpleEquatable(0);
       expect(instance.toString(), 'SimpleEquatable<int>(0)');
     });
