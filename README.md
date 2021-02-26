@@ -108,7 +108,7 @@ First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^2.0.0-nullsafety.3
+  equatable: ^2.0.0-nullsafety.4
 ```
 
 Next, we need to install it:
@@ -175,7 +175,7 @@ class Person extends Equatable {
 
 ### `toString` Implementation
 
-Equatable can implement `toString` method including all the given props. If you want that behaviour, just include the following:
+Equatable can implement `toString` method including all the given props. If you want that behaviour for a specific `Equatable` object, just include the following:
 
 ```dart
 @override
@@ -219,6 +219,8 @@ EquatableConfig.stringify = true;
 If `stringify` is overridden for a specific `Equatable` class, then the value of `EquatableConfig.stringify` is ignored.
 In other words, the local configuration always takes precedence over the global configuration.
 
+_Note: `EquatableConfig.stringify` defaults to `true` in debug mode and `false` in release mode._
+
 ## Recap
 
 ### Without Equatable
@@ -250,7 +252,7 @@ class Person extends Equatable {
   const Person(this.name);
 
   final String name;
-  
+
   @override
   List<Object> get props => [name];
 }

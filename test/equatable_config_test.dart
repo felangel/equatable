@@ -42,13 +42,19 @@ class CredentialsMixin extends EquatableBase {
 
 void main() {
   group('EquatableConfig', () {
+    late bool globalStringify;
+
+    setUp(() {
+      globalStringify = EquatableConfig.stringify;
+    });
+
     tearDown(() {
-      EquatableConfig.stringify = false;
+      EquatableConfig.stringify = globalStringify;
     });
 
     group('stringify', () {
-      test('defaults to false', () {
-        expect(EquatableConfig.stringify, isFalse);
+      test('defaults to true', () {
+        expect(EquatableConfig.stringify, isTrue);
       });
 
       test('is used when stringify is not overridden at the instance (false)',

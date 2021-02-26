@@ -1,3 +1,7 @@
+# 2.0.0-nullsafety.4
+
+- feat: `EquatableConfig.stringify` defaults to `true` in debug mode.
+
 # 2.0.0-nullsafety.3
 
 - chore: update dependencies
