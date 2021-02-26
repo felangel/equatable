@@ -1,6 +1,7 @@
 # 2.0.0-nullsafety.4
 
 - feat: `EquatableConfig.stringify` defaults to `true` in debug mode.
+- fix: support legacy equality overrides with `EquatableMixin`
 
 # 2.0.0-nullsafety.3
 
