@@ -14,7 +14,7 @@ class EmptyEquatable extends EquatableBase {
   List<Object> get props => const [];
 }
 
-class SimpleEquatable<T> extends EquatableBase {
+class SimpleEquatable<T extends Object> extends EquatableBase {
   SimpleEquatable(this.data);
 
   final T data;
@@ -23,7 +23,7 @@ class SimpleEquatable<T> extends EquatableBase {
   List<Object> get props => [data];
 }
 
-class MultipartEquatable<T> extends EquatableBase {
+class MultipartEquatable<T extends Object> extends EquatableBase {
   MultipartEquatable(this.d1, this.d2);
 
   final T d1;
@@ -47,27 +47,27 @@ enum Color { blonde, black, brown }
 class ComplexEquatable extends EquatableBase {
   ComplexEquatable({this.name, this.age, this.hairColor, this.children});
 
-  final String name;
-  final int age;
-  final Color hairColor;
-  final List<String> children;
+  final String? name;
+  final int? age;
+  final Color? hairColor;
+  final List<String>? children;
 
   @override
-  List<Object> get props => [name, age, hairColor, children];
+  List<Object?> get props => [name, age, hairColor, children];
 }
 
 class EquatableData extends EquatableBase {
   EquatableData({this.key, this.value});
 
-  final String key;
+  final String? key;
   final dynamic value;
 
   @override
-  List<Object> get props => [key, value];
+  List<Object?> get props => [key, value];
 }
 
 class Credentials extends EquatableBase {
-  Credentials({this.username, this.password});
+  Credentials({required this.username, required this.password});
 
   factory Credentials.fromJson(Map<String, dynamic> json) {
     return Credentials(
@@ -91,7 +91,7 @@ class Credentials extends EquatableBase {
 }
 
 class ComplexStringify extends ComplexEquatable {
-  ComplexStringify({String name, int age, Color hairColor})
+  ComplexStringify({String? name, int? age, Color? hairColor})
       : super(name: name, age: age, hairColor: hairColor);
 
   @override
@@ -99,28 +99,18 @@ class ComplexStringify extends ComplexEquatable {
 }
 
 class ExplicitStringifyFalse extends ComplexEquatable {
-  ExplicitStringifyFalse({String name, int age, Color hairColor})
+  ExplicitStringifyFalse({String? name, int? age, Color? hairColor})
       : super(name: name, age: age, hairColor: hairColor);
 
   @override
-  List<Object> get props => [name, age, hairColor];
+  List<Object?> get props => [name, age, hairColor];
 
   @override
   bool get stringify => false;
 }
 
-class NullProps extends Equatable {
-  NullProps();
-
-  @override
-  List<Object> get props => null;
-
-  @override
-  bool get stringify => true;
-}
-
 class IterableWithFlag<T> extends Iterable<T> with EquatableMixin {
-  IterableWithFlag({this.list, this.flag});
+  IterableWithFlag({required this.list, required this.flag});
 
   final bool flag;
   final List<T> list;
@@ -132,15 +122,47 @@ class IterableWithFlag<T> extends Iterable<T> with EquatableMixin {
   Iterator<T> get iterator => list.iterator;
 }
 
+class LegacyEqualityOverride {
+  const LegacyEqualityOverride(this.x);
+
+  final int x;
+
+  @override
+  bool operator ==(dynamic o) {
+    if (identical(this, o)) return true;
+
+    return o is LegacyEqualityOverride && o.x == x;
+  }
+
+  @override
+  int get hashCode => x.hashCode;
+}
+
+class LegacyEqualityOverrideEquatable extends LegacyEqualityOverride
+    with EquatableMixin {
+  LegacyEqualityOverrideEquatable(int x, this.y) : super(x);
+
+  final int y;
+
+  @override
+  List<Object?> get props => [x, y];
+}
+
 void main() {
+  late bool globalStringify;
+
   setUp(() {
-    EquatableConfig.stringify = false;
+    globalStringify = EquatableConfig.stringify;
+  });
+
+  tearDown(() {
+    EquatableConfig.stringify = globalStringify;
   });
 
   group('Empty Equatable', () {
     test('should correct toString', () {
       final instance = EmptyEquatable();
-      expect(instance.toString(), 'EmptyEquatable');
+      expect(instance.toString(), 'EmptyEquatable()');
     });
 
     test('should return true when instance is the same', () {
@@ -173,14 +195,13 @@ void main() {
   group('Simple Equatable (string)', () {
     test('should correct toString', () {
       final instance = SimpleEquatable('simple');
-      expect(instance.toString(), 'SimpleEquatable<String>');
+      expect(instance.toString(), 'SimpleEquatable<String>(simple)');
     });
 
-    test('should correct toString when EquatableConfig.stringify is true', () {
-      EquatableConfig.stringify = true;
+    test('should correct toString when EquatableConfig.stringify is false', () {
+      EquatableConfig.stringify = false;
       final instance = SimpleEquatable('simple');
-      expect(instance.toString(), 'SimpleEquatable<String>(simple)');
-      EquatableConfig.stringify = null;
+      expect(instance.toString(), 'SimpleEquatable<String>');
     });
 
     test('should return true when instance is the same', () {
@@ -225,7 +246,7 @@ void main() {
   group('Simple Equatable (number)', () {
     test('should correct toString', () {
       final instance = SimpleEquatable(0);
-      expect(instance.toString(), 'SimpleEquatable<int>');
+      expect(instance.toString(), 'SimpleEquatable<int>(0)');
     });
 
     test('should return true when instance is the same', () {
@@ -264,7 +285,7 @@ void main() {
   group('Simple Equatable (bool)', () {
     test('should correct toString', () {
       final instance = SimpleEquatable(true);
-      expect(instance.toString(), 'SimpleEquatable<bool>');
+      expect(instance.toString(), 'SimpleEquatable<bool>(true)');
     });
 
     test('should return true when instance is the same', () {
@@ -306,7 +327,10 @@ void main() {
         key: 'foo',
         value: 'bar',
       ));
-      expect(instance.toString(), 'SimpleEquatable<EquatableData>');
+      expect(
+        instance.toString(),
+        'SimpleEquatable<EquatableData>(EquatableData(foo, bar))',
+      );
     });
     test('should return true when instance is the same', () {
       final instance = SimpleEquatable(EquatableData(
@@ -365,7 +389,7 @@ void main() {
   group('Multipart Equatable', () {
     test('should correct toString', () {
       final instance = MultipartEquatable('s1', 's2');
-      expect(instance.toString(), 'MultipartEquatable<String>');
+      expect(instance.toString(), 'MultipartEquatable<String>(s1, s2)');
     });
 
     test('should return true when instance is the same', () {
@@ -420,7 +444,10 @@ void main() {
         hairColor: Color.black,
         children: ['Bob'],
       );
-      expect(instance.toString(), 'ComplexEquatable');
+      expect(
+        instance.toString(),
+        'ComplexEquatable(Joe, 40, Color.black, [Bob])',
+      );
     });
     test('should return true when instance is the same', () {
       final instance = ComplexEquatable(
@@ -516,7 +543,7 @@ void main() {
         }
         ''',
       ) as Map<String, dynamic>);
-      expect(instance.toString(), 'Credentials');
+      expect(instance.toString(), 'Credentials(Admin, admin)');
     });
 
     test('should return true when instance is the same', () {
@@ -633,25 +660,6 @@ void main() {
     });
   });
 
-  group('Null props Equatable', () {
-    test('should not crash invoking equals method', () {
-      final instanceA = NullProps();
-      final instanceB = NullProps();
-      expect(instanceA == instanceB, true);
-    });
-
-    test('should not crash invoking hascode method', () {
-      final instanceA = NullProps();
-      final instanceB = NullProps();
-      expect(instanceA.hashCode == instanceB.hashCode, true);
-    });
-
-    test('should not crash invoking toString method', () {
-      final instance = NullProps();
-      expect(instance.toString(), 'NullProps()');
-    });
-  });
-
   group('Iterable Equatable', () {
     test('should be equal when different instances have same values', () {
       final instanceA = IterableWithFlag(flag: true, list: [1, 2]);
@@ -689,6 +697,23 @@ void main() {
       final instanceB = SimpleEquatable(
         IterableWithFlag(flag: false, list: [1, 2]),
       );
+
+      expect(instanceA == instanceB, isFalse);
+    });
+  });
+
+  group('LegacyEqualityOverride', () {
+    test('should be equal when different instances have same values', () {
+      final instanceA = LegacyEqualityOverrideEquatable(0, 1);
+      final instanceB = LegacyEqualityOverrideEquatable(0, 1);
+
+      expect(instanceA == instanceB, isTrue);
+    });
+
+    test('should not be equal when different instances have different values',
+        () {
+      final instanceA = LegacyEqualityOverrideEquatable(0, 0);
+      final instanceB = LegacyEqualityOverrideEquatable(0, 1);
 
       expect(instanceA == instanceB, isFalse);
     });

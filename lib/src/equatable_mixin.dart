@@ -9,14 +9,14 @@ import 'equatable_utils.dart';
 /// [operator ==] as well as the [hashCode] based on the provided [props].
 mixin EquatableMixin {
   /// {@macro equatable_props}
-  List<Object> get props;
+  List<Object?> get props;
 
   /// {@macro equatable_stringify}
   // ignore: avoid_returning_null
-  bool get stringify => null;
+  bool? get stringify => null;
 
   @override
-  bool operator ==(Object other) {
+  bool operator ==(Object? other) {
     return identical(this, other) ||
         other is EquatableMixin &&
             runtimeType == other.runtimeType &&

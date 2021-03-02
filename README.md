@@ -42,9 +42,9 @@ Let's say we have the following class:
 
 ```dart
 class Person {
-  final String name;
-
   const Person(this.name);
+
+  final String name;
 }
 ```
 
@@ -68,9 +68,9 @@ In order to be able to compare two instances of `Person` we need to change our c
 
 ```dart
 class Person {
-  final String name;
-
   const Person(this.name);
+
+  final String name;
 
   @override
   bool operator ==(Object other) =>
@@ -108,7 +108,7 @@ First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^1.2.5
+  equatable: ^2.0.0
 ```
 
 Next, we need to install it:
@@ -127,9 +127,9 @@ Lastly, we need to extend `Equatable`
 import 'package:equatable/equatable.dart';
 
 class Person extends Equatable {
-  final String name;
+  const Person(this.name);
 
-  Person(this.name);
+  final String name;
 
   @override
   List<Object> get props => [name];
@@ -142,9 +142,9 @@ When working with json:
 import 'package:equatable/equatable.dart';
 
 class Person extends Equatable {
-  final String name;
+  const Person(this.name);
 
-  Person(this.name);
+  final String name;
 
   @override
   List<Object> get props => [name];
@@ -164,9 +164,9 @@ Equatable also supports `const` constructors:
 import 'package:equatable/equatable.dart';
 
 class Person extends Equatable {
-  final String name;
-
   const Person(this.name);
+
+  final String name;
 
   @override
   List<Object> get props => [name];
@@ -175,11 +175,11 @@ class Person extends Equatable {
 
 ### `toString` Implementation
 
-Equatable can implement `toString` method including all the given props. If you want that behaviour, just include the following:
+Equatable can implement `toString` method including all the given props. If you want that behaviour for a specific `Equatable` object, just include the following:
 
 ```dart
-  @override
-  bool get stringify => true;
+@override
+bool get stringify => true;
 ```
 
 For instance:
@@ -188,9 +188,9 @@ For instance:
 import 'package:equatable/equatable.dart';
 
 class Person extends Equatable {
-  final String name;
-
   const Person(this.name);
+
+  final String name;
 
   @override
   List<Object> get props => [name];
@@ -219,15 +219,17 @@ EquatableConfig.stringify = true;
 If `stringify` is overridden for a specific `Equatable` class, then the value of `EquatableConfig.stringify` is ignored.
 In other words, the local configuration always takes precedence over the global configuration.
 
+_Note: `EquatableConfig.stringify` defaults to `true` in debug mode and `false` in release mode._
+
 ## Recap
 
 ### Without Equatable
 
 ```dart
 class Person {
-  final String name;
-
   const Person(this.name);
+
+  final String name;
 
   @override
   bool operator ==(Object other) =>
@@ -247,9 +249,9 @@ class Person {
 import 'package:equatable/equatable.dart';
 
 class Person extends Equatable {
-  final String name;
+  const Person(this.name);
 
-  Person(this.name);
+  final String name;
 
   @override
   List<Object> get props => [name];

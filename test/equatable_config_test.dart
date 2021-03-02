@@ -3,44 +3,58 @@ import 'package:equatable/equatable.dart';
 import 'package:test/test.dart';
 
 class Credentials extends Equatable {
-  const Credentials({this.username, this.password, this.shouldStringify});
+  const Credentials({
+    required this.username,
+    required this.password,
+    this.shouldStringify,
+  });
 
   final String username;
   final String password;
-  final bool shouldStringify;
+  final bool? shouldStringify;
 
   @override
   List<Object> get props => [username, password];
 
   @override
-  bool get stringify => shouldStringify;
+  bool? get stringify => shouldStringify;
 }
 
 abstract class EquatableBase with EquatableMixin {}
 
 class CredentialsMixin extends EquatableBase {
-  CredentialsMixin({this.username, this.password, this.shouldStringify});
+  CredentialsMixin({
+    required this.username,
+    required this.password,
+    this.shouldStringify,
+  });
 
   final String username;
   final String password;
-  final bool shouldStringify;
+  final bool? shouldStringify;
 
   @override
   List<Object> get props => [username, password];
 
   @override
-  bool get stringify => shouldStringify;
+  bool? get stringify => shouldStringify;
 }
 
 void main() {
   group('EquatableConfig', () {
+    late bool globalStringify;
+
+    setUp(() {
+      globalStringify = EquatableConfig.stringify;
+    });
+
     tearDown(() {
-      EquatableConfig.stringify = false;
+      EquatableConfig.stringify = globalStringify;
     });
 
     group('stringify', () {
-      test('defaults to false', () {
-        expect(EquatableConfig.stringify, isFalse);
+      test('defaults to true', () {
+        expect(EquatableConfig.stringify, isTrue);
       });
 
       test('is used when stringify is not overridden at the instance (false)',

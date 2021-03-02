@@ -18,7 +18,7 @@ class EmptyEquatable extends Equatable {
   List<Object> get props => [];
 }
 
-class SimpleEquatable<T> extends Equatable {
+class SimpleEquatable<T extends Object> extends Equatable {
   const SimpleEquatable(this.data);
 
   final T data;
@@ -27,7 +27,7 @@ class SimpleEquatable<T> extends Equatable {
   List<Object> get props => [data];
 }
 
-class MultipartEquatable<T> extends Equatable {
+class MultipartEquatable<T extends Object> extends Equatable {
   MultipartEquatable(this.d1, this.d2);
 
   final T d1;
@@ -51,27 +51,27 @@ enum Color { blonde, black, brown }
 class ComplexEquatable extends Equatable {
   const ComplexEquatable({this.name, this.age, this.hairColor, this.children});
 
-  final String name;
-  final int age;
-  final Color hairColor;
-  final List<String> children;
+  final String? name;
+  final int? age;
+  final Color? hairColor;
+  final List<String>? children;
 
   @override
-  List<Object> get props => [name, age, hairColor, children];
+  List<Object?> get props => [name, age, hairColor, children];
 }
 
 class EquatableData extends Equatable {
-  const EquatableData({this.key, this.value});
+  const EquatableData({required this.key, required this.value});
 
   final String key;
-  final dynamic value;
+  final Object value;
 
   @override
   List<Object> get props => [key, value];
 }
 
 class Credentials extends Equatable {
-  const Credentials({this.username, this.password});
+  const Credentials({required this.username, required this.password});
 
   factory Credentials.fromJson(Map<String, dynamic> json) {
     return Credentials(
@@ -97,12 +97,12 @@ class Credentials extends Equatable {
 class ComplexStringify extends Equatable {
   ComplexStringify({this.name, this.age, this.hairColor});
 
-  final String name;
-  final int age;
-  final Color hairColor;
+  final String? name;
+  final int? age;
+  final Color? hairColor;
 
   @override
-  List<Object> get props => [name, age, hairColor];
+  List<Object?> get props => [name, age, hairColor];
 
   @override
   bool get stringify => true;
@@ -128,36 +128,32 @@ class SuperLongPropertiesStringify extends Equatable {
 class ExplicitStringifyFalse extends Equatable {
   ExplicitStringifyFalse({this.name, this.age, this.hairColor});
 
-  final String name;
-  final int age;
-  final Color hairColor;
+  final String? name;
+  final int? age;
+  final Color? hairColor;
 
   @override
-  List<Object> get props => [name, age, hairColor];
+  List<Object?> get props => [name, age, hairColor];
 
   @override
   bool get stringify => false;
 }
 
-class NullProps extends Equatable {
-  NullProps();
-
-  @override
-  List<Object> get props => null;
-
-  @override
-  bool get stringify => true;
-}
-
 void main() {
+  late bool globalStringify;
+
   setUp(() {
-    EquatableConfig.stringify = false;
+    globalStringify = EquatableConfig.stringify;
+  });
+
+  tearDown(() {
+    EquatableConfig.stringify = globalStringify;
   });
 
   group('Empty Equatable', () {
     test('should correct toString', () {
       final instance = EmptyEquatable();
-      expect(instance.toString(), 'EmptyEquatable');
+      expect(instance.toString(), 'EmptyEquatable()');
     });
 
     test('should return true when instance is the same', () {
@@ -190,14 +186,13 @@ void main() {
   group('Simple Equatable (string)', () {
     test('should correct toString', () {
       final instance = SimpleEquatable('simple');
-      expect(instance.toString(), 'SimpleEquatable<String>');
+      expect(instance.toString(), 'SimpleEquatable<String>(simple)');
     });
 
-    test('should correct toString when EquatableConfig.stringify is true', () {
-      EquatableConfig.stringify = true;
+    test('should correct toString when EquatableConfig.stringify is false', () {
+      EquatableConfig.stringify = false;
       final instance = SimpleEquatable('simple');
-      expect(instance.toString(), 'SimpleEquatable<String>(simple)');
-      EquatableConfig.stringify = null;
+      expect(instance.toString(), 'SimpleEquatable<String>');
     });
 
     test('should return true when instance is the same', () {
@@ -215,7 +210,7 @@ void main() {
 
     test('should return correct toString', () {
       final instance = SimpleEquatable('simple');
-      expect(instance.toString(), 'SimpleEquatable<String>');
+      expect(instance.toString(), 'SimpleEquatable<String>(simple)');
     });
 
     test('should return true when instances are different', () {
@@ -245,9 +240,9 @@ void main() {
   });
 
   group('Simple Equatable (number)', () {
-    test('should correct toString', () {
+    test('should return correct toString', () {
       final instance = SimpleEquatable(0);
-      expect(instance.toString(), 'SimpleEquatable<int>');
+      expect(instance.toString(), 'SimpleEquatable<int>(0)');
     });
 
     test('should return true when instance is the same', () {
@@ -286,7 +281,7 @@ void main() {
   group('Simple Equatable (bool)', () {
     test('should correct toString', () {
       final instance = SimpleEquatable(true);
-      expect(instance.toString(), 'SimpleEquatable<bool>');
+      expect(instance.toString(), 'SimpleEquatable<bool>(true)');
     });
 
     test('should return true when instance is the same', () {
@@ -328,7 +323,10 @@ void main() {
         key: 'foo',
         value: 'bar',
       ));
-      expect(instance.toString(), 'SimpleEquatable<EquatableData>');
+      expect(
+        instance.toString(),
+        'SimpleEquatable<EquatableData>(EquatableData(foo, bar))',
+      );
     });
     test('should return true when instance is the same', () {
       final instance = SimpleEquatable(EquatableData(
@@ -387,7 +385,7 @@ void main() {
   group('Multipart Equatable', () {
     test('should correct toString', () {
       final instance = MultipartEquatable('s1', 's2');
-      expect(instance.toString(), 'MultipartEquatable<String>');
+      expect(instance.toString(), 'MultipartEquatable<String>(s1, s2)');
     });
 
     test('should return true when instance is the same', () {
@@ -442,7 +440,10 @@ void main() {
         hairColor: Color.black,
         children: ['Bob'],
       );
-      expect(instance.toString(), 'ComplexEquatable');
+      expect(
+        instance.toString(),
+        'ComplexEquatable(Joe, 40, Color.black, [Bob])',
+      );
     });
     test('should return true when instance is the same', () {
       final instance = ComplexEquatable(
@@ -554,7 +555,7 @@ void main() {
         }
         ''',
       ) as Map<String, dynamic>);
-      expect(instance.toString(), 'Credentials');
+      expect(instance.toString(), 'Credentials(Admin, admin)');
     });
 
     test('should return true when instance is the same', () {
@@ -851,25 +852,6 @@ void main() {
       expect(instanceA.toString(), 'ExplicitStringifyFalse');
       expect(instanceB.toString(), 'ExplicitStringifyFalse');
       expect(instanceC.toString(), 'ExplicitStringifyFalse');
-    });
-  });
-
-  group('Null props Equatable', () {
-    test('should not crash invoking equals method', () {
-      final instanceA = NullProps();
-      final instanceB = NullProps();
-      expect(instanceA == instanceB, true);
-    });
-
-    test('should not crash invoking hascode method', () {
-      final instanceA = NullProps();
-      final instanceB = NullProps();
-      expect(instanceA.hashCode == instanceB.hashCode, true);
-    });
-
-    test('should not crash invoking toString method', () {
-      final instance = NullProps();
-      expect(instance.toString(), 'NullProps()');
     });
   });
 }
