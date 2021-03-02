@@ -1,3 +1,17 @@
+# 2.0.0
+
+- **BREAKING**: opt into null safety
+  - feat!: upgrade Dart SDK constraints to `>=2.12.0-0 <3.0.0`
+- **BREAKING**: stringify prints "null" for null properties instead of ""
+- feat: `EquatableConfig.stringify` defaults to `true` in debug mode.
+- fix: support legacy equality overrides with `EquatableMixin`
+- fix: iterable equality comparisons ([#101](https://github.com/felangel/equatable/issues/101))
+- fix: stringify instance with long properties ([#94](https://github.com/felangel/equatable/issues/94))
+- chore: update dependencies
+  - `collection: ^1.15.0`
+  - `meta: ^1.3.0`
+- docs: minor updates to `README` and `example`
+
 # 2.0.0-nullsafety.4
 
 - feat: `EquatableConfig.stringify` defaults to `true` in debug mode.
