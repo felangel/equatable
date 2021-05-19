@@ -1,3 +1,7 @@
+# 2.0.1
+
+- fix: `hashCode` should be the same for equal objects (`Map` fix)
+
 # 2.0.0
 
 - **BREAKING**: opt into null safety

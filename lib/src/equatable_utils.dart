@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 
@@ -39,9 +41,11 @@ bool _isEquatable(dynamic object) {
 /// https://en.wikipedia.org/wiki/Jenkins_hash_function
 int _combine(int hash, dynamic object) {
   if (object is Map) {
-    object.forEach((dynamic key, dynamic value) {
-      hash = hash ^ _combine(hash, <dynamic>[key, value]);
-    });
+    SplayTreeMap<dynamic, dynamic>.of(object).forEach(
+      (dynamic key, dynamic value) {
+        hash = hash ^ _combine(hash, <dynamic>[key, value]);
+      },
+    );
     return hash;
   }
   if (object is Iterable) {
