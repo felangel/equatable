@@ -1,3 +1,7 @@
+# 2.0.2
+
+- fix: `Map` prop with non-comparable key
+
 # 2.0.1
 
 - fix: `hashCode` should be the same for equal objects (`Map` fix)
