@@ -363,6 +363,109 @@ void main() {
     });
   });
 
+  group('Simple Equatable (map custom key)', () {
+    test('should correct toString', () {
+      final instance = SimpleEquatable(<SimpleEquatable<String>, dynamic>{});
+      expect(
+        instance.toString(),
+        'SimpleEquatable<Map<SimpleEquatable<String>, dynamic>>({})',
+      );
+    });
+
+    test('should return true when instance is the same', () {
+      final instance = SimpleEquatable(
+        {
+          SimpleEquatable<String>('a'): 1,
+          SimpleEquatable<String>('b'): 2,
+          SimpleEquatable<String>('c'): 3
+        },
+      );
+      expect(instance == instance, true);
+    });
+
+    test('should return correct hashCode', () {
+      final instance = SimpleEquatable(
+        {
+          SimpleEquatable<String>('a'): 1,
+          SimpleEquatable<String>('b'): 2,
+          SimpleEquatable<String>('c'): 3
+        },
+      );
+      expect(
+        instance.hashCode,
+        instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
+      );
+    });
+
+    test('should have same hashCode when values are equal', () {
+      final instanceA = SimpleEquatable(
+        {
+          SimpleEquatable<String>('a'): 1,
+          SimpleEquatable<String>('b'): 2,
+          SimpleEquatable<String>('c'): 3
+        },
+      );
+      final instanceB = SimpleEquatable(
+        {
+          SimpleEquatable<String>('b'): 2,
+          SimpleEquatable<String>('a'): 1,
+          SimpleEquatable<String>('c'): 3
+        },
+      );
+      expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode, instanceB.hashCode);
+    });
+
+    test('should return true when instances are different', () {
+      final instanceA = SimpleEquatable(
+        {
+          SimpleEquatable<String>('a'): 1,
+          SimpleEquatable<String>('b'): 2,
+          SimpleEquatable<String>('c'): 3
+        },
+      );
+      final instanceB = SimpleEquatable(
+        {
+          SimpleEquatable<String>('a'): 1,
+          SimpleEquatable<String>('b'): 2,
+          SimpleEquatable<String>('c'): 3
+        },
+      );
+      expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, true);
+    });
+
+    test('should return false when compared to non-equatable', () {
+      final instanceA = SimpleEquatable(
+        {
+          SimpleEquatable<String>('a'): 1,
+          SimpleEquatable<String>('b'): 2,
+          SimpleEquatable<String>('c'): 3
+        },
+      );
+      final instanceB = NonEquatable();
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when values are different', () {
+      final instanceA = SimpleEquatable(
+        {
+          SimpleEquatable<String>('a'): 1,
+          SimpleEquatable<String>('b'): 2,
+          SimpleEquatable<String>('c'): 3
+        },
+      );
+      final instanceB = SimpleEquatable(
+        {
+          SimpleEquatable<String>('a'): 1,
+          SimpleEquatable<String>('b'): 2,
+          SimpleEquatable<String>('c'): 2
+        },
+      );
+      expect(instanceA == instanceB, false);
+    });
+  });
+
   group('Simple Equatable (Equatable)', () {
     test('should correct toString', () {
       final instance = SimpleEquatable(EquatableData(
