@@ -1,3 +1,7 @@
+# 2.0.3
+
+- fix: revert `EquatableMixin` == to use `Object` ([#122](https://github.com/felangel/equatable/issues/122))
+
 # 2.0.2
 
 - fix: `Map` prop with non-comparable key
