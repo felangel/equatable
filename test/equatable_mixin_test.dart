@@ -122,32 +122,6 @@ class IterableWithFlag<T> extends Iterable<T> with EquatableMixin {
   Iterator<T> get iterator => list.iterator;
 }
 
-class LegacyEqualityOverride {
-  const LegacyEqualityOverride(this.x);
-
-  final int x;
-
-  @override
-  bool operator ==(dynamic o) {
-    if (identical(this, o)) return true;
-
-    return o is LegacyEqualityOverride && o.x == x;
-  }
-
-  @override
-  int get hashCode => x.hashCode;
-}
-
-class LegacyEqualityOverrideEquatable extends LegacyEqualityOverride
-    with EquatableMixin {
-  LegacyEqualityOverrideEquatable(int x, this.y) : super(x);
-
-  final int y;
-
-  @override
-  List<Object?> get props => [x, y];
-}
-
 void main() {
   late bool globalStringify;
 
@@ -697,23 +671,6 @@ void main() {
       final instanceB = SimpleEquatable(
         IterableWithFlag(flag: false, list: [1, 2]),
       );
-
-      expect(instanceA == instanceB, isFalse);
-    });
-  });
-
-  group('LegacyEqualityOverride', () {
-    test('should be equal when different instances have same values', () {
-      final instanceA = LegacyEqualityOverrideEquatable(0, 1);
-      final instanceB = LegacyEqualityOverrideEquatable(0, 1);
-
-      expect(instanceA == instanceB, isTrue);
-    });
-
-    test('should not be equal when different instances have different values',
-        () {
-      final instanceA = LegacyEqualityOverrideEquatable(0, 0);
-      final instanceB = LegacyEqualityOverrideEquatable(0, 1);
 
       expect(instanceA == instanceB, isFalse);
     });

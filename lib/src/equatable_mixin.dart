@@ -16,7 +16,7 @@ mixin EquatableMixin {
   bool? get stringify => null;
 
   @override
-  bool operator ==(Object? other) {
+  bool operator ==(Object other) {
     return identical(this, other) ||
         other is EquatableMixin &&
             runtimeType == other.runtimeType &&
