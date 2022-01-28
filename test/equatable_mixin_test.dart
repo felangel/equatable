@@ -56,6 +56,54 @@ class ComplexEquatable extends EquatableBase {
   List<Object?> get props => [name, age, hairColor, children];
 }
 
+class DerivedComplexEquatable extends ComplexEquatable {
+  DerivedComplexEquatable({
+    String? name,
+    int? age,
+    Color? hairColor,
+    List<String>? children,
+    required this.isGood,
+  }) : super(
+          name: name,
+          age: age,
+          hairColor: hairColor,
+          children: children,
+        );
+
+  final bool isGood;
+
+  @override
+  Set<Type> get derived => {ComplexEquatable};
+
+  @override
+  List<Object?> get props => [...super.props, isGood];
+}
+
+class MultiDerivedComplexEquatable extends DerivedComplexEquatable {
+  MultiDerivedComplexEquatable({
+    String? name,
+    int? age,
+    Color? hairColor,
+    List<String>? children,
+    required bool isGood,
+    required this.isAlsoGood,
+  }) : super(
+          name: name,
+          age: age,
+          hairColor: hairColor,
+          children: children,
+          isGood: isGood,
+        );
+
+  final bool isAlsoGood;
+
+  @override
+  Set<Type> get derived => {...super.derived, DerivedComplexEquatable};
+
+  @override
+  List<Object?> get props => [...super.props, isAlsoGood];
+}
+
 class EquatableData extends EquatableBase {
   EquatableData({this.key, this.value});
 
@@ -504,6 +552,364 @@ void main() {
         children: [],
       );
       expect(instance.hashCode != instance2.hashCode, true);
+    });
+  });
+
+  group('Derived Complex Equatable', () {
+    test('should return true when instance is the same', () {
+      final instance = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      expect(instance == instance, true);
+    });
+
+    test('should return correct hashCode', () {
+      final instance = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      expect(
+        instance.hashCode,
+        instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
+      );
+    });
+
+    test('should return true when instances are different', () {
+      final instanceA = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      final instanceB = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, true);
+    });
+
+    test('should return true when class is derived and super props match', () {
+      final instanceA = ComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+      );
+      final instanceB = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, false);
+      expect(
+          instanceA.hashCode == instanceB.hashCodeFromSuper(instanceA), true);
+    });
+
+    test('should return false when class is derived and super props dont match',
+        () {
+      final instanceA = ComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+      );
+      final instanceB = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.brown,
+        children: ['Bobby'],
+        isGood: true,
+      );
+      expect(instanceA == instanceB, false);
+      expect(instanceA.hashCode == instanceB.hashCode, false);
+    });
+
+    test(
+        'should return false when class is derived '
+        'and super props only differ in list', () {
+      final instanceA = ComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+      );
+      final instanceB = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bobby'],
+        isGood: true,
+      );
+      expect(instanceA == instanceB, false);
+      expect(instanceA.hashCode == instanceB.hashCode, false);
+    });
+
+    test('should return false when compared to non-equatable', () {
+      final instanceA = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      final instanceB = NonEquatable();
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when values are different', () {
+      final instanceA = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      final instanceB = DerivedComplexEquatable(
+        name: 'John',
+        age: 40,
+        hairColor: Color.brown,
+        children: ['Bobby'],
+        isGood: true,
+      );
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when values only differ in list', () {
+      final instanceA = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      final instanceB = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bobby'],
+        isGood: true,
+      );
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when values only differ in single property', () {
+      final instanceA = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      final instanceB = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 41,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      expect(instanceA == instanceB, false);
+    });
+  });
+
+  group('Multi Derived Complex Equatable', () {
+    test('should return true when instance is the same', () {
+      final instance = MultiDerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+        isAlsoGood: true,
+      );
+      expect(instance == instance, true);
+    });
+
+    test('should return correct hashCode', () {
+      final instance = MultiDerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+        isAlsoGood: true,
+      );
+      expect(
+        instance.hashCode,
+        instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
+      );
+    });
+
+    test('should return true when instances are different', () {
+      final instanceA = MultiDerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+        isAlsoGood: true,
+      );
+      final instanceB = MultiDerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+        isAlsoGood: true,
+      );
+      expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, true);
+    });
+
+    test('should return true when class is derived and super props match', () {
+      final instanceA = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      final instanceB = MultiDerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+        isAlsoGood: true,
+      );
+      expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, false);
+      expect(
+        instanceA.hashCode == instanceB.hashCodeFromSuper(instanceA),
+        true,
+      );
+    });
+
+    test('should return false when class is derived and super props dont match',
+        () {
+      final instanceA = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      final instanceB = MultiDerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.brown,
+        children: ['Bobby'],
+        isGood: true,
+        isAlsoGood: true,
+      );
+      expect(instanceA == instanceB, false);
+      expect(instanceA.hashCode == instanceB.hashCode, false);
+    });
+
+    test(
+        'should return false when class is derived '
+        'and super props only differ in list', () {
+      final instanceA = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      final instanceB = MultiDerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bobby'],
+        isGood: true,
+        isAlsoGood: true,
+      );
+      expect(instanceA == instanceB, false);
+      expect(instanceA.hashCode == instanceB.hashCode, false);
+    });
+
+    test('should return false when compared to non-equatable', () {
+      final instanceA = MultiDerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+        isAlsoGood: true,
+      );
+      final instanceB = NonEquatable();
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when values are different', () {
+      final instanceA = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      final instanceB = MultiDerivedComplexEquatable(
+        name: 'John',
+        age: 40,
+        hairColor: Color.brown,
+        children: ['Bobby'],
+        isGood: false,
+        isAlsoGood: true,
+      );
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when values only differ in list', () {
+      final instanceA = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      final instanceB = MultiDerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bobby'],
+        isGood: true,
+        isAlsoGood: true,
+      );
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when values only differ in single property', () {
+      final instanceA = DerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: true,
+      );
+      final instanceB = MultiDerivedComplexEquatable(
+        name: 'Joe',
+        age: 40,
+        hairColor: Color.black,
+        children: ['Bob'],
+        isGood: false,
+        isAlsoGood: true,
+      );
+      expect(instanceA == instanceB, false);
     });
   });
 
