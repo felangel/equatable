@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'equatable.dart';
 import 'equatable_config.dart';
 import 'equatable_utils.dart';
@@ -15,16 +17,45 @@ mixin EquatableMixin {
   // ignore: avoid_returning_null
   bool? get stringify => null;
 
+  /// {@macro equatable_derived}
+  Set<Type> get derived => {runtimeType};
+
   @override
   bool operator ==(Object other) {
-    return identical(this, other) ||
-        other is EquatableMixin &&
-            runtimeType == other.runtimeType &&
-            equals(props, other.props);
+    if (identical(this, other)) {
+      return true;
+    } else if (other is! EquatableMixin) {
+      return false;
+    }
+
+    final maxPosition = min(props.length, other.props.length);
+
+    final propsMatch = equals(
+      props.sublist(0, maxPosition),
+      other.props.sublist(0, maxPosition),
+    );
+
+    final isDerived = derived.intersection(other.derived).isNotEmpty;
+
+    return propsMatch && isDerived;
   }
 
   @override
   int get hashCode => runtimeType.hashCode ^ mapPropsToHashCode(props);
+
+  /// {@macro equatable_hash_code_from_super}
+  int hashCodeFromSuper(Object base) {
+    if (base is! EquatableMixin) {
+      return base.runtimeType.hashCode;
+    } else if (derived.intersection(base.derived).isEmpty) {
+      return base.runtimeType.hashCode;
+    }
+
+    final maxPosition = min(props.length, base.props.length);
+
+    return base.runtimeType.hashCode ^
+        mapPropsToHashCode(props.sublist(0, maxPosition));
+  }
 
   @override
   String toString() {

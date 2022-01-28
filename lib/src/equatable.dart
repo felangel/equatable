@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:meta/meta.dart';
 
 import './equatable_config.dart';
@@ -42,15 +44,50 @@ abstract class Equatable {
   // ignore: avoid_returning_null
   bool? get stringify => null;
 
+  /// {@template equatable_derived}
+  /// A set of classes that this instance is derived from.
+  /// {@endtemplate}
+  Set<Type> get derived => {runtimeType};
+
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Equatable &&
-          runtimeType == other.runtimeType &&
-          equals(props, other.props);
+  bool operator ==(Object other) {
+    if (identical(this, other)) {
+      return true;
+    } else if (other is! Equatable) {
+      return false;
+    }
+
+    final maxPosition = min(props.length, other.props.length);
+
+    final propsMatch = equals(
+      props.sublist(0, maxPosition),
+      other.props.sublist(0, maxPosition),
+    );
+
+    final isDerived = derived.intersection(other.derived).isNotEmpty;
+
+    return propsMatch && isDerived;
+  }
 
   @override
   int get hashCode => runtimeType.hashCode ^ mapPropsToHashCode(props);
+
+  /// {@template equatable_hash_code_from_super}
+  /// Gets the hash code of this instance's [props] using [base]'s
+  /// runtimeType's hashCode.
+  /// {@endtemplate}
+  int hashCodeFromSuper(Object base) {
+    if (base is! Equatable) {
+      return base.runtimeType.hashCode;
+    } else if (derived.intersection(base.derived).isEmpty) {
+      return base.runtimeType.hashCode;
+    }
+
+    final maxPosition = min(props.length, base.props.length);
+
+    return base.runtimeType.hashCode ^
+        mapPropsToHashCode(props.sublist(0, maxPosition));
+  }
 
   @override
   String toString() {
