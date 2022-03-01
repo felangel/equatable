@@ -821,11 +821,11 @@ void main() {
 
     group('Nested Iterable Equatable', () {
       test('should return when values are same', () {
-        final instanceA = SimpleEquatable<Iterable>(<Iterable<String>>[
+        final instanceA = SimpleEquatable<Iterable<Iterable<String>>>([
           ['A', 'B', 'C'],
           ['D', 'E', 'F']
         ]);
-        final instanceB = SimpleEquatable<Iterable>(<Iterable<String>>[
+        final instanceB = SimpleEquatable<Iterable<Iterable<String>>>([
           ['A', 'B', 'C'],
           ['D', 'E', 'F']
         ]);
@@ -834,11 +834,11 @@ void main() {
       });
 
       test('should return when values are different', () {
-        final instanceA = SimpleEquatable<Iterable>(<Iterable<String>>[
+        final instanceA = SimpleEquatable<Iterable<Iterable<String>>>([
           ['A', 'B', 'C'],
           ['D', 'E', 'F']
         ]);
-        final instanceB = SimpleEquatable<Iterable>(<Iterable<String>>[
+        final instanceB = SimpleEquatable<Iterable<Iterable<String>>>([
           ['a', 'b', 'c'],
           ['d', 'e', 'f']
         ]);
