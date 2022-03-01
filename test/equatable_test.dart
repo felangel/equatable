@@ -819,6 +819,34 @@ void main() {
       });
     });
 
+    group('Nested Iterable Equatable', () {
+      test('should return when values are same', () {
+        final instanceA = SimpleEquatable<Iterable>(<Iterable<String>>[
+          ['A', 'B', 'C'],
+          ['D', 'E', 'F']
+        ]);
+        final instanceB = SimpleEquatable<Iterable>(<Iterable<String>>[
+          ['A', 'B', 'C'],
+          ['D', 'E', 'F']
+        ]);
+        expect(instanceA == instanceB, true);
+        expect(instanceA.hashCode == instanceB.hashCode, true);
+      });
+
+      test('should return when values are different', () {
+        final instanceA = SimpleEquatable<Iterable>(<Iterable<String>>[
+          ['A', 'B', 'C'],
+          ['D', 'E', 'F']
+        ]);
+        final instanceB = SimpleEquatable<Iterable>(<Iterable<String>>[
+          ['a', 'b', 'c'],
+          ['d', 'e', 'f']
+        ]);
+        expect(instanceA != instanceB, true);
+        expect(instanceA.hashCode != instanceB.hashCode, true);
+      });
+    });
+
     group('List Equatable', () {
       test('should return when values are same', () {
         final instanceA = SimpleEquatable<List>(<String>['A', 'B']);
