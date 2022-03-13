@@ -132,7 +132,7 @@ class Person extends Equatable {
   final String name;
 
   @override
-  List<Object> get props => [name];
+  List<Object?> get props => [name];
 }
 ```
 
@@ -147,7 +147,7 @@ class Person extends Equatable {
   final String name;
 
   @override
-  List<Object> get props => [name];
+  List<Object?> get props => [name];
 
   factory Person.fromJson(Map<String, dynamic> json) {
     return Person(json['name']);
@@ -169,7 +169,7 @@ class Person extends Equatable {
   final String name;
 
   @override
-  List<Object> get props => [name];
+  List<Object?> get props => [name];
 }
 ```
 
@@ -254,7 +254,7 @@ class Person extends Equatable {
   final String name;
 
   @override
-  List<Object> get props => [name];
+  List<Object?> get props => [name];
 }
 ```
 
@@ -281,7 +281,7 @@ class EquatableDateTime extends DateTime with EquatableMixin {
   ]) : super(year, month, day, hour, minute, second, millisecond, microsecond);
 
   @override
-  List<Object> get props {
+  List<Object?> get props {
     return [year, month, day, hour, minute, second, millisecond, microsecond];
   }
 }
@@ -306,7 +306,7 @@ class EquatableDateTimeSubclass extends EquatableDateTime {
   ]) : super(year, month, day, hour, minute, second, millisecond, microsecond);
 
   @override
-  List<Object> get props => super.props..addAll([century]);
+  List<Object?> get props => super.props..addAll([century]);
 }
 ```
 
