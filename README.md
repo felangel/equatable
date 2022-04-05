@@ -48,7 +48,7 @@ class Person {
 }
 ```
 
-We can create create instances of `Person` like so:
+We can create instances of `Person` like so:
 
 ```dart
 void main() {
