@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 
@@ -45,6 +47,11 @@ int _combine(int hash, dynamic object) {
       hash = hash ^ _combine(hash, <dynamic>[key, object[key]]);
     });
     return hash;
+  }
+  if(object is Set) {
+    // this is needed to have a consistent iteration order so that the produced
+    // hash is consistent independently of the Set insertion order
+    object = SplayTreeSet<dynamic>.from(object);
   }
   if (object is Iterable) {
     for (final value in object) {

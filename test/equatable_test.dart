@@ -968,6 +968,17 @@ void main() {
         expect(instanceA.hashCode == instanceB.hashCode, true);
       });
 
+      test('should return when Set values are same but in different order', () {
+        final instanceA = SimpleEquatable<Set<String>>(
+          Set.from(<String>['A', 'B']),
+        );
+        final instanceB = SimpleEquatable<Set<String>>(
+          Set.from(<String>['B', 'A']),
+        );
+        expect(instanceA == instanceB, true);
+        expect(instanceA.hashCode == instanceB.hashCode, true);
+      });
+
       test('should return when values are different', () {
         final instanceA = SimpleEquatable<Set<String>>(
           Set.from(<String>['A', 'B']),
