@@ -13,7 +13,7 @@ import './equatable_utils.dart';
 ///   final String name;
 ///
 ///   @override
-///   List<Object> get props => [name];
+///   List<Object?> get props => [name];
 /// }
 /// ```
 /// {@endtemplate}
