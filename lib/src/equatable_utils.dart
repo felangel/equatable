@@ -48,7 +48,7 @@ int _combine(int hash, dynamic object) {
     });
     return hash;
   }
-  if (object is Set) {
+  if (object is Set && object is! SplayTreeSet) {
     // this is needed to have a consistent iteration order so that the produced
     // hash is consistent independently of the Set insertion order
     object = SplayTreeSet<dynamic>.from(object);
