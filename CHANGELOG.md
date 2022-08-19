@@ -1,6 +1,6 @@
 # 2.0.4
 
-- fix: use `SplayTreeSet` to resolve inconsistent `hashCode` for properties of type `Set` ([#142](https://github.com/felangel/equatable/issues/142))s
+- fix: use `SplayTreeSet` to resolve inconsistent `hashCode` for properties of type `Set` ([#142](https://github.com/felangel/equatable/issues/142))
 
 # 2.0.3
 
