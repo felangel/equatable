@@ -1,3 +1,7 @@
+# 2.0.4
+
+- fix: use `SplayTreeSet` to resolve inconsistent `hashCode` for properties of type `Set` ([#142](https://github.com/felangel/equatable/issues/142))s
+
 # 2.0.3
 
 - fix: revert `EquatableMixin` == to use `Object` ([#122](https://github.com/felangel/equatable/issues/122))
