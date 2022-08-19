@@ -1000,6 +1000,17 @@ void main() {
         expect(instanceA != instanceB, true);
         expect(instanceA.hashCode != instanceB.hashCode, true);
       });
+
+      test('should support non-comparable types', () {
+        final instanceA = SimpleEquatable<Set<Object>>(
+          Set.from(<Object>[Object()]),
+        );
+        final instanceB = SimpleEquatable<Set<Object>>(
+          Set.from(<Object>[Object()]),
+        );
+        expect(instanceA == instanceB, false);
+        expect(instanceA.hashCode == instanceB.hashCode, false);
+      });
     });
   });
 
