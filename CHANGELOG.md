@@ -1,6 +1,6 @@
 # 2.0.5
 
-- fix: resolves `T not a subtype of type 'Comparable<dynamic>'`
+- fix: resolves `T not a subtype of type 'Comparable<dynamic>'` when computing `hashCode`
 
 # 2.0.4
 
