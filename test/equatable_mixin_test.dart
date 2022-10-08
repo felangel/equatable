@@ -191,6 +191,16 @@ void main() {
       );
     });
 
+    test('should store hashCode', () {
+      final instance = SimpleEquatable(<int, String>{1: 'Mercury'});
+      final hashCode = instance.hashCode;
+      instance.data[1] = 'Venus';
+      expect(
+        hashCode,
+        instance.hashCode,
+      );
+    });
+
     test('should return true when instances are different', () {
       final instanceA = SimpleEquatable('simple');
       final instanceB = SimpleEquatable('simple');
