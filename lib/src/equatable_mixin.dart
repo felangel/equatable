@@ -10,11 +10,13 @@ import 'equatable_utils.dart';
 mixin EquatableMixin {
   /// {@macro equatable_props}
   List<Object?> get props;
-  int? _hashCode;
 
   /// {@macro equatable_stringify}
   // ignore: avoid_returning_null
   bool? get stringify => null;
+
+  /// Cached hashCode.
+  int? _hashCode;
 
   @override
   bool operator ==(Object other) {
