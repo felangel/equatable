@@ -10,6 +10,7 @@ import 'equatable_utils.dart';
 mixin EquatableMixin {
   /// {@macro equatable_props}
   List<Object?> get props;
+  int? _hashCode;
 
   /// {@macro equatable_stringify}
   // ignore: avoid_returning_null
@@ -24,7 +25,8 @@ mixin EquatableMixin {
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ mapPropsToHashCode(props);
+  int get hashCode =>
+      _hashCode ??= runtimeType.hashCode ^ mapPropsToHashCode(props);
 
   @override
   String toString() {
