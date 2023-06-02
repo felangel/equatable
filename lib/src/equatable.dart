@@ -7,7 +7,7 @@ import './equatable_utils.dart';
 /// A base class to facilitate [operator ==] and [hashCode] overrides.
 ///
 /// ```dart
-/// class Person extends Equatable {
+/// class Person with Equatable {
 ///   const Person(this.name);
 ///
 ///   final String name;
@@ -18,7 +18,7 @@ import './equatable_utils.dart';
 /// ```
 /// {@endtemplate}
 @immutable
-abstract class Equatable {
+abstract mixin class Equatable {
   /// {@macro equatable}
   const Equatable();
 

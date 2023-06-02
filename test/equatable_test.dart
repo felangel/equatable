@@ -11,14 +11,14 @@ import 'custom_list.dart';
 
 class NonEquatable {}
 
-class EmptyEquatable extends Equatable {
+class EmptyEquatable with Equatable {
   const EmptyEquatable();
 
   @override
   List<Object> get props => [];
 }
 
-class SimpleEquatable<T extends Object> extends Equatable {
+class SimpleEquatable<T extends Object> with Equatable {
   const SimpleEquatable(this.data);
 
   final T data;
@@ -27,7 +27,7 @@ class SimpleEquatable<T extends Object> extends Equatable {
   List<Object> get props => [data];
 }
 
-class MultipartEquatable<T extends Object> extends Equatable {
+class MultipartEquatable<T extends Object> with Equatable {
   MultipartEquatable(this.d1, this.d2);
 
   final T d1;
@@ -37,7 +37,7 @@ class MultipartEquatable<T extends Object> extends Equatable {
   List<Object> get props => [d1, d2];
 }
 
-class OtherEquatable extends Equatable {
+class OtherEquatable with Equatable {
   const OtherEquatable(this.data);
 
   final String data;
@@ -48,7 +48,7 @@ class OtherEquatable extends Equatable {
 
 enum Color { blonde, black, brown }
 
-class ComplexEquatable extends Equatable {
+class ComplexEquatable with Equatable {
   const ComplexEquatable({this.name, this.age, this.hairColor, this.children});
 
   final String? name;
@@ -60,7 +60,7 @@ class ComplexEquatable extends Equatable {
   List<Object?> get props => [name, age, hairColor, children];
 }
 
-class EquatableData extends Equatable {
+class EquatableData with Equatable {
   const EquatableData({required this.key, required this.value});
 
   final String key;
@@ -70,7 +70,7 @@ class EquatableData extends Equatable {
   List<Object> get props => [key, value];
 }
 
-class Credentials extends Equatable {
+class Credentials with Equatable {
   const Credentials({required this.username, required this.password});
 
   factory Credentials.fromJson(Map<String, dynamic> json) {
@@ -94,7 +94,7 @@ class Credentials extends Equatable {
   List<Object> get props => [username, password];
 }
 
-class ComplexStringify extends Equatable {
+class ComplexStringify with Equatable {
   ComplexStringify({this.name, this.age, this.hairColor});
 
   final String? name;
@@ -108,7 +108,7 @@ class ComplexStringify extends Equatable {
   bool get stringify => true;
 }
 
-class SuperLongPropertiesStringify extends Equatable {
+class SuperLongPropertiesStringify with Equatable {
   SuperLongPropertiesStringify(this.a, this.b, this.c, this.d, this.e, this.f);
 
   final String a;
@@ -125,7 +125,7 @@ class SuperLongPropertiesStringify extends Equatable {
   bool get stringify => true;
 }
 
-class ExplicitStringifyFalse extends Equatable {
+class ExplicitStringifyFalse with Equatable {
   ExplicitStringifyFalse({this.name, this.age, this.hairColor});
 
   final String? name;
@@ -1056,7 +1056,7 @@ void main() {
 }
 
 // test that subclasses of `Equatable` can have const constructors
-class ConstTest extends Equatable {
+class ConstTest with Equatable {
   const ConstTest(this.a);
 
   final int a;

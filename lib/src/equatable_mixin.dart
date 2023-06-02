@@ -9,6 +9,7 @@ import 'equatable_utils.dart';
 ///
 /// Like with extending [Equatable], the [EquatableMixin] overrides the
 /// [operator ==] as well as the [hashCode] based on the provided [props].
+@Deprecated('use Equatable')
 @immutable
 mixin EquatableMixin {
   /// {@macro equatable_props}

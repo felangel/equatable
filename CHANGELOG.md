@@ -1,3 +1,8 @@
+# 2.1.0
+
+- make `Equatable` `abstract mixin class`
+- make `EquatableMixin` Deprecated
+
 # 2.0.5
 
 - fix: resolves `T not a subtype of type 'Comparable<dynamic>'` when computing `hashCode`

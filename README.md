@@ -108,25 +108,25 @@ First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^2.0.0
+  equatable: ^2.1.0
 ```
 
 Next, we need to install it:
 
 ```sh
 # Dart
-pub get
+dart pub get
 
 # Flutter
-flutter packages get
+flutter pub get
 ```
 
-Lastly, we need to extend `Equatable`
+Lastly, we need to mixin `Equatable`
 
 ```dart
 import 'package:equatable/equatable.dart';
 
-class Person extends Equatable {
+class Person with Equatable {
   const Person(this.name);
 
   final String name;
@@ -141,7 +141,7 @@ When working with json:
 ```dart
 import 'package:equatable/equatable.dart';
 
-class Person extends Equatable {
+class Person with Equatable {
   const Person(this.name);
 
   final String name;
@@ -163,7 +163,7 @@ Equatable also supports `const` constructors:
 ```dart
 import 'package:equatable/equatable.dart';
 
-class Person extends Equatable {
+class Person with Equatable {
   const Person(this.name);
 
   final String name;
@@ -187,7 +187,7 @@ For instance:
 ```dart
 import 'package:equatable/equatable.dart';
 
-class Person extends Equatable {
+class Person with Equatable {
   const Person(this.name);
 
   final String name;
@@ -248,7 +248,7 @@ class Person {
 ```dart
 import 'package:equatable/equatable.dart';
 
-class Person extends Equatable {
+class Person with Equatable {
   const Person(this.name);
 
   final String name;
@@ -258,17 +258,13 @@ class Person extends Equatable {
 }
 ```
 
-## EquatableMixin
 
-Sometimes it isn't possible to extend `Equatable` because your class already has a superclass.
-In this case, you can still get the benefits of `Equatable` by using the `EquatableMixin`.
+### Usage with Deprecated
 
-### Usage
-
-Let's say we want to make an `EquatableDateTime` class, we can use `EquatableMixin` like so:
+Let's say we want to make an `EquatableDateTime` class, we can use `Equatable` like so:
 
 ```dart
-class EquatableDateTime extends DateTime with EquatableMixin {
+class EquatableDateTime extends DateTime with Equatable {
   EquatableDateTime(
     int year, [
     int month = 1,
