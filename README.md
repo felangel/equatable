@@ -259,7 +259,7 @@ class Person with Equatable {
 ```
 
 
-### Usage with Deprecated
+### subclass
 
 Let's say we want to make an `EquatableDateTime` class, we can use `Equatable` like so:
 
