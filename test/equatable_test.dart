@@ -1169,6 +1169,15 @@ void main() {
       );
       expect(instanceA == instanceB, false);
     });
+
+    test('should correct toString when EquatableConfig.stringify is false', () {
+      EquatableConfig.stringify = false;
+      final instance = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      expect(instance.toString(), 'CompleteStringifyProps');
+    });
   });
 
   group('Equatable with partial custom stringify Props', () {
@@ -1251,6 +1260,15 @@ void main() {
         age: 2,
       );
       expect(instanceA == instanceB, false);
+    });
+
+    test('should correct toString when EquatableConfig.stringify is false', () {
+      EquatableConfig.stringify = false;
+      final instance = PartialStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      expect(instance.toString(), 'PartialStringifyProps');
     });
   });
 }
