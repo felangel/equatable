@@ -139,6 +139,38 @@ class ExplicitStringifyFalse extends Equatable {
   bool get stringify => false;
 }
 
+class CompleteStringifyProps extends Equatable {
+  const CompleteStringifyProps({
+    required this.name,
+    required this.age,
+  });
+
+  final String name;
+  final int age;
+
+  @override
+  List<Object?> get props => [name, age];
+
+  @override
+  List<Object?>? get stringifyProps => [name, age];
+}
+
+class PartialStringifyProps extends Equatable {
+  const PartialStringifyProps({
+    required this.name,
+    required this.age,
+  });
+
+  final String name;
+  final int age;
+
+  @override
+  List<Object?> get props => [name, age];
+
+  @override
+  List<Object?>? get stringifyProps => [name];
+}
+
 void main() {
   late bool globalStringify;
 
@@ -1051,6 +1083,174 @@ void main() {
       expect(instanceA.toString(), 'ExplicitStringifyFalse');
       expect(instanceB.toString(), 'ExplicitStringifyFalse');
       expect(instanceC.toString(), 'ExplicitStringifyFalse');
+    });
+  });
+
+  group('Equatable with all custom stringify Props', () {
+    test(
+      'should correct toString',
+      () async {
+        final instance = CompleteStringifyProps(
+          name: 'John',
+          age: 1,
+        );
+
+        expect(instance.toString(), 'CompleteStringifyProps(John, 1)');
+      },
+    );
+
+    test('should correct toString when EquatableConfig.stringify is false', () {
+      EquatableConfig.stringify = false;
+      final instance = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      expect(instance.toString(), 'CompleteStringifyProps');
+    });
+
+    test('should return true when instance is the same', () {
+      final instance = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      expect(instance == instance, true);
+    });
+
+    test('should return correct hashCode', () {
+      final instance = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      expect(
+        instance.hashCode,
+        instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
+      );
+    });
+
+    test('should return true when instances are different', () {
+      final instanceA = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      final instanceB = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, true);
+    });
+
+    test('should return false when compared to non-equatable', () {
+      final instanceA = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      final instanceB = NonEquatable();
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when compared to different equatable', () {
+      final instanceA = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      final instanceB = OtherEquatable('simple');
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when values are different', () {
+      final instanceA = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      final instanceB = CompleteStringifyProps(
+        name: 'John',
+        age: 2,
+      );
+      expect(instanceA == instanceB, false);
+    });
+  });
+
+  group('Equatable with partial custom stringify Props', () {
+    test(
+      'should print correct toString based on stringifyProps',
+      () async {
+        final instance = PartialStringifyProps(
+          name: 'John',
+          age: 1,
+        );
+        expect(instance.toString(), 'PartialStringifyProps(John)');
+      },
+    );
+    test('should correct toString when EquatableConfig.stringify is false', () {
+      EquatableConfig.stringify = false;
+      final instance = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      expect(instance.toString(), 'CompleteStringifyProps');
+    });
+
+    test('should return true when instance is the same', () {
+      final instance = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      expect(instance == instance, true);
+    });
+
+    test('should return correct hashCode', () {
+      final instance = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      expect(
+        instance.hashCode,
+        instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
+      );
+    });
+
+    test('should return true when instances are different', () {
+      final instanceA = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      final instanceB = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, true);
+    });
+
+    test('should return false when compared to non-equatable', () {
+      final instanceA = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      final instanceB = NonEquatable();
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when compared to different equatable', () {
+      final instanceA = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      final instanceB = OtherEquatable('simple');
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when values are different', () {
+      final instanceA = CompleteStringifyProps(
+        name: 'John',
+        age: 1,
+      );
+      final instanceB = CompleteStringifyProps(
+        name: 'John',
+        age: 2,
+      );
+      expect(instanceA == instanceB, false);
     });
   });
 }

@@ -14,6 +14,9 @@ mixin EquatableMixin {
   /// {@macro equatable_props}
   List<Object?> get props;
 
+  /// {@macro equatable_stringifyProps}
+  List<Object?>? get stringifyProps => null;
+
   /// {@macro equatable_stringify}
   // ignore: avoid_returning_null
   bool? get stringify => null;
@@ -33,12 +36,12 @@ mixin EquatableMixin {
   String toString() {
     switch (stringify) {
       case true:
-        return mapPropsToString(runtimeType, props);
+        return mapPropsToString(runtimeType, stringifyProps ?? props);
       case false:
         return '$runtimeType';
       default:
         return EquatableConfig.stringify == true
-            ? mapPropsToString(runtimeType, props)
+            ? mapPropsToString(runtimeType, stringifyProps ?? props)
             : '$runtimeType';
     }
   }

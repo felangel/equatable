@@ -28,6 +28,12 @@ abstract class Equatable {
   /// {@endtemplate}
   List<Object?> get props;
 
+  /// {@template equatable_stringifyProps}
+  /// The list of properties that will be used to print the properties of
+  /// instance
+  /// {@endtemplate}
+  List<Object?>? get stringifyProps => null;
+
   /// {@template equatable_stringify}
   /// If set to `true`, the [toString] method will be overridden to output
   /// this instance's [props].
@@ -56,12 +62,12 @@ abstract class Equatable {
   String toString() {
     switch (stringify) {
       case true:
-        return mapPropsToString(runtimeType, props);
+        return mapPropsToString(runtimeType, stringifyProps ?? props);
       case false:
         return '$runtimeType';
       default:
         return EquatableConfig.stringify == true
-            ? mapPropsToString(runtimeType, props)
+            ? mapPropsToString(runtimeType, stringifyProps ?? props)
             : '$runtimeType';
     }
   }

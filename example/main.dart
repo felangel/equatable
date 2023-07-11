@@ -31,6 +31,10 @@ class EquatableDateTime extends DateTime with EquatableMixin {
   }
 
   @override
+  List<Object?>? get stringifyProps =>
+      [year, month, day, hour, minute, second, millisecond, microsecond];
+
+  @override
   bool get stringify => true;
 }
 

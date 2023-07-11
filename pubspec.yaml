@@ -7,7 +7,7 @@ homepage: https://github.com/felangel/equatable
 documentation: https://github.com/felangel/equatable
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=3.0.2 <4.0.0"
 
 dependencies:
   collection: ^1.15.0
