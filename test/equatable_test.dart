@@ -171,6 +171,25 @@ class PartialStringifyProps extends Equatable {
   List<Object?>? get stringifyProps => [name];
 }
 
+class PartialStringifyWithStringifyFalse extends Equatable {
+  const PartialStringifyWithStringifyFalse({
+    required this.name,
+    required this.age,
+  });
+
+  final String name;
+  final int age;
+
+  @override
+  List<Object?> get props => [name, age];
+
+  @override
+  List<Object?>? get stringifyProps => [name, age];
+
+  @override
+  bool? get stringify => false;
+}
+
 void main() {
   late bool globalStringify;
 
@@ -1084,6 +1103,17 @@ void main() {
       expect(instanceB.toString(), 'ExplicitStringifyFalse');
       expect(instanceC.toString(), 'ExplicitStringifyFalse');
     });
+
+    test(
+      'with PartialStringifyWithStringifyFalse stringify ',
+      () async {
+        final instance = PartialStringifyWithStringifyFalse(
+          name: 'John',
+          age: 1,
+        );
+        expect(instance.toString(), 'PartialStringifyWithStringifyFalse');
+      },
+    );
   });
 
   group('Equatable with all custom stringify Props', () {
