@@ -54,15 +54,9 @@ abstract class Equatable {
 
   @override
   String toString() {
-    switch (stringify) {
-      case true:
-        return mapPropsToString(runtimeType, props);
-      case false:
-        return '$runtimeType';
-      default:
-        return EquatableConfig.stringify == true
-            ? mapPropsToString(runtimeType, props)
-            : '$runtimeType';
+    if (stringify ?? EquatableConfig.stringify) {
+      return mapPropsToString(runtimeType, props);
     }
+    return '$runtimeType';
   }
 }
