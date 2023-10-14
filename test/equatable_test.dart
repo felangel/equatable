@@ -1,6 +1,4 @@
-// ignore_for_file: prefer_const_constructors
-// ignore_for_file: unrelated_type_equality_checks
-// ignore_for_file: prefer_collection_literals
+// ignore_for_file: lines_longer_than_80_chars, prefer_const_constructors, prefer_const_literals_to_create_immutables, prefer_const_constructors_in_immutables, unrelated_type_equality_checks, prefer_collection_literals
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
@@ -377,7 +375,7 @@ void main() {
         {
           SimpleEquatable<String>('a'): 1,
           SimpleEquatable<String>('b'): 2,
-          SimpleEquatable<String>('c'): 3
+          SimpleEquatable<String>('c'): 3,
         },
       );
       expect(instance == instance, true);
@@ -388,7 +386,7 @@ void main() {
         {
           SimpleEquatable<String>('a'): 1,
           SimpleEquatable<String>('b'): 2,
-          SimpleEquatable<String>('c'): 3
+          SimpleEquatable<String>('c'): 3,
         },
       );
       expect(
@@ -402,14 +400,14 @@ void main() {
         {
           SimpleEquatable<String>('a'): 1,
           SimpleEquatable<String>('b'): 2,
-          SimpleEquatable<String>('c'): 3
+          SimpleEquatable<String>('c'): 3,
         },
       );
       final instanceB = SimpleEquatable(
         {
           SimpleEquatable<String>('b'): 2,
           SimpleEquatable<String>('a'): 1,
-          SimpleEquatable<String>('c'): 3
+          SimpleEquatable<String>('c'): 3,
         },
       );
       expect(instanceA == instanceB, true);
@@ -421,14 +419,14 @@ void main() {
         {
           SimpleEquatable<String>('a'): 1,
           SimpleEquatable<String>('b'): 2,
-          SimpleEquatable<String>('c'): 3
+          SimpleEquatable<String>('c'): 3,
         },
       );
       final instanceB = SimpleEquatable(
         {
           SimpleEquatable<String>('a'): 1,
           SimpleEquatable<String>('b'): 2,
-          SimpleEquatable<String>('c'): 3
+          SimpleEquatable<String>('c'): 3,
         },
       );
       expect(instanceA == instanceB, true);
@@ -440,7 +438,7 @@ void main() {
         {
           SimpleEquatable<String>('a'): 1,
           SimpleEquatable<String>('b'): 2,
-          SimpleEquatable<String>('c'): 3
+          SimpleEquatable<String>('c'): 3,
         },
       );
       final instanceB = NonEquatable();
@@ -452,14 +450,14 @@ void main() {
         {
           SimpleEquatable<String>('a'): 1,
           SimpleEquatable<String>('b'): 2,
-          SimpleEquatable<String>('c'): 3
+          SimpleEquatable<String>('c'): 3,
         },
       );
       final instanceB = SimpleEquatable(
         {
           SimpleEquatable<String>('a'): 1,
           SimpleEquatable<String>('b'): 2,
-          SimpleEquatable<String>('c'): 2
+          SimpleEquatable<String>('c'): 2,
         },
       );
       expect(instanceA == instanceB, false);
@@ -468,28 +466,34 @@ void main() {
 
   group('Simple Equatable (Equatable)', () {
     test('should correct toString', () {
-      final instance = SimpleEquatable(EquatableData(
-        key: 'foo',
-        value: 'bar',
-      ));
+      final instance = SimpleEquatable(
+        EquatableData(
+          key: 'foo',
+          value: 'bar',
+        ),
+      );
       expect(
         instance.toString(),
         'SimpleEquatable<EquatableData>(EquatableData(foo, bar))',
       );
     });
     test('should return true when instance is the same', () {
-      final instance = SimpleEquatable(EquatableData(
-        key: 'foo',
-        value: 'bar',
-      ));
+      final instance = SimpleEquatable(
+        EquatableData(
+          key: 'foo',
+          value: 'bar',
+        ),
+      );
       expect(instance == instance, true);
     });
 
     test('should return correct hashCode', () {
-      final instance = SimpleEquatable(EquatableData(
-        key: 'foo',
-        value: 'bar',
-      ));
+      final instance = SimpleEquatable(
+        EquatableData(
+          key: 'foo',
+          value: 'bar',
+        ),
+      );
       expect(
         instance.hashCode,
         instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
@@ -497,36 +501,46 @@ void main() {
     });
 
     test('should return true when instances are different', () {
-      final instanceA = SimpleEquatable(EquatableData(
-        key: 'foo',
-        value: 'bar',
-      ));
-      final instanceB = SimpleEquatable(EquatableData(
-        key: 'foo',
-        value: 'bar',
-      ));
+      final instanceA = SimpleEquatable(
+        EquatableData(
+          key: 'foo',
+          value: 'bar',
+        ),
+      );
+      final instanceB = SimpleEquatable(
+        EquatableData(
+          key: 'foo',
+          value: 'bar',
+        ),
+      );
       expect(instanceA == instanceB, true);
       expect(instanceA.hashCode == instanceB.hashCode, true);
     });
 
     test('should return false when compared to non-equatable', () {
-      final instanceA = SimpleEquatable(EquatableData(
-        key: 'foo',
-        value: 'bar',
-      ));
+      final instanceA = SimpleEquatable(
+        EquatableData(
+          key: 'foo',
+          value: 'bar',
+        ),
+      );
       final instanceB = NonEquatable();
       expect(instanceA == instanceB, false);
     });
 
     test('should return false when values are different', () {
-      final instanceA = SimpleEquatable(EquatableData(
-        key: 'foo',
-        value: 'bar',
-      ));
-      final instanceB = SimpleEquatable(EquatableData(
-        key: 'foo',
-        value: 'barz',
-      ));
+      final instanceA = SimpleEquatable(
+        EquatableData(
+          key: 'foo',
+          value: 'bar',
+        ),
+      );
+      final instanceB = SimpleEquatable(
+        EquatableData(
+          key: 'foo',
+          value: 'barz',
+        ),
+      );
       expect(instanceA == instanceB, false);
     });
   });
@@ -696,38 +710,44 @@ void main() {
 
   group('Json Equatable', () {
     test('should correct toString', () {
-      final instance = Credentials.fromJson(json.decode(
-        '''
+      final instance = Credentials.fromJson(
+        json.decode(
+          '''
         {
           "username":"Admin",
           "password":"admin"
         }
         ''',
-      ) as Map<String, dynamic>);
+        ) as Map<String, dynamic>,
+      );
       expect(instance.toString(), 'Credentials(Admin, admin)');
     });
 
     test('should return true when instance is the same', () {
-      final instance = Credentials.fromJson(json.decode(
-        '''
+      final instance = Credentials.fromJson(
+        json.decode(
+          '''
         {
           "username":"Admin",
           "password":"admin"
         }
         ''',
-      ) as Map<String, dynamic>);
+        ) as Map<String, dynamic>,
+      );
       expect(instance == instance, true);
     });
 
     test('should return correct hashCode', () {
-      final instance = Credentials.fromJson(json.decode(
-        '''
+      final instance = Credentials.fromJson(
+        json.decode(
+          '''
         {
           "username":"Admin",
           "password":"admin"
         }
         ''',
-      ) as Map<String, dynamic>);
+        ) as Map<String, dynamic>,
+      );
       expect(
         instance.hashCode,
         instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
@@ -735,56 +755,66 @@ void main() {
     });
 
     test('should return true when instances are different', () {
-      final instanceA = Credentials.fromJson(json.decode(
-        '''
+      final instanceA = Credentials.fromJson(
+        json.decode(
+          '''
         {
           "username":"Admin",
           "password":"admin"
         }
         ''',
-      ) as Map<String, dynamic>);
-      final instanceB = Credentials.fromJson(json.decode(
-        '''
+        ) as Map<String, dynamic>,
+      );
+      final instanceB = Credentials.fromJson(
+        json.decode(
+          '''
         {
           "username":"Admin",
           "password":"admin"
         }
         ''',
-      ) as Map<String, dynamic>);
+        ) as Map<String, dynamic>,
+      );
       expect(instanceA == instanceB, true);
       expect(instanceA.hashCode == instanceB.hashCode, true);
     });
 
     test('should return false when compared to non-equatable', () {
-      final instanceA = Credentials.fromJson(json.decode(
-        '''
+      final instanceA = Credentials.fromJson(
+        json.decode(
+          '''
         {
           "username":"Admin",
           "password":"admin"
         }
         ''',
-      ) as Map<String, dynamic>);
+        ) as Map<String, dynamic>,
+      );
       final instanceB = NonEquatable();
       expect(instanceA == instanceB, false);
     });
 
     test('should return false when values are different', () {
-      final instanceA = Credentials.fromJson(json.decode(
-        '''
+      final instanceA = Credentials.fromJson(
+        json.decode(
+          '''
         {
           "username":"Admin",
           "password":"admin"
         }
         ''',
-      ) as Map<String, dynamic>);
-      final instanceB = Credentials.fromJson(json.decode(
-        '''
+        ) as Map<String, dynamic>,
+      );
+      final instanceB = Credentials.fromJson(
+        json.decode(
+          '''
         {
           "username":"Admin",
           "password":"password"
         }
         ''',
-      ) as Map<String, dynamic>);
+        ) as Map<String, dynamic>,
+      );
       expect(instanceA == instanceB, false);
     });
   });
@@ -798,22 +828,34 @@ void main() {
       });
 
       test('should return when values are same', () {
-        final instanceA = SimpleEquatable<Iterable>(<String>['A', 'B']);
-        final instanceB = SimpleEquatable<Iterable>(<String>['A', 'B']);
+        final instanceA = SimpleEquatable<Iterable<dynamic>>(
+          <String>['A', 'B'],
+        );
+        final instanceB = SimpleEquatable<Iterable<dynamic>>(
+          <String>['A', 'B'],
+        );
         expect(instanceA == instanceB, true);
         expect(instanceA.hashCode == instanceB.hashCode, true);
       });
 
       test('should return when values are different', () {
-        final instanceA = SimpleEquatable<Iterable>(<String>['A', 'B']);
-        final instanceB = SimpleEquatable<Iterable>(<String>['a', 'b']);
+        final instanceA = SimpleEquatable<Iterable<dynamic>>(
+          <String>['A', 'B'],
+        );
+        final instanceB = SimpleEquatable<Iterable<dynamic>>(
+          <String>['a', 'b'],
+        );
         expect(instanceA != instanceB, true);
         expect(instanceA.hashCode != instanceB.hashCode, true);
       });
 
       test('should return when values are different', () {
-        final instanceA = SimpleEquatable<Iterable>(<String>['A', 'B']);
-        final instanceB = SimpleEquatable<Iterable>(<String>['C', 'D']);
+        final instanceA = SimpleEquatable<Iterable<dynamic>>(
+          <String>['A', 'B'],
+        );
+        final instanceB = SimpleEquatable<Iterable<dynamic>>(
+          <String>['C', 'D'],
+        );
         expect(instanceA != instanceB, true);
         expect(instanceA.hashCode != instanceB.hashCode, true);
       });
@@ -823,11 +865,11 @@ void main() {
       test('should return when values are same', () {
         final instanceA = SimpleEquatable<Iterable<Iterable<String>>>([
           ['A', 'B', 'C'],
-          ['D', 'E', 'F']
+          ['D', 'E', 'F'],
         ]);
         final instanceB = SimpleEquatable<Iterable<Iterable<String>>>([
           ['A', 'B', 'C'],
-          ['D', 'E', 'F']
+          ['D', 'E', 'F'],
         ]);
         expect(instanceA == instanceB, true);
         expect(instanceA.hashCode == instanceB.hashCode, true);
@@ -836,11 +878,11 @@ void main() {
       test('should return when values are different', () {
         final instanceA = SimpleEquatable<Iterable<Iterable<String>>>([
           ['A', 'B', 'C'],
-          ['D', 'E', 'F']
+          ['D', 'E', 'F'],
         ]);
         final instanceB = SimpleEquatable<Iterable<Iterable<String>>>([
           ['a', 'b', 'c'],
-          ['d', 'e', 'f']
+          ['d', 'e', 'f'],
         ]);
         expect(instanceA != instanceB, true);
         expect(instanceA.hashCode != instanceB.hashCode, true);
@@ -849,32 +891,32 @@ void main() {
 
     group('List Equatable', () {
       test('should return when values are same', () {
-        final instanceA = SimpleEquatable<List>(<String>['A', 'B']);
-        final instanceB = SimpleEquatable<List>(<String>['A', 'B']);
+        final instanceA = SimpleEquatable<List<dynamic>>(<String>['A', 'B']);
+        final instanceB = SimpleEquatable<List<dynamic>>(<String>['A', 'B']);
         expect(instanceA == instanceB, true);
         expect(instanceA.hashCode == instanceB.hashCode, true);
       });
 
       test('should return when values are different', () {
-        final instanceA = SimpleEquatable<List>(<String>['A', 'B']);
-        final instanceB = SimpleEquatable<List>(<String>['a', 'b']);
+        final instanceA = SimpleEquatable<List<dynamic>>(<String>['A', 'B']);
+        final instanceB = SimpleEquatable<List<dynamic>>(<String>['a', 'b']);
         expect(instanceA != instanceB, true);
         expect(instanceA.hashCode != instanceB.hashCode, true);
       });
 
       test('should return when values are different', () {
-        final instanceA = SimpleEquatable<List>(<String>['A', 'B']);
-        final instanceB = SimpleEquatable<List>(<String>['C', 'D']);
+        final instanceA = SimpleEquatable<List<dynamic>>(<String>['A', 'B']);
+        final instanceB = SimpleEquatable<List<dynamic>>(<String>['C', 'D']);
         expect(instanceA != instanceB, true);
         expect(instanceA.hashCode != instanceB.hashCode, true);
       });
 
       test('should return when contents are same but different kind of List',
           () {
-        final instanceA = SimpleEquatable<List>(
+        final instanceA = SimpleEquatable<List<dynamic>>(
           CustomList<String>(['A', 'B'], growable: true),
         );
-        final instanceB = SimpleEquatable<List>(<String>['A', 'B']);
+        final instanceB = SimpleEquatable<List<dynamic>>(<String>['A', 'B']);
         expect(instanceA == instanceB, true);
         expect(instanceA.hashCode == instanceB.hashCode, true);
       });
@@ -882,8 +924,8 @@ void main() {
       test(
           'should return different hashCode '
           'when instance properties are different', () {
-        final instanceA = SimpleEquatable<List>(<String>['A', 'B']);
-        final instanceB = SimpleEquatable<List>(<String>['B']);
+        final instanceA = SimpleEquatable<List<dynamic>>(<String>['A', 'B']);
+        final instanceB = SimpleEquatable<List<dynamic>>(<String>['B']);
 
         expect(instanceA != instanceB, true);
         expect(instanceA.hashCode != instanceB.hashCode, true);
@@ -893,7 +935,7 @@ void main() {
           'should return different hashCode '
           'when instance properties are modified', () {
         final list = ['A', 'B'];
-        final instanceA = SimpleEquatable<List>(list);
+        final instanceA = SimpleEquatable<List<dynamic>>(list);
         final hashCodeA = instanceA.hashCode;
         list.removeLast();
         final hashCodeB = instanceA.hashCode;
@@ -937,7 +979,7 @@ void main() {
           'should return different hashCode '
           'when instance properties are modified', () {
         final map = {1: 'A', 2: 'B'};
-        final instanceA = SimpleEquatable<Map>(map);
+        final instanceA = SimpleEquatable<Map<dynamic, dynamic>>(map);
         final hashCodeA = instanceA.hashCode;
         map.remove(1);
         final hashCodeB = instanceA.hashCode;

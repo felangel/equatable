@@ -1,7 +1,6 @@
+import 'package:equatable/src/equatable_config.dart';
+import 'package:equatable/src/equatable_utils.dart';
 import 'package:meta/meta.dart';
-
-import './equatable_config.dart';
-import './equatable_utils.dart';
 
 /// {@template equatable}
 /// A base class to facilitate [operator ==] and [hashCode] overrides.

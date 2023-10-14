@@ -1,14 +1,16 @@
+// ignore_for_file: parameter_assignments, unnecessary_parenthesis, avoid_dynamic_calls, lines_longer_than_80_chars
+
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 
 /// Returns a `hashCode` for [props].
-int mapPropsToHashCode(Iterable? props) =>
+int mapPropsToHashCode(Iterable<dynamic>? props) =>
     _finish(props == null ? 0 : props.fold(0, _combine));
 
 const DeepCollectionEquality _equality = DeepCollectionEquality();
 
 /// Determines whether [list1] and [list2] are equal.
-bool equals(List? list1, List? list2) {
+bool equals(List<dynamic>? list1, List<dynamic>? list2) {
   if (identical(list1, list2)) return true;
   if (list1 == null || list2 == null) return false;
   final length = list1.length;

@@ -300,7 +300,7 @@ void main() {
       final instance = SimpleEquatable(EquatableData(
         key: 'foo',
         value: 'bar',
-      ));
+      ),);
       expect(
         instance.toString(),
         'SimpleEquatable<EquatableData>(EquatableData(foo, bar))',
@@ -310,7 +310,7 @@ void main() {
       final instance = SimpleEquatable(EquatableData(
         key: 'foo',
         value: 'bar',
-      ));
+      ),);
       expect(instance == instance, true);
     });
 
@@ -318,7 +318,7 @@ void main() {
       final instance = SimpleEquatable(EquatableData(
         key: 'foo',
         value: 'bar',
-      ));
+      ),);
       expect(
         instance.hashCode,
         instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
@@ -329,11 +329,11 @@ void main() {
       final instanceA = SimpleEquatable(EquatableData(
         key: 'foo',
         value: 'bar',
-      ));
+      ),);
       final instanceB = SimpleEquatable(EquatableData(
         key: 'foo',
         value: 'bar',
-      ));
+      ),);
       expect(instanceA == instanceB, true);
       expect(instanceA.hashCode == instanceB.hashCode, true);
     });
@@ -342,7 +342,7 @@ void main() {
       final instanceA = SimpleEquatable(EquatableData(
         key: 'foo',
         value: 'bar',
-      ));
+      ),);
       final instanceB = NonEquatable();
       expect(instanceA == instanceB, false);
     });
@@ -351,11 +351,11 @@ void main() {
       final instanceA = SimpleEquatable(EquatableData(
         key: 'foo',
         value: 'bar',
-      ));
+      ),);
       final instanceB = SimpleEquatable(EquatableData(
         key: 'foo',
         value: 'barz',
-      ));
+      ),);
       expect(instanceA == instanceB, false);
     });
   });
@@ -516,7 +516,7 @@ void main() {
           "password":"admin"
         }
         ''',
-      ) as Map<String, dynamic>);
+      ) as Map<String, dynamic>,);
       expect(instance.toString(), 'Credentials(Admin, admin)');
     });
 
@@ -528,7 +528,7 @@ void main() {
           "password":"admin"
         }
         ''',
-      ) as Map<String, dynamic>);
+      ) as Map<String, dynamic>,);
       expect(instance == instance, true);
     });
 
@@ -540,7 +540,7 @@ void main() {
           "password":"admin"
         }
         ''',
-      ) as Map<String, dynamic>);
+      ) as Map<String, dynamic>,);
       expect(
         instance.hashCode,
         instance.runtimeType.hashCode ^ mapPropsToHashCode(instance.props),
@@ -555,7 +555,7 @@ void main() {
           "password":"admin"
         }
         ''',
-      ) as Map<String, dynamic>);
+      ) as Map<String, dynamic>,);
       final instanceB = Credentials.fromJson(json.decode(
         '''
         {
@@ -563,7 +563,7 @@ void main() {
           "password":"admin"
         }
         ''',
-      ) as Map<String, dynamic>);
+      ) as Map<String, dynamic>,);
       expect(instanceA == instanceB, true);
       expect(instanceA.hashCode == instanceB.hashCode, true);
     });
@@ -576,7 +576,7 @@ void main() {
           "password":"admin"
         }
         ''',
-      ) as Map<String, dynamic>);
+      ) as Map<String, dynamic>,);
       final instanceB = NonEquatable();
       expect(instanceA == instanceB, false);
     });
@@ -589,7 +589,7 @@ void main() {
           "password":"admin"
         }
         ''',
-      ) as Map<String, dynamic>);
+      ) as Map<String, dynamic>,);
       final instanceB = Credentials.fromJson(json.decode(
         '''
         {
@@ -597,7 +597,7 @@ void main() {
           "password":"password"
         }
         ''',
-      ) as Map<String, dynamic>);
+      ) as Map<String, dynamic>,);
       expect(instanceA == instanceB, false);
     });
   });
