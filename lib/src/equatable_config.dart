@@ -20,6 +20,7 @@ class EquatableConfig {
   /// {@endtemplate}
   static bool get stringify {
     if (_stringify == null) {
+      // ignore: prefer_asserts_with_message
       assert(() {
         _stringify = true;
         return true;

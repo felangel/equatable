@@ -1,24 +1,22 @@
-// ignore_for_file: parameter_assignments, unnecessary_parenthesis, avoid_dynamic_calls, lines_longer_than_80_chars
-
 import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 
 /// Returns a `hashCode` for [props].
-int mapPropsToHashCode(Iterable<dynamic>? props) =>
+int mapPropsToHashCode(Iterable<Object?>? props) =>
     _finish(props == null ? 0 : props.fold(0, _combine));
 
 const DeepCollectionEquality _equality = DeepCollectionEquality();
 
 /// Determines whether [list1] and [list2] are equal.
-bool equals(List<dynamic>? list1, List<dynamic>? list2) {
+bool equals(List<Object?>? list1, List<Object?>? list2) {
   if (identical(list1, list2)) return true;
   if (list1 == null || list2 == null) return false;
   final length = list1.length;
   if (length != list2.length) return false;
 
   for (var i = 0; i < length; i++) {
-    final dynamic unit1 = list1[i];
-    final dynamic unit2 = list2[i];
+    final unit1 = list1[i];
+    final unit2 = list2[i];
 
     if (_isEquatable(unit1) && _isEquatable(unit2)) {
       if (unit1 != unit2) return false;
@@ -33,23 +31,23 @@ bool equals(List<dynamic>? list1, List<dynamic>? list2) {
   return true;
 }
 
-bool _isEquatable(dynamic object) {
+bool _isEquatable(Object? object) {
   return object is Equatable || object is EquatableMixin;
 }
 
 /// Jenkins Hash Functions
 /// https://en.wikipedia.org/wiki/Jenkins_hash_function
-int _combine(int hash, dynamic object) {
+int _combine(int hash, Object? object) {
   if (object is Map) {
     object.keys
         .sorted((dynamic a, dynamic b) => a.hashCode - b.hashCode)
         .forEach((dynamic key) {
-      hash = hash ^ _combine(hash, <dynamic>[key, object[key]]);
+      hash = hash ^ _combine(hash, <dynamic>[key, (object! as Map)[key]]);
     });
     return hash;
   }
   if (object is Set) {
-    object = object.sorted(((dynamic a, dynamic b) => a.hashCode - b.hashCode));
+    object = object.sorted((dynamic a, dynamic b) => a.hashCode - b.hashCode);
   }
   if (object is Iterable) {
     for (final value in object) {
