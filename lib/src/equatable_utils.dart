@@ -2,8 +2,9 @@ import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 
 /// Returns a `hashCode` for [props].
-int mapPropsToHashCode(Iterable<Object?>? props) =>
-    _finish(props == null ? 0 : props.fold(0, _combine));
+int mapPropsToHashCode(Iterable<Object?>? props) {
+  return _finish(props == null ? 0 : props.fold(0, _combine));
+}
 
 const DeepCollectionEquality _equality = DeepCollectionEquality();
 
@@ -40,14 +41,14 @@ bool _isEquatable(Object? object) {
 int _combine(int hash, Object? object) {
   if (object is Map) {
     object.keys
-        .sorted((dynamic a, dynamic b) => a.hashCode - b.hashCode)
-        .forEach((dynamic key) {
-      hash = hash ^ _combine(hash, <dynamic>[key, (object! as Map)[key]]);
+        .sorted((Object? a, Object? b) => a.hashCode - b.hashCode)
+        .forEach((Object? key) {
+      hash = hash ^ _combine(hash, [key, (object! as Map)[key]]);
     });
     return hash;
   }
   if (object is Set) {
-    object = object.sorted((dynamic a, dynamic b) => a.hashCode - b.hashCode);
+    object = object.sorted((Object? a, Object? b) => a.hashCode - b.hashCode);
   }
   if (object is Iterable) {
     for (final value in object) {
@@ -68,5 +69,6 @@ int _finish(int hash) {
 }
 
 /// Returns a string for [props].
-String mapPropsToString(Type runtimeType, List<Object?> props) =>
-    '$runtimeType(${props.map((prop) => prop.toString()).join(', ')})';
+String mapPropsToString(Type runtimeType, List<Object?> props) {
+  return '$runtimeType(${props.map((prop) => prop.toString()).join(', ')})';
+}

@@ -42,11 +42,12 @@ abstract class Equatable {
   bool? get stringify => null;
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Equatable &&
-          runtimeType == other.runtimeType &&
-          equals(props, other.props);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        other is Equatable &&
+            runtimeType == other.runtimeType &&
+            equals(props, other.props);
+  }
 
   @override
   int get hashCode => runtimeType.hashCode ^ mapPropsToHashCode(props);
