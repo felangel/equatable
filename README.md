@@ -173,6 +173,22 @@ class Person extends Equatable {
 }
 ```
 
+Equatable also supports nullable props:
+
+```dart
+import 'package:equatable/equatable.dart';
+
+class Person extends Equatable {
+  const Person(this.name, [this.age]);
+
+  final String name;
+  final int? age;
+
+  @override
+  List<Object?> get props => [name, age];
+}
+```
+
 ### `toString` Implementation
 
 Equatable can implement `toString` method including all the given props. If you want that behaviour for a specific `Equatable` object, just include the following:

@@ -1,8 +1,7 @@
+import 'package:equatable/src/equatable.dart';
+import 'package:equatable/src/equatable_config.dart';
+import 'package:equatable/src/equatable_utils.dart';
 import 'package:meta/meta.dart';
-
-import 'equatable.dart';
-import 'equatable_config.dart';
-import 'equatable_utils.dart';
 
 /// A mixin that helps implement equality
 /// without needing to explicitly override [operator ==] and [hashCode].
