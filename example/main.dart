@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_print
+
 import 'package:equatable/equatable.dart';
 
 class Credentials extends Equatable {
@@ -45,7 +47,7 @@ void main() {
   print(credentialsC == credentialsC); // true
   print(credentialsA == credentialsB); // false
   print(credentialsB == credentialsC); // true
-  print(credentialsA.toString()); // Credentials
+  print(credentialsA); // Credentials
 
   // Equatable Mixin
   final dateTimeA = EquatableDateTime(2019);
@@ -57,5 +59,5 @@ void main() {
   print(dateTimeC == dateTimeC); // true
   print(dateTimeA == dateTimeB); // false
   print(dateTimeB == dateTimeC); // true
-  print(dateTimeA.toString()); // EquatableDateTime(2019, 1, 1, 0, 0, 0, 0, 0)
+  print(dateTimeA); // EquatableDateTime(2019, 1, 1, 0, 0, 0, 0, 0)
 }
