@@ -1,8 +1,7 @@
+import 'package:equatable/src/equatable.dart';
+import 'package:equatable/src/equatable_config.dart';
+import 'package:equatable/src/equatable_utils.dart';
 import 'package:meta/meta.dart';
-
-import 'equatable.dart';
-import 'equatable_config.dart';
-import 'equatable_utils.dart';
 
 /// A mixin that helps implement equality
 /// without needing to explicitly override [operator ==] and [hashCode].
@@ -32,15 +31,9 @@ mixin EquatableMixin {
 
   @override
   String toString() {
-    switch (stringify) {
-      case true:
-        return mapPropsToString(runtimeType, props);
-      case false:
-        return '$runtimeType';
-      default:
-        return EquatableConfig.stringify == true
-            ? mapPropsToString(runtimeType, props)
-            : '$runtimeType';
+    if (stringify ?? EquatableConfig.stringify) {
+      return mapPropsToString(runtimeType, props);
     }
+    return '$runtimeType';
   }
 }

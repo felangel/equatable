@@ -1,5 +1,5 @@
 // ignore_for_file: avoid_classes_with_only_static_members
-import 'equatable.dart';
+import 'package:equatable/src/equatable.dart';
 
 /// The default configurion for all [Equatable] instances.
 ///
@@ -20,6 +20,7 @@ class EquatableConfig {
   /// {@endtemplate}
   static bool get stringify {
     if (_stringify == null) {
+      // ignore: prefer_asserts_with_message
       assert(() {
         _stringify = true;
         return true;

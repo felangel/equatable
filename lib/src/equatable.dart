@@ -1,7 +1,6 @@
+import 'package:equatable/src/equatable_config.dart';
+import 'package:equatable/src/equatable_utils.dart';
 import 'package:meta/meta.dart';
-
-import './equatable_config.dart';
-import './equatable_utils.dart';
 
 /// {@template equatable}
 /// A base class to facilitate [operator ==] and [hashCode] overrides.
@@ -43,26 +42,21 @@ abstract mixin class Equatable {
   bool? get stringify => null;
 
   @override
-  bool operator ==(Object other) =>
-      identical(this, other) ||
-      other is Equatable &&
-          runtimeType == other.runtimeType &&
-          equals(props, other.props);
+  bool operator ==(Object other) {
+    return identical(this, other) ||
+        other is Equatable &&
+            runtimeType == other.runtimeType &&
+            equals(props, other.props);
+  }
 
   @override
   int get hashCode => runtimeType.hashCode ^ mapPropsToHashCode(props);
 
   @override
   String toString() {
-    switch (stringify) {
-      case true:
-        return mapPropsToString(runtimeType, props);
-      case false:
-        return '$runtimeType';
-      default:
-        return EquatableConfig.stringify == true
-            ? mapPropsToString(runtimeType, props)
-            : '$runtimeType';
+    if (stringify ?? EquatableConfig.stringify) {
+      return mapPropsToString(runtimeType, props);
     }
+    return '$runtimeType';
   }
 }

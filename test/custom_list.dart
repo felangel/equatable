@@ -26,7 +26,7 @@ class CustomList<E> implements List<E> {
   List<E> operator +(List<E> other) => _list + other;
 
   @override
-  bool any(bool test(E element)) => _list.any(test);
+  bool any(bool Function(E element) test) => _list.any(test);
 
   @override
   Map<int, E> asMap() => _list.asMap();
@@ -41,27 +41,27 @@ class CustomList<E> implements List<E> {
   E elementAt(int index) => _list.elementAt(index);
 
   @override
-  bool every(bool test(E element)) => _list.every(test);
+  bool every(bool Function(E element) test) => _list.every(test);
 
   @override
-  Iterable<T> expand<T>(Iterable<T> f(E e)) => _list.expand(f);
+  Iterable<T> expand<T>(Iterable<T> Function(E e) f) => _list.expand(f);
 
   @override
   E get first => _list.first;
 
   @override
-  E firstWhere(bool test(E element), {E orElse()?}) =>
+  E firstWhere(bool Function(E element) test, {E Function()? orElse}) =>
       _list.firstWhere(test, orElse: orElse);
 
   @override
-  T fold<T>(T initialValue, T combine(T previousValue, E element)) =>
+  T fold<T>(T initialValue, T Function(T previousValue, E element) combine) =>
       _list.fold(initialValue, combine);
 
   @override
   Iterable<E> followedBy(Iterable<E> other) => _list.followedBy(other);
 
   @override
-  void forEach(void f(E element)) => _list.forEach(f);
+  void forEach(void Function(E element) f) => _list.forEach(f);
 
   @override
   Iterable<E> getRange(int start, int end) => _list.getRange(start, end);
@@ -70,7 +70,7 @@ class CustomList<E> implements List<E> {
   int indexOf(E element, [int start = 0]) => _list.indexOf(element, start);
 
   @override
-  int indexWhere(bool test(E element), [int start = 0]) =>
+  int indexWhere(bool Function(E element) test, [int start = 0]) =>
       _list.indexWhere(test, start);
 
   @override
@@ -92,18 +92,18 @@ class CustomList<E> implements List<E> {
   int lastIndexOf(E element, [int? start]) => _list.lastIndexOf(element, start);
 
   @override
-  int lastIndexWhere(bool test(E element), [int? start]) =>
+  int lastIndexWhere(bool Function(E element) test, [int? start]) =>
       _list.lastIndexWhere(test, start);
 
   @override
-  E lastWhere(bool test(E element), {E orElse()?}) =>
+  E lastWhere(bool Function(E element) test, {E Function()? orElse}) =>
       _list.lastWhere(test, orElse: orElse);
 
   @override
-  Iterable<T> map<T>(T f(E e)) => _list.map(f);
+  Iterable<T> map<T>(T Function(E e) f) => _list.map(f);
 
   @override
-  E reduce(E combine(E value, E element)) => _list.reduce(combine);
+  E reduce(E Function(E value, E element) combine) => _list.reduce(combine);
 
   @override
   Iterable<E> get reversed => _list.reversed;
@@ -112,14 +112,14 @@ class CustomList<E> implements List<E> {
   E get single => _list.single;
 
   @override
-  E singleWhere(bool test(E element), {E orElse()?}) =>
+  E singleWhere(bool Function(E element) test, {E Function()? orElse}) =>
       _list.singleWhere(test, orElse: orElse);
 
   @override
   Iterable<E> skip(int count) => _list.skip(count);
 
   @override
-  Iterable<E> skipWhile(bool test(E value)) => _list.skipWhile(test);
+  Iterable<E> skipWhile(bool Function(E value) test) => _list.skipWhile(test);
 
   @override
   List<E> sublist(int start, [int? end]) => _list.sublist(start, end);
@@ -128,7 +128,7 @@ class CustomList<E> implements List<E> {
   Iterable<E> take(int count) => _list.take(count);
 
   @override
-  Iterable<E> takeWhile(bool test(E value)) => _list.takeWhile(test);
+  Iterable<E> takeWhile(bool Function(E value) test) => _list.takeWhile(test);
 
   @override
   List<E> toList({bool growable = true}) => _list.toList(growable: growable);
@@ -137,7 +137,7 @@ class CustomList<E> implements List<E> {
   Set<E> toSet() => _list.toSet();
 
   @override
-  Iterable<E> where(bool test(E element)) => _list.where(test);
+  Iterable<E> where(bool Function(E element) test) => _list.where(test);
 
   @override
   Iterable<T> whereType<T>() => _list.whereType<T>();
@@ -181,7 +181,7 @@ class CustomList<E> implements List<E> {
   }
 
   @override
-  void sort([int compare(E a, E b)?]) {
+  void sort([int Function(E a, E b)? compare]) {
     _maybeCopyBeforeWrite();
     _list.sort(compare);
   }
@@ -235,13 +235,13 @@ class CustomList<E> implements List<E> {
   }
 
   @override
-  void removeWhere(bool test(E element)) {
+  void removeWhere(bool Function(E element) test) {
     _maybeCopyBeforeWrite();
     _list.removeWhere(test);
   }
 
   @override
-  void retainWhere(bool test(E element)) {
+  void retainWhere(bool Function(E element) test) {
     _maybeCopyBeforeWrite();
     _list.retainWhere(test);
   }
