@@ -2,7 +2,7 @@
 
 import 'package:equatable/equatable.dart';
 
-class Credentials extends Equatable {
+class Credentials with Equatable {
   const Credentials({required this.username, required this.password});
 
   final String username;
@@ -15,7 +15,7 @@ class Credentials extends Equatable {
   bool get stringify => false;
 }
 
-class EquatableDateTime extends DateTime with EquatableMixin {
+class EquatableDateTime extends DateTime with Equatable {
   EquatableDateTime(
     int year, [
     int month = 1,
