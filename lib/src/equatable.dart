@@ -1,4 +1,3 @@
-import 'package:equatable/src/equatable_comparison_utils.dart';
 import 'package:equatable/src/equatable_config.dart';
 import 'package:equatable/src/equatable_utils.dart';
 import 'package:meta/meta.dart';
