@@ -93,7 +93,9 @@ bool _mapEquals(Map<Object?, Object?> a, Map<Object?, Object?> b) {
 /// https://en.wikipedia.org/wiki/Jenkins_hash_function
 int _combine(int hash, Object? object) {
   if (object is Map) {
-    object.keys.sorted((Object? a, Object? b) => a.hashCode - b.hashCode).forEach((Object? key) {
+    object.keys
+        .sorted((Object? a, Object? b) => a.hashCode - b.hashCode)
+        .forEach((Object? key) {
       hash = hash ^ _combine(hash, [key, (object! as Map)[key]]);
     });
     return hash;
