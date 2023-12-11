@@ -23,10 +23,10 @@ bool equals(List<Object?> list1, List<Object?> list2) {
 
     if (_isEquatable(unit1) && _isEquatable(unit2)) {
       if (unit1 != unit2) return false;
-    } else if (unit1 is Iterable && unit2 is Iterable) {
-      return _iterableEquals(unit1, unit2);
     } else if (unit1 is Set && unit2 is Set) {
       return _setEquals(unit1, unit2);
+    } else if (unit1 is Iterable && unit2 is Iterable) {
+      return _iterableEquals(unit1, unit2);
     } else if (unit1 is Map && unit2 is Map) {
       return _mapEquals(unit1, unit2);
     } else if (unit1?.runtimeType != unit2?.runtimeType) {
@@ -93,9 +93,7 @@ bool _mapEquals(Map<Object?, Object?> a, Map<Object?, Object?> b) {
 /// https://en.wikipedia.org/wiki/Jenkins_hash_function
 int _combine(int hash, Object? object) {
   if (object is Map) {
-    object.keys
-        .sorted((Object? a, Object? b) => a.hashCode - b.hashCode)
-        .forEach((Object? key) {
+    object.keys.sorted((Object? a, Object? b) => a.hashCode - b.hashCode).forEach((Object? key) {
       hash = hash ^ _combine(hash, [key, (object! as Map)[key]]);
     });
     return hash;
