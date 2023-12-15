@@ -43,10 +43,10 @@ bool _objectsEquals(Object? object1, Object? object2) {
     return true;
   } else if (_isEquatable(object1) && _isEquatable(object2)) {
     if (object1 != object2) return false;
-  } else if (object1 is List && object2 is List) {
-    return _iterableEquals(object1, object2);
   } else if (object1 is Set && object2 is Set) {
     return _setEquals(object1, object2);
+  } else if (object1 is List && object2 is List) {
+    return _iterableEquals(object1, object2);
   } else if (object1 is Map && object2 is Map) {
     return _mapEquals(object1, object2);
   } else if (object1?.runtimeType != object2?.runtimeType) {
