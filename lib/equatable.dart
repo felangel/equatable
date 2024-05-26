@@ -8,15 +8,15 @@ import 'package:collection/collection.dart'
 export './src/equatable.dart' show Equatable;
 
 /// Deep collection equality.
-final deepEquals = const DeepCollectionEquality.unordered().equals;
+final deepEquals = const DeepCollectionEquality().equals;
 
 /// Returns a `hashCode` for [fields].
+/// Jenkins Hash Functions
+/// https://en.wikipedia.org/wiki/Jenkins_hash_function
 int jenkinsHash(Iterable<Object?>? fields) {
   return _finish(fields == null ? 0 : fields.fold(0, _combine));
 }
 
-/// Jenkins Hash Functions
-/// https://en.wikipedia.org/wiki/Jenkins_hash_function
 int _combine(int hash, Object? object) {
   if (object is Map) {
     object.keys
