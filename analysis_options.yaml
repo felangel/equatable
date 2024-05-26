@@ -1,4 +1,7 @@
 analyzer:
+  enable-experiment:
+    - macros
+
   language:
     strict-casts: true
     strict-inference: true
