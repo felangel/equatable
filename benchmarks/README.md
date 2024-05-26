@@ -58,5 +58,6 @@ CollectionEquatable (large)
        time per unit:     0.0400 μs
 ```
 
-*Run on a MacBook Pro (M1 Pro, 16GB RAM)*
 *Last Updated: May 26, 2024 using `725b76c9ef072695f3ae4f036c4fa5e015528f13`*
+*MacBook Pro (M1 Pro, 16GB RAM)*
+*Dart SDK version: 3.3.4 (stable) (Tue Apr 16 19:56:12 2024 +0000) on "macos_arm64"*
