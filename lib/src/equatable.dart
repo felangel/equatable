@@ -86,6 +86,8 @@ macro class Equatable implements ClassDeclarationsMacro, ClassDefinitionMacro {
       builder.allFieldsOf(clazz),
     ).wait;
 
+    fields.removeWhere((f) => f.hasStatic);
+
     if (fields.isEmpty) {
       return equalsMethod.augment(
         FunctionBodyCode.fromParts(
@@ -99,7 +101,7 @@ macro class Equatable implements ClassDeclarationsMacro, ClassDefinitionMacro {
         ),      
       );
     }
-
+    
     final fieldNames = fields.map((f) => f.identifier.name);
     final lastField = fieldNames.last;
     return equalsMethod.augment(
@@ -133,6 +135,8 @@ macro class Equatable implements ClassDeclarationsMacro, ClassDefinitionMacro {
       builder.codeFrom(_equatable, 'jenkinsHash'),
       builder.allFieldsOf(clazz),
     ).wait;
+
+    fields.removeWhere((f) => f.hasStatic);
 
     final fieldNames = fields.map((f) => f.identifier.name);
 
