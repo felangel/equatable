@@ -1,62 +1,197 @@
-import 'package:equatable/src/equatable_config.dart';
-import 'package:equatable/src/equatable_utils.dart';
-import 'package:meta/meta.dart';
+import 'package:collection/collection.dart';
+import 'package:macros/macros.dart';
 
 /// {@template equatable}
-/// A base class to facilitate [operator ==] and [hashCode] overrides.
-///
+/// An experimental macro which implements value-equality.
+/// 
 /// ```dart
-/// class Person extends Equatable {
-///   const Person(this.name);
-///
+/// @Equatable()
+/// class Person {
+///   const Person({required this.name});
 ///   final String name;
-///
-///   @override
-///   List<Object> get props => [name];
+/// }
+/// 
+/// void main() {
+///   // Generated `hashCode` and `operator==` for value based equality.
+///   print(Person(name: 'Dash') == Person(name: 'Dash')); // true
+///   print(Person(name: 'Dash') == Person(name: 'Sparky')); // false
 /// }
 /// ```
 /// {@endtemplate}
-@immutable
-abstract class Equatable {
+macro class Equatable implements ClassDeclarationsMacro, ClassDefinitionMacro {
   /// {@macro equatable}
   const Equatable();
 
-  /// {@template equatable_props}
-  /// The list of properties that will be used to determine whether
-  /// two instances are equal.
-  /// {@endtemplate}
-  List<Object?> get props;
-
-  /// {@template equatable_stringify}
-  /// If set to `true`, the [toString] method will be overridden to output
-  /// this instance's [props].
-  ///
-  /// A global default value for [stringify] can be set using
-  /// `EquatableConfig.stringify`.
-  ///
-  /// If this instance's [stringify] is set to null, the value of
-  /// `EquatableConfig.stringify` will be used instead. This defaults to
-  /// `false`.
-  /// {@endtemplate}
-  // ignore: avoid_returning_null
-  bool? get stringify => null;
-
   @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        other is Equatable &&
-            runtimeType == other.runtimeType &&
-            equals(props, other.props);
+  Future<void> buildDeclarationsForClass(
+    ClassDeclaration clazz,
+    MemberDeclarationBuilder builder,
+  )  {
+    return [
+      _declareEquals(clazz, builder),
+      _declareHashCode(clazz, builder),
+    ].wait;
   }
 
   @override
-  int get hashCode => runtimeType.hashCode ^ mapPropsToHashCode(props);
+  Future<void> buildDefinitionForClass(
+    ClassDeclaration clazz,
+    TypeDefinitionBuilder builder,
+  ) {
+    return [
+      _buildEquals(clazz, builder),
+      _buildHashCode(clazz, builder),
+    ].wait;
+  }
 
-  @override
-  String toString() {
-    if (stringify ?? EquatableConfig.stringify) {
-      return mapPropsToString(runtimeType, props);
+  Future<void> _declareEquals(
+    ClassDeclaration clazz,
+    MemberDeclarationBuilder builder,
+  ) async {
+    final (object, boolean) = await (
+      builder.codeFrom(_dartCore, 'Object'),
+      builder.codeFrom(_dartCore, 'bool'),      
+    ).wait;
+    return builder.declareInType(
+      DeclarationCode.fromParts(
+        ['external ', boolean, ' operator==(', object, ' other);'],
+      ),
+    );
+  }
+
+  Future<void> _declareHashCode(
+    ClassDeclaration clazz,
+    MemberDeclarationBuilder builder,
+  ) async {
+    final integer = await builder.codeFrom(_dartCore, 'int');
+    return builder.declareInType(
+      DeclarationCode.fromParts(['external ', integer, ' get hashCode;']),
+    );
+  }
+
+  Future<void> _buildEquals(
+    ClassDeclaration clazz,
+    TypeDefinitionBuilder builder,
+  ) async {
+    final methods = await builder.methodsOf(clazz);
+    final equality = methods.firstWhereOrNull(
+      (m) => m.identifier.name == '==',
+    );
+    if (equality == null) return;
+    
+    final (equalsMethod, deepEquals, identical, fields) = await (
+      builder.buildMethod(equality.identifier),
+      builder.codeFrom(_equatable, 'deepEquals'),
+      builder.codeFrom(_dartCore, 'identical'),
+      builder.allFieldsOf(clazz),
+    ).wait;
+
+    if (fields.isEmpty) {
+      return equalsMethod.augment(
+        FunctionBodyCode.fromParts(
+          [
+            '{',
+            'if (', identical,' (this, other)',')', 'return true;',
+            'return other is ${clazz.identifier.name} && ',
+            'other.runtimeType == runtimeType;',
+            '}',
+          ],
+        ),      
+      );
     }
-    return '$runtimeType';
+
+    final fieldNames = fields.map((f) => f.identifier.name);
+    final lastField = fieldNames.last;
+    return equalsMethod.augment(
+      FunctionBodyCode.fromParts(
+        [
+          '{',
+          'if (', identical,' (this, other)',')', 'return true;',
+          'return other is ${clazz.identifier.name} && ',
+          'other.runtimeType == runtimeType && ',
+          for (final field in fieldNames)
+            ...[deepEquals, '($field, other.$field)', if (field != lastField) ' && '],
+          ';',
+          '}',
+        ],
+      ),      
+    );
+  }
+
+  Future<void> _buildHashCode(
+    ClassDeclaration clazz,
+    TypeDefinitionBuilder builder,
+  ) async {
+    final methods = await builder.methodsOf(clazz);
+    final hashCode = methods.firstWhereOrNull(
+      (m) => m.identifier.name == 'hashCode',
+    );
+    if (hashCode == null) return;
+
+    final (hashCodeMethod, jenkinsHash, fields) = await (
+      builder.buildMethod(hashCode.identifier),
+      builder.codeFrom(_equatable, 'jenkinsHash'),
+      builder.allFieldsOf(clazz),
+    ).wait;
+
+    final fieldNames = fields.map((f) => f.identifier.name);
+
+    return hashCodeMethod.augment(
+      FunctionBodyCode.fromParts(
+        [
+          '=> ',
+          jenkinsHash,
+          '([',
+          fieldNames.join(', '),
+          ']);',
+        ],
+      ),
+    );
   }
 }
+
+extension on DeclarationBuilder {
+  Future<NamedTypeAnnotationCode> codeFrom(Uri library, String name) async {
+    // ignore: deprecated_member_use
+    return _codeFrom(library, name, resolveIdentifier);
+  }   
+}
+
+extension on DefinitionBuilder {
+   Future<List<FieldDeclaration>> allFieldsOf(ClassDeclaration clazz) async {
+    final allFields = <FieldDeclaration>[...await fieldsOf(clazz)];
+    var superclass = await superclassOf(clazz);
+    while (superclass != null && superclass.identifier.name != 'Object') {
+      allFields.addAll(await fieldsOf(superclass));
+      superclass = await superclassOf(superclass);
+    }
+    return allFields;
+  }
+
+  Future<NamedTypeAnnotationCode> codeFrom(Uri library, String name) async {
+    // ignore: deprecated_member_use
+    return _codeFrom(library, name, resolveIdentifier);
+  }
+
+   Future<ClassDeclaration?> superclassOf(ClassDeclaration clazz) async {
+    final superclassType = clazz.superclass != null
+      ? await typeDeclarationOf(clazz.superclass!.identifier)
+      : null;
+    return superclassType is ClassDeclaration ? superclassType : null;
+  }
+}
+
+Future<NamedTypeAnnotationCode> _codeFrom(
+  Uri library,
+  String name,
+  Future<Identifier> Function(Uri library, String name) resolveIdentifier,
+) async {
+  final identifier = await resolveIdentifier(library, name);
+  return NamedTypeAnnotationCode(name: identifier);
+}
+
+// Used libraries
+final _dartCore = Uri.parse('dart:core');
+final _equatable = Uri.parse(
+  'package:equatable/equatable.dart',
+);
