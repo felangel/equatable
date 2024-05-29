@@ -326,29 +326,9 @@ class EquatableDateTimeSubclass extends EquatableDateTime {
 }
 ```
 
-## Performance
+## Benchmarks
 
-You might be wondering what the performance impact will be if you use `Equatable`.
-
-### Results (average over 10 runs)
-
-#### Equality Comparison A == A
-
-| Class              | Runtime (μs) |
-| ------------------ | ------------ |
-| Manual             | 0.193        |
-| Empty Equatable    | 0.191        |
-| Hydrated Equatable | 0.190        |
-
-#### Instantiation A()
-
-| Class              | Runtime (μs) |
-| ------------------ | ------------ |
-| Manual             | 0.165        |
-| Empty Equatable    | 0.181        |
-| Hydrated Equatable | 0.182        |
-
-\*_Performance Tests run using: Dart VM version: 2.4.0_
+You can see and run performance benchmarks by heading over to [benchmarks](./benchmarks).
 
 ## Maintainers
 
