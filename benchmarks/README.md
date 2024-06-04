@@ -13,7 +13,7 @@ Benchmarks used to measure the performance of equality comparisons using `packag
 
 ```
 EmptyEquatable
-          total runs:  2 076 295
+          total runs:  2 042 216
           total time:     2.0000  s
          average run:          0 μs
          runs/second:   Infinity
@@ -22,7 +22,7 @@ EmptyEquatable
        time per unit:     0.0000 μs
 
 PrimitiveEquatable
-          total runs:    810 588
+          total runs:    720 108
           total time:     2.0000  s
          average run:          2 μs
          runs/second:    500 000
@@ -30,8 +30,8 @@ PrimitiveEquatable
         units/second: 50 000 000
        time per unit:     0.0200 μs
 
-CollectionEquatable (small)
-          total runs:    443 978
+CollectionEquatable (static, small)
+          total runs:    405 148
           total time:     2.0000  s
          average run:          4 μs
          runs/second:    250 000
@@ -39,8 +39,8 @@ CollectionEquatable (small)
         units/second: 25 000 000
        time per unit:     0.0400 μs
 
-CollectionEquatable (medium)
-          total runs:    442 368
+CollectionEquatable (static, medium)
+          total runs:    412 849
           total time:     2.0000  s
          average run:          4 μs
          runs/second:    250 000
@@ -48,8 +48,35 @@ CollectionEquatable (medium)
         units/second: 25 000 000
        time per unit:     0.0400 μs
 
-CollectionEquatable (large)
-          total runs:    450 915
+CollectionEquatable (static, large)
+          total runs:    402 613
+          total time:     2.0000  s
+         average run:          4 μs
+         runs/second:    250 000
+               units:        100
+        units/second: 25 000 000
+       time per unit:     0.0400 μs
+
+CollectionEquatable (dynamic, small)
+          total runs:    405 483
+          total time:     2.0000  s
+         average run:          4 μs
+         runs/second:    250 000
+               units:        100
+        units/second: 25 000 000
+       time per unit:     0.0400 μs
+
+CollectionEquatable (dynamic, medium)
+          total runs:    402 934
+          total time:     2.0000  s
+         average run:          4 μs
+         runs/second:    250 000
+               units:        100
+        units/second: 25 000 000
+       time per unit:     0.0400 μs
+
+CollectionEquatable (dynamic, large)
+          total runs:    408 285
           total time:     2.0000  s
          average run:          4 μs
          runs/second:    250 000
@@ -58,8 +85,8 @@ CollectionEquatable (large)
        time per unit:     0.0400 μs
 ```
 
-_Last Updated: May 26, 2024 using `725b76c9ef072695f3ae4f036c4fa5e015528f13`_
+_Last Updated: June 3, 2024 using `725b76c9ef072695f3ae4f036c4fa5e015528f13`_
 
 _MacBook Pro (M1 Pro, 16GB RAM)_
 
-_Dart SDK version: 3.3.4 (stable) (Tue Apr 16 19:56:12 2024 +0000) on "macos_arm64"_
+Dart SDK version: 3.5.0-218.0.dev (dev) (Mon Jun 3 13:02:57 2024 -0700) on "macos_arm64"
