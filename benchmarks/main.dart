@@ -43,7 +43,43 @@ void main() {
   );
 
   _runBenchmark(
-    'CollectionEquatable (small)',
+    'CollectionEquatable (static, small)',
+    (index) => CollectionEquatable(
+      list: List.generate(1, (_) => 42),
+      map: Map.fromEntries(
+        // ignore: prefer_const_constructors
+        List.generate(1, (_) => MapEntry('42', 42)),
+      ),
+      set: Set.from(List.generate(1, (_) => 42)),
+    ),
+  );
+
+  _runBenchmark(
+    'CollectionEquatable (static, medium)',
+    (index) => CollectionEquatable(
+      list: List.generate(10, (_) => 42),
+      map: Map.fromEntries(
+        // ignore: prefer_const_constructors
+        List.generate(10, (_) => MapEntry('42', 42)),
+      ),
+      set: Set.from(List.generate(10, (_) => 42)),
+    ),
+  );
+
+  _runBenchmark(
+    'CollectionEquatable (static, large)',
+    (index) => CollectionEquatable(
+      list: List.generate(100, (_) => 42),
+      map: Map.fromEntries(
+        // ignore: prefer_const_constructors
+        List.generate(100, (_) => MapEntry('42', 42)),
+      ),
+      set: Set.from(List.generate(100, (_) => 42)),
+    ),
+  );
+
+  _runBenchmark(
+    'CollectionEquatable (dynamic, small)',
     (index) => CollectionEquatable(
       list: List.generate(1, (i) => index + i),
       map: Map.fromEntries(
@@ -54,7 +90,7 @@ void main() {
   );
 
   _runBenchmark(
-    'CollectionEquatable (medium)',
+    'CollectionEquatable (dynamic, medium)',
     (index) => CollectionEquatable(
       list: List.generate(10, (i) => index + i),
       map: Map.fromEntries(
@@ -65,7 +101,7 @@ void main() {
   );
 
   _runBenchmark(
-    'CollectionEquatable (large)',
+    'CollectionEquatable (dynamic, large)',
     (index) => CollectionEquatable(
       list: List.generate(100, (i) => index + i),
       map: Map.fromEntries(
