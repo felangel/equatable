@@ -13,75 +13,75 @@ Benchmarks used to measure the performance of equality comparisons using `packag
 
 ```
 EmptyEquatable
-          total runs:  2 042 216
+          total runs:  2 064 037   
           total time:     2.0000  s
          average run:          0 μs
          runs/second:   Infinity
-               units:        100
+               units:        100   
         units/second:   Infinity
        time per unit:     0.0000 μs
 
 PrimitiveEquatable
-          total runs:    720 108
+          total runs:    729 555   
           total time:     2.0000  s
          average run:          2 μs
-         runs/second:    500 000
-               units:        100
-        units/second: 50 000 000
+         runs/second:    500 000   
+               units:        100   
+        units/second: 50 000 000   
        time per unit:     0.0200 μs
 
 CollectionEquatable (static, small)
-          total runs:    405 148
+          total runs:     51 944   
           total time:     2.0000  s
-         average run:          4 μs
-         runs/second:    250 000
-               units:        100
-        units/second: 25 000 000
-       time per unit:     0.0400 μs
+         average run:         38 μs
+         runs/second:     26 316   
+               units:        100   
+        units/second:  2 631 579   
+       time per unit:     0.3800 μs
 
 CollectionEquatable (static, medium)
-          total runs:    412 849
+          total runs:     44 572   
           total time:     2.0000  s
-         average run:          4 μs
-         runs/second:    250 000
-               units:        100
-        units/second: 25 000 000
-       time per unit:     0.0400 μs
+         average run:         44 μs
+         runs/second:     22 727   
+               units:        100   
+        units/second:  2 272 727   
+       time per unit:     0.4400 μs
 
 CollectionEquatable (static, large)
-          total runs:    402 613
-          total time:     2.0000  s
-         average run:          4 μs
-         runs/second:    250 000
-               units:        100
-        units/second: 25 000 000
-       time per unit:     0.0400 μs
+          total runs:     21 027   
+          total time:     2.0001  s
+         average run:         95 μs
+         runs/second:     10 526   
+               units:        100   
+        units/second:  1 052 632   
+       time per unit:     0.9500 μs
 
 CollectionEquatable (dynamic, small)
-          total runs:    405 483
+          total runs:    400 934   
           total time:     2.0000  s
          average run:          4 μs
-         runs/second:    250 000
-               units:        100
-        units/second: 25 000 000
+         runs/second:    250 000   
+               units:        100   
+        units/second: 25 000 000   
        time per unit:     0.0400 μs
 
 CollectionEquatable (dynamic, medium)
-          total runs:    402 934
+          total runs:    400 408   
           total time:     2.0000  s
          average run:          4 μs
-         runs/second:    250 000
-               units:        100
-        units/second: 25 000 000
+         runs/second:    250 000   
+               units:        100   
+        units/second: 25 000 000   
        time per unit:     0.0400 μs
 
 CollectionEquatable (dynamic, large)
-          total runs:    408 285
+          total runs:    400 966   
           total time:     2.0000  s
          average run:          4 μs
-         runs/second:    250 000
-               units:        100
-        units/second: 25 000 000
+         runs/second:    250 000   
+               units:        100   
+        units/second: 25 000 000   
        time per unit:     0.0400 μs
 ```
 

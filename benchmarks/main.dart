@@ -51,33 +51,36 @@ void main() {
   _runBenchmark(
     'CollectionEquatable (static, small)',
     (index) => CollectionEquatable(
-      list: List.generate(1, (_) => index),
+      list: List.generate(1, (_) => 42),
       map: Map.fromEntries(
-        List.generate(1, (_) => MapEntry('$index', index)),
+        // ignore: prefer_const_constructors
+        List.generate(1, (_) => MapEntry('42', 42)),
       ),
-      set: Set.from(List.generate(1, (_) => index)),
+      set: Set.from(List.generate(1, (_) => 42)),
     ),
   );
 
   _runBenchmark(
     'CollectionEquatable (static, medium)',
     (index) => CollectionEquatable(
-      list: List.generate(10, (_) => index),
+      list: List.generate(10, (_) => 42),
       map: Map.fromEntries(
-        List.generate(10, (_) => MapEntry('$index', index)),
+        // ignore: prefer_const_constructors
+        List.generate(10, (_) => MapEntry('42', 42)),
       ),
-      set: Set.from(List.generate(10, (_) => index)),
+      set: Set.from(List.generate(10, (_) => 42)),
     ),
   );
 
   _runBenchmark(
     'CollectionEquatable (static, large)',
     (index) => CollectionEquatable(
-      list: List.generate(100, (_) => index),
+      list: List.generate(100, (_) => 42),
       map: Map.fromEntries(
-        List.generate(100, (_) => MapEntry('$index', index)),
+        // ignore: prefer_const_constructors
+        List.generate(100, (_) => MapEntry('42', 42)),
       ),
-      set: Set.from(List.generate(100, (_) => index)),
+      set: Set.from(List.generate(100, (_) => 42)),
     ),
   );
 
