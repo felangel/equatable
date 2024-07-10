@@ -98,17 +98,13 @@ You can see how this can quickly become a hassle when dealing with complex class
 
 `Equatable` overrides `==` and `hashCode` for you so you don't have to waste your time writing lots of boilerplate code.
 
-There are other packages that will actually generate the boilerplate for you; however, you still have to run the code generation step which is not ideal.
-
-With `Equatable` there is no code generation needed and we can focus more on writing amazing applications and less on mundane tasks.
-
 ## Usage
 
 First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^2.0.0
+  equatable: ^3.0.0
 ```
 
 Next, we need to install it:
@@ -121,37 +117,15 @@ pub get
 flutter packages get
 ```
 
-Lastly, we need to extend `Equatable`
+Lastly, we need to add the `@Equatable` annotation.
 
 ```dart
 import 'package:equatable/equatable.dart';
 
-class Person extends Equatable {
+@Equatable()
+class Person {
   const Person(this.name);
-
   final String name;
-
-  @override
-  List<Object> get props => [name];
-}
-```
-
-When working with json:
-
-```dart
-import 'package:equatable/equatable.dart';
-
-class Person extends Equatable {
-  const Person(this.name);
-
-  final String name;
-
-  @override
-  List<Object> get props => [name];
-
-  factory Person.fromJson(Map<String, dynamic> json) {
-    return Person(json['name']);
-  }
 }
 ```
 
@@ -163,13 +137,10 @@ Equatable also supports `const` constructors:
 ```dart
 import 'package:equatable/equatable.dart';
 
+@Equatable()
 class Person extends Equatable {
   const Person(this.name);
-
   final String name;
-
-  @override
-  List<Object> get props => [name];
 }
 ```
 
@@ -178,64 +149,13 @@ Equatable also supports nullable props:
 ```dart
 import 'package:equatable/equatable.dart';
 
-class Person extends Equatable {
+@Equatable()
+class Person {
   const Person(this.name, [this.age]);
-
   final String name;
   final int? age;
-
-  @override
-  List<Object?> get props => [name, age];
 }
 ```
-
-### `toString` Implementation
-
-Equatable can implement `toString` method including all the given props. If you want that behaviour for a specific `Equatable` object, just include the following:
-
-```dart
-@override
-bool get stringify => true;
-```
-
-For instance:
-
-```dart
-import 'package:equatable/equatable.dart';
-
-class Person extends Equatable {
-  const Person(this.name);
-
-  final String name;
-
-  @override
-  List<Object> get props => [name];
-
-  @override
-  bool get stringify => true;
-}
-```
-
-For the name `Bob`, the output will be:
-
-`Person(Bob)`
-
-This flag by default is false and `toString` will return just the type:
-
-`Person`
-
-#### EquatableConfig
-
-`stringify` can also be configured globally for all `Equatable` instances via `EquatableConfig`
-
-```dart
-EquatableConfig.stringify = true;
-```
-
-If `stringify` is overridden for a specific `Equatable` class, then the value of `EquatableConfig.stringify` is ignored.
-In other words, the local configuration always takes precedence over the global configuration.
-
-_Note: `EquatableConfig.stringify` defaults to `true` in debug mode and `false` in release mode._
 
 ## Recap
 
@@ -264,71 +184,17 @@ class Person {
 ```dart
 import 'package:equatable/equatable.dart';
 
-class Person extends Equatable {
+@Equatable()
+class Person {
   const Person(this.name);
 
   final String name;
-
-  @override
-  List<Object> get props => [name];
-}
-```
-
-## EquatableMixin
-
-Sometimes it isn't possible to extend `Equatable` because your class already has a superclass.
-In this case, you can still get the benefits of `Equatable` by using the `EquatableMixin`.
-
-### Usage
-
-Let's say we want to make an `EquatableDateTime` class, we can use `EquatableMixin` like so:
-
-```dart
-class EquatableDateTime extends DateTime with EquatableMixin {
-  EquatableDateTime(
-    int year, [
-    int month = 1,
-    int day = 1,
-    int hour = 0,
-    int minute = 0,
-    int second = 0,
-    int millisecond = 0,
-    int microsecond = 0,
-  ]) : super(year, month, day, hour, minute, second, millisecond, microsecond);
-
-  @override
-  List<Object> get props {
-    return [year, month, day, hour, minute, second, millisecond, microsecond];
-  }
-}
-```
-
-Now if we want to create a subclass of `EquatableDateTime`, we can just override `props`.
-
-```dart
-class EquatableDateTimeSubclass extends EquatableDateTime {
-  final int century;
-
-  EquatableDateTimeSubclass(
-    this.century,
-    int year,[
-    int month = 1,
-    int day = 1,
-    int hour = 0,
-    int minute = 0,
-    int second = 0,
-    int millisecond = 0,
-    int microsecond = 0,
-  ]) : super(year, month, day, hour, minute, second, millisecond, microsecond);
-
-  @override
-  List<Object> get props => super.props..addAll([century]);
 }
 ```
 
 ## Benchmarks
 
-You can see and run performance benchmarks by heading over to [benchmarks](./benchmarks).
+You can check out and run performance benchmarks by heading over to [benchmarks](./benchmarks);
 
 ## Maintainers
 
