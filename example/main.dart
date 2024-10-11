@@ -17,15 +17,15 @@ class Credentials extends Equatable {
 
 class EquatableDateTime extends DateTime with EquatableMixin {
   EquatableDateTime(
-    int year, [
-    int month = 1,
-    int day = 1,
-    int hour = 0,
-    int minute = 0,
-    int second = 0,
-    int millisecond = 0,
-    int microsecond = 0,
-  ]) : super(year, month, day, hour, minute, second, millisecond, microsecond);
+    super.year, [
+    super.month,
+    super.day,
+    super.hour,
+    super.minute,
+    super.second,
+    super.millisecond,
+    super.microsecond,
+  ]);
 
   @override
   List<Object> get props {
