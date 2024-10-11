@@ -6,26 +6,45 @@ int mapPropsToHashCode(Iterable<Object?>? props) {
   return _finish(props == null ? 0 : props.fold(0, _combine));
 }
 
-/// Determines whether [a] and [b] are equal.
-bool equals(List<Object?> a, List<Object?> b) {
+/// Determines whether two iterables are equal.
+bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
   if (identical(a, b)) return true;
   if (a.length != b.length) return false;
   for (var i = 0; i < a.length; i++) {
-    if (!_objectsEquals(a[i], b[i])) return false;
+    if (!objectsEquals(a.elementAt(i), b.elementAt(i))) return false;
   }
   return true;
 }
 
-bool _objectsEquals(Object? a, Object? b) {
+/// Determines whether two sets are equal.
+bool setEquals(Set<Object?> a, Set<Object?> b) {
+  if (identical(a, b)) return true;
+  if (a.length != b.length) return false;
+  if (a.any((e) => !b.contains(e))) return false;
+  return true;
+}
+
+/// Determines whether two maps are equal.
+bool mapEquals(Map<Object?, Object?> a, Map<Object?, Object?> b) {
+  if (identical(a, b)) return true;
+  if (a.length != b.length) return false;
+  for (final key in a.keys) {
+    if (!objectsEquals(a[key], b[key])) return false;
+  }
+  return true;
+}
+
+/// Determines whether two objects are equal.
+bool objectsEquals(Object? a, Object? b) {
   if (identical(a, b)) return true;
   if (_isEquatable(a) && _isEquatable(b)) {
     return a == b;
   } else if (a is Set && b is Set) {
-    return _setEquals(a, b);
+    return setEquals(a, b);
   } else if (a is Iterable && b is Iterable) {
-    return _iterableEquals(a, b);
+    return iterableEquals(a, b);
   } else if (a is Map && b is Map) {
-    return _mapEquals(a, b);
+    return mapEquals(a, b);
   } else if (a?.runtimeType != b?.runtimeType) {
     return false;
   } else if (a != b) {
@@ -36,31 +55,6 @@ bool _objectsEquals(Object? a, Object? b) {
 
 bool _isEquatable(Object? object) {
   return object is Equatable || object is EquatableMixin;
-}
-
-bool _setEquals(Set<Object?> a, Set<Object?> b) {
-  if (identical(a, b)) return true;
-  if (a.length != b.length) return false;
-  if (a.any((e) => !b.contains(e))) return false;
-  return true;
-}
-
-bool _iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
-  if (identical(a, b)) return true;
-  if (a.length != b.length) return false;
-  for (var i = 0; i < a.length; i++) {
-    if (!_objectsEquals(a.elementAt(i), b.elementAt(i))) return false;
-  }
-  return true;
-}
-
-bool _mapEquals(Map<Object?, Object?> a, Map<Object?, Object?> b) {
-  if (identical(a, b)) return true;
-  if (a.length != b.length) return false;
-  for (final key in a.keys) {
-    if (!_objectsEquals(a[key], b[key])) return false;
-  }
-  return true;
 }
 
 /// Jenkins Hash Functions

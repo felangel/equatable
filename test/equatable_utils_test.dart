@@ -1,5 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'package:equatable/src/equatable_utils.dart' as utils;
+import 'package:equatable/src/equatable_utils.dart';
 import 'package:test/test.dart';
 
 class Person with EquatableMixin {
@@ -12,25 +12,25 @@ class Person with EquatableMixin {
 }
 
 void main() {
-  group('equals', () {
+  group('iterableEquals', () {
     test('returns true for identical props', () {
       final value = [Object()];
-      expect(utils.equals(value, value), isTrue);
+      expect(iterableEquals(value, value), isTrue);
     });
 
     test('returns false when props differ in length', () {
       final object = Object();
-      expect(utils.equals([object], [object, object]), isFalse);
+      expect(iterableEquals([object], [object, object]), isFalse);
     });
 
     test('uses == when props are equatable', () {
       final bob = Person(name: 'Bob');
       final alice = Person(name: 'Alice');
-      expect(utils.equals([alice], [alice]), isTrue);
-      expect(utils.equals([bob], [bob]), isTrue);
-      expect(utils.equals([alice], [bob]), isFalse);
-      expect(utils.equals([bob], [alice]), isFalse);
-      expect(utils.equals([alice, null], [alice, -1]), isFalse);
+      expect(iterableEquals([alice], [alice]), isTrue);
+      expect(iterableEquals([bob], [bob]), isTrue);
+      expect(iterableEquals([alice], [bob]), isFalse);
+      expect(iterableEquals([bob], [alice]), isFalse);
+      expect(iterableEquals([alice, null], [alice, -1]), isFalse);
     });
   });
 }
