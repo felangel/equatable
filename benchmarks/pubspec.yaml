@@ -2,7 +2,7 @@ name: equatable_benchmarks
 publish_to: none
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=3.5.0 <4.0.0"
 
 dependencies:
   equatable: ^2.0.0
