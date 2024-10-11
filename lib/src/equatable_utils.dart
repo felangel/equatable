@@ -7,8 +7,6 @@ int mapPropsToHashCode(Iterable<Object?>? props) {
 }
 
 /// Determines whether [a] and [b] are equal.
-// This method is optimized for comparing properties
-// from primitive types like int, double, String, bool.
 bool equals(List<Object?> a, List<Object?> b) {
   if (identical(a, b)) return true;
   if (a.length != b.length) return false;
