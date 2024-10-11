@@ -7,7 +7,12 @@ int mapPropsToHashCode(Iterable<Object?>? props) {
 }
 
 /// Determines whether two iterables are equal.
+@pragma('vm:prefer-inline')
 bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
+  assert(
+    a is! Set && b is! Set,
+    "iterableEquals doesn't support Sets. Use setEquals instead.",
+  );
   if (identical(a, b)) return true;
   if (a.length != b.length) return false;
   for (var i = 0; i < a.length; i++) {
@@ -20,7 +25,9 @@ bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
 bool setEquals(Set<Object?> a, Set<Object?> b) {
   if (identical(a, b)) return true;
   if (a.length != b.length) return false;
-  if (a.any((e) => !b.contains(e))) return false;
+  for (final element in a) {
+    if (!b.any((e) => objectsEquals(element, e))) return false;
+  }
   return true;
 }
 
