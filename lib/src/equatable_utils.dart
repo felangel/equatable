@@ -13,21 +13,7 @@ bool equals(List<Object?> a, List<Object?> b) {
   if (identical(a, b)) return true;
   if (a.length != b.length) return false;
   for (var i = 0; i < a.length; i++) {
-    final unitA = a[i];
-    final unitB = b[i];
-    if (_isEquatable(unitA) && _isEquatable(unitB)) {
-      return unitA == unitB;
-    } else if (unitA is Set && unitB is Set) {
-      return _setEquals(unitA, unitB);
-    } else if (unitA is Iterable && unitB is Iterable) {
-      return _iterableEquals(unitA, unitB);
-    } else if (unitA is Map && unitB is Map) {
-      return _mapEquals(unitA, unitB);
-    } else if (unitA?.runtimeType != unitB?.runtimeType) {
-      return false;
-    } else if (unitA != unitB) {
-      return false;
-    }
+    if (!_objectsEquals(a[i], b[i])) return false;
   }
   return true;
 }
@@ -38,7 +24,7 @@ bool _objectsEquals(Object? a, Object? b) {
     return a == b;
   } else if (a is Set && b is Set) {
     return _setEquals(a, b);
-  } else if (a is List && b is List) {
+  } else if (a is Iterable && b is Iterable) {
     return _iterableEquals(a, b);
   } else if (a is Map && b is Map) {
     return _mapEquals(a, b);
