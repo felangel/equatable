@@ -6,7 +6,7 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:test/test.dart';
 
-import 'custom_list.dart';	
+import 'custom_list.dart';
 
 class NonEquatable {}
 
