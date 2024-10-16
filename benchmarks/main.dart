@@ -1,12 +1,11 @@
 import 'package:benchmarking/benchmarking.dart';
 import 'package:equatable/equatable.dart';
 
-class EmptyEquatable extends Equatable {
-  @override
-  List<Object> get props => [];
-}
+@Equatable()
+class EmptyEquatable {}
 
-class PrimitiveEquatable extends Equatable {
+@Equatable()
+class PrimitiveEquatable {
   const PrimitiveEquatable({
     required this.integer,
     required this.string,
@@ -16,12 +15,10 @@ class PrimitiveEquatable extends Equatable {
   final int integer;
   final String string;
   final bool boolean;
-
-  @override
-  List<Object> get props => [integer, string, boolean];
 }
 
-class CollectionEquatable extends Equatable {
+@Equatable()
+class CollectionEquatable {
   const CollectionEquatable({
     required this.list,
     required this.map,
@@ -31,9 +28,6 @@ class CollectionEquatable extends Equatable {
   final List<int> list;
   final Map<String, int> map;
   final Set<int> set;
-
-  @override
-  List<Object> get props => [list, map, set];
 }
 
 void main() {

@@ -1,3 +1,29 @@
+# 3.0.0-dev.0
+
+- **BREAKING** feat!: rewrite using [macros](https://dart.dev/language/macros)
+
+  **Before**
+
+  ```dart
+  class Person extends Equatable {
+    const Person({required this.name});
+    final String name;
+
+    @override
+    List<Object> get props => [name];
+  }
+  ```
+
+  **After**
+
+  ```dart
+  @Equatable()
+  class Person {
+    const Person({required this.name});
+    final String name;
+  }
+  ```
+
 # 2.0.5
 
 - fix: resolves `T not a subtype of type 'Comparable<dynamic>'` when computing `hashCode`

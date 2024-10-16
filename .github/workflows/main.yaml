@@ -9,7 +9,26 @@ on:
 jobs:
   semantic-pull-request:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/semantic_pull_request.yml@v1
-  build:
-    uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/dart_package.yml@v1
+
   pana:
     uses: VeryGoodOpenSource/very_good_workflows/.github/workflows/pana.yml@v1
+
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📚 Git Checkout
+        uses: actions/checkout@v4
+
+      - name: 🎯 Setup Dart
+        uses: dart-lang/setup-dart@v1
+
+      - name: 📦 Install Dependencies
+        run: dart pub get
+
+      - name: 🔍 Analyze
+        run: dart --enable-experiment=macros analyze --fatal-warnings lib
+
+      - name: 🧪 Test
+        # TODO(felangel): move to dart test when macro support is stable
+        run: dart --enable-experiment=macros run test/main.dart
