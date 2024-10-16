@@ -218,7 +218,7 @@ void main() {
       expect(instanceA.hashCode, instanceB.hashCode);
     });
 
-    test('should return true when instances are the same', () {
+    test('should return true when instances are different', () {
       final instanceA = SimpleEquatable({'a': 1, 'b': 2, 'c': 3});
       final instanceB = SimpleEquatable({'a': 1, 'b': 2, 'c': 3});
       expect(instanceA == instanceB, true);
