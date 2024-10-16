@@ -1,4 +1,7 @@
 name: example
+description: An example of using package:equatable
+version: 0.0.0
+publish_to: none
 
 environment:
   sdk: ">=3.5.0 <4.0.0"

@@ -112,7 +112,11 @@ macro class Equatable implements ClassDeclarationsMacro, ClassDefinitionMacro {
           'return other is ${clazz.identifier.name} && ',
           'other.runtimeType == runtimeType && ',
           for (final field in fieldNames)
-            ...[deepEquals, '($field, other.$field)', if (field != lastField) ' && '],
+            ...[
+              deepEquals,
+              '($field, other.$field)',
+              if (field != lastField) ' && ',
+            ],
           ';',
           '}',
         ],
