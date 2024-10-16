@@ -15,7 +15,6 @@ jobs:
 
   build:
     runs-on: ubuntu-latest
-    name: ⚙️ Build
 
     steps:
       - name: 📚 Git Checkout
