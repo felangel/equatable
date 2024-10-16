@@ -30,4 +30,5 @@ jobs:
         run: dart --enable-experiment=macros analyze --fatal-warnings lib
 
       - name: 🧪 Test
-        run: dart --enable-experiment=macros test
+        # TODO(felangel): move to dart test when macro support is stable
+        run: dart --enable-experiment=macros run test/main.dart

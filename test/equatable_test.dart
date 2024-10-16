@@ -14,6 +14,12 @@ class EmptyEquatable {
 }
 
 @Equatable()
+class SimpleEquatable<T extends Object> {
+  const SimpleEquatable(this.data);
+  final T data;
+}
+
+@Equatable()
 class SimpleStringEquatable {
   const SimpleStringEquatable(this.data);
 
@@ -57,11 +63,11 @@ class SimpleIterableEquatable {
 }
 
 @Equatable()
-class MultipartEquatable {
+class MultipartEquatable<T extends Object> {
   MultipartEquatable(this.d1, this.d2);
 
-  final String d1;
-  final String d2;
+  final T d1;
+  final T d2;
 }
 
 @Equatable()
@@ -136,6 +142,44 @@ void main() {
     test('should return false when compared to non-equatable', () {
       final instanceA = EmptyEquatable();
       final instanceB = NonEquatable();
+      expect(instanceA == instanceB, false);
+    });
+  });
+
+  group('Simple Equatable (generic)', () {
+    test('should return true when instance is the same', () {
+      final instance = SimpleEquatable('simple');
+      expect(instance == instance, true);
+    });
+
+    test('should return correct hashCode', () {
+      final instanceA = SimpleEquatable('simple');
+      final instanceB = SimpleEquatable('simple');
+      expect(instanceA.hashCode, instanceB.hashCode);
+    });
+
+    test('should return true when instances are different', () {
+      final instanceA = SimpleEquatable('simple');
+      final instanceB = SimpleEquatable('simple');
+      expect(instanceA == instanceB, true);
+      expect(instanceA.hashCode == instanceB.hashCode, true);
+    });
+
+    test('should return false when compared to non-equatable', () {
+      final instanceA = SimpleEquatable('simple');
+      final instanceB = NonEquatable();
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when compared to different equatable', () {
+      final instanceA = SimpleEquatable('simple');
+      final instanceB = OtherEquatable('simple');
+      expect(instanceA == instanceB, false);
+    });
+
+    test('should return false when values are different', () {
+      final instanceA = SimpleEquatable('simple');
+      final instanceB = SimpleEquatable('Simple');
       expect(instanceA == instanceB, false);
     });
   });
