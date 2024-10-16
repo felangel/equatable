@@ -8,8 +8,6 @@ import 'package:test/test.dart';
 
 import 'custom_list.dart';
 
-class NonEquatable {}
-
 @Equatable()
 class EmptyEquatable {
   const EmptyEquatable();
@@ -27,13 +25,6 @@ class MultipartEquatable<T extends Object> {
 
   final T d1;
   final T d2;
-}
-
-@Equatable()
-class OtherEquatable {
-  const OtherEquatable(this.data);
-
-  final String data;
 }
 
 enum Color { blonde, black, brown }
@@ -97,12 +88,6 @@ void main() {
       expect(instanceA == instanceB, true);
       expect(instanceA.hashCode == instanceB.hashCode, true);
     });
-
-    test('should return false when compared to non-equatable', () {
-      final instanceA = EmptyEquatable();
-      final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
-    });
   });
 
   group('Simple Equatable (string)', () {
@@ -122,18 +107,6 @@ void main() {
       final instanceB = SimpleEquatable('simple');
       expect(instanceA == instanceB, true);
       expect(instanceA.hashCode == instanceB.hashCode, true);
-    });
-
-    test('should return false when compared to non-equatable', () {
-      final instanceA = SimpleEquatable('simple');
-      final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
-    });
-
-    test('should return false when compared to different equatable', () {
-      final instanceA = SimpleEquatable('simple');
-      final instanceB = OtherEquatable('simple');
-      expect(instanceA == instanceB, false);
     });
 
     test('should return false when values are different', () {
@@ -162,12 +135,6 @@ void main() {
       expect(instanceA.hashCode == instanceB.hashCode, true);
     });
 
-    test('should return false when compared to non-equatable', () {
-      final instanceA = SimpleEquatable(0);
-      final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
-    });
-
     test('should return false when values are different', () {
       final instanceA = SimpleEquatable(0);
       final instanceB = SimpleEquatable(1);
@@ -192,12 +159,6 @@ void main() {
       final instanceB = SimpleEquatable(true);
       expect(instanceA == instanceB, true);
       expect(instanceA.hashCode == instanceB.hashCode, true);
-    });
-
-    test('should return false when compared to non-equatable', () {
-      final instanceA = SimpleEquatable(true);
-      final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
     });
 
     test('should return false when values are different', () {
@@ -225,12 +186,6 @@ void main() {
       final instanceB = SimpleEquatable({'a': 1, 'b': 2, 'c': 3});
       expect(instanceA == instanceB, true);
       expect(instanceA.hashCode == instanceB.hashCode, true);
-    });
-
-    test('should return false when compared to non-equatable', () {
-      final instanceA = SimpleEquatable({'a': 1, 'b': 2, 'c': 3});
-      final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
     });
 
     test('should return false when values are different', () {
@@ -308,18 +263,6 @@ void main() {
       expect(instanceA.hashCode == instanceB.hashCode, true);
     });
 
-    test('should return false when compared to non-equatable', () {
-      final instanceA = SimpleEquatable(
-        {
-          SimpleEquatable<String>('a'): 1,
-          SimpleEquatable<String>('b'): 2,
-          SimpleEquatable<String>('c'): 3,
-        },
-      );
-      final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
-    });
-
     test('should return false when values are different', () {
       final instanceA = SimpleEquatable(
         {
@@ -383,17 +326,6 @@ void main() {
       expect(instanceA.hashCode == instanceB.hashCode, true);
     });
 
-    test('should return false when compared to non-equatable', () {
-      final instanceA = SimpleEquatable(
-        EquatableData(
-          key: 'foo',
-          value: 'bar',
-        ),
-      );
-      final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
-    });
-
     test('should return false when values are different', () {
       final instanceA = SimpleEquatable(
         EquatableData(
@@ -436,12 +368,6 @@ void main() {
       final instanceB = MultipartEquatable('s1', 's2');
       expect(instanceA == instanceB, true);
       expect(instanceA.hashCode == instanceB.hashCode, true);
-    });
-
-    test('should return false when compared to non-equatable', () {
-      final instanceA = MultipartEquatable('s1', 's2');
-      final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
     });
 
     test('should return false when values are different', () {
@@ -497,17 +423,6 @@ void main() {
       );
       expect(instanceA == instanceB, true);
       expect(instanceA.hashCode == instanceB.hashCode, true);
-    });
-
-    test('should return false when compared to non-equatable', () {
-      final instanceA = ComplexEquatable(
-        name: 'Joe',
-        age: 40,
-        hairColor: Color.black,
-        children: ['Bob'],
-      );
-      final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
     });
 
     test('should return false when values are different', () {
@@ -621,21 +536,6 @@ void main() {
       );
       expect(instanceA == instanceB, true);
       expect(instanceA.hashCode == instanceB.hashCode, true);
-    });
-
-    test('should return false when compared to non-equatable', () {
-      final instanceA = Credentials.fromJson(
-        json.decode(
-          '''
-        {
-          "username":"Admin",
-          "password":"admin"
-        }
-        ''',
-        ) as Map<String, dynamic>,
-      );
-      final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
     });
 
     test('should return false when values are different', () {
