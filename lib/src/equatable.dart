@@ -48,13 +48,11 @@ macro class Equatable implements ClassDeclarationsMacro, ClassDefinitionMacro {
     ClassDeclaration clazz,
     MemberDeclarationBuilder builder,
   ) async {
-    final (object, boolean) = await (
-      builder.codeFrom(_dartCore, 'Object'),
-      builder.codeFrom(_dartCore, 'bool'),      
-    ).wait;
+    final boolean = await builder.codeFrom(_dartCore, 'bool');
+
     return builder.declareInType(
       DeclarationCode.fromParts(
-        ['external ', boolean, ' operator==(', object, ' other);'],
+        ['external ', boolean, ' operator==(', ' covariant ${clazz.identifier.name}', ' other);'],
       ),
     );
   }
