@@ -42,6 +42,7 @@ bool mapEquals(Map<Object?, Object?> a, Map<Object?, Object?> b) {
 }
 
 /// Determines whether two objects are equal.
+@pragma('vm:prefer-inline')
 bool objectsEquals(Object? a, Object? b) {
   if (identical(a, b)) return true;
   if (_isEquatable(a) && _isEquatable(b)) {
@@ -60,6 +61,7 @@ bool objectsEquals(Object? a, Object? b) {
   return true;
 }
 
+@pragma('vm:prefer-inline')
 bool _isEquatable(Object? object) {
   return object is Equatable || object is EquatableMixin;
 }
