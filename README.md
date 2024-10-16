@@ -104,14 +104,14 @@ First, we need to do add `equatable` to the dependencies of the `pubspec.yaml`
 
 ```yaml
 dependencies:
-  equatable: ^3.0.0
+  equatable: ^3.0.0-dev.0
 ```
 
 Next, we need to install it:
 
 ```sh
 # Dart
-pub get
+dart pub get
 
 # Flutter
 flutter packages get
@@ -131,31 +131,6 @@ class Person {
 
 We can now compare instances of `Person` just like before without the pain of having to write all of that boilerplate.
 **Note:** Equatable is designed to only work with immutable objects so all member variables must be final (This is not just a feature of `Equatable` - [overriding a `hashCode` with a mutable value can break hash-based collections](https://dart.dev/guides/language/effective-dart/design#avoid-defining-custom-equality-for-mutable-classes)).
-
-Equatable also supports `const` constructors:
-
-```dart
-import 'package:equatable/equatable.dart';
-
-@Equatable()
-class Person extends Equatable {
-  const Person(this.name);
-  final String name;
-}
-```
-
-Equatable also supports nullable props:
-
-```dart
-import 'package:equatable/equatable.dart';
-
-@Equatable()
-class Person {
-  const Person(this.name, [this.age]);
-  final String name;
-  final int? age;
-}
-```
 
 ## Recap
 
