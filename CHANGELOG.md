@@ -1,3 +1,8 @@
+# 3.0.0-dev.1
+
+- feat: use `covariant` in `operator==` override for improved type safety
+- chore: add `macros` to `topics` in `pubspec.yaml`
+
 # 3.0.0-dev.0
 
 - **BREAKING** feat!: rewrite using [macros](https://dart.dev/language/macros)
