@@ -6,6 +6,8 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 import 'package:test/test.dart';
 
+import 'custom_list.dart';	
+
 class NonEquatable {}
 
 @Equatable()
@@ -717,6 +719,104 @@ void main() {
         expect(instanceA != instanceB, true);
         expect(instanceA.hashCode != instanceB.hashCode, true);
       });
+    });
+
+    group('List Equatable', () {	
+      test('should return when values are same', () {	
+        final instanceA = SimpleEquatable(['A', 'B']);	
+        final instanceB = SimpleEquatable(['A', 'B']);	
+        expect(instanceA == instanceB, true);	
+        expect(instanceA.hashCode == instanceB.hashCode, true);	
+      });	
+
+      test('should return when values are different', () {	
+        final instanceA = SimpleEquatable(['A', 'B']);	
+        final instanceB = SimpleEquatable(['a', 'b']);	
+        expect(instanceA != instanceB, true);	
+        expect(instanceA.hashCode != instanceB.hashCode, true);	
+      });	
+
+      test('should return when values are different', () {	
+        final instanceA = SimpleEquatable(['A', 'B']);	
+        final instanceB = SimpleEquatable(['C', 'D']);	
+        expect(instanceA != instanceB, true);	
+        expect(instanceA.hashCode != instanceB.hashCode, true);	
+      });	
+
+      test('should return when contents are same but different kind of List',	
+          () {	
+        final instanceA = SimpleEquatable<List<String>>(	
+          CustomList<String>(['A', 'B'], growable: true),	
+        );	
+        final instanceB = SimpleEquatable<List<String>>(['A', 'B']);	
+        expect(instanceA == instanceB, true);	
+        expect(instanceA.hashCode == instanceB.hashCode, true);	
+      });	
+
+      test(	
+          'should return different hashCode '	
+          'when instance properties are different', () {	
+        final instanceA = SimpleEquatable(<String>['A', 'B']);	
+        final instanceB = SimpleEquatable(<String>['B']);	
+
+        expect(instanceA != instanceB, true);	
+        expect(instanceA.hashCode != instanceB.hashCode, true);	
+      });	
+
+      test(	
+          'should return different hashCode '	
+          'when instance properties are modified', () {	
+        final list = ['A', 'B'];	
+        final instanceA = SimpleEquatable(list);	
+        final hashCodeA = instanceA.hashCode;	
+        list.removeLast();	
+        final hashCodeB = instanceA.hashCode;	
+        expect(hashCodeA != hashCodeB, true);	
+      });	
+    });	
+
+    group('Map Equatable', () {	
+      test('should return true when values are same', () {	
+        final instanceA = SimpleEquatable({1: 'A', 2: 'B'});	
+        final instanceB = SimpleEquatable({1: 'A', 2: 'B'});	
+        expect(instanceA == instanceB, true);	
+        expect(instanceA.hashCode == instanceB.hashCode, true);	
+      });	
+
+      test('should return false when values are different', () {	
+        final instanceA = SimpleEquatable({1: 'A', 2: 'B'});	
+        final instanceB = SimpleEquatable({1: 'a', 2: 'b'});	
+        expect(instanceA != instanceB, true);	
+        expect(instanceA.hashCode != instanceB.hashCode, true);	
+      });	
+
+      test('should return false when values are different', () {	
+        final instanceA = SimpleEquatable({1: 'A', 2: 'B'});	
+        final instanceB = SimpleEquatable({1: 'C', 2: 'D'});	
+        expect(instanceA != instanceB, true);	
+        expect(instanceA.hashCode != instanceB.hashCode, true);	
+      });	
+
+      test(	
+          'should return different hashCode '	
+          'when instance properties are different', () {	
+        final instanceA = SimpleEquatable({1: 'A', 2: 'B'});	
+        final instanceB = SimpleEquatable({2: 'B'});	
+
+        expect(instanceA != instanceB, true);	
+        expect(instanceA.hashCode != instanceB.hashCode, true);	
+      });	
+
+      test(	
+          'should return different hashCode '	
+          'when instance properties are modified', () {	
+        final map = {1: 'A', 2: 'B'};	
+        final instanceA = SimpleEquatable(map);	
+        final hashCodeA = instanceA.hashCode;	
+        map.remove(1);	
+        final hashCodeB = instanceA.hashCode;	
+        expect(hashCodeA != hashCodeB, true);	
+      });	
     });
 
     group('Set Equatable', () {
