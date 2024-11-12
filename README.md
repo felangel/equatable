@@ -322,7 +322,7 @@ class EquatableDateTimeSubclass extends EquatableDateTime {
   ]) : super(year, month, day, hour, minute, second, millisecond, microsecond);
 
   @override
-  List<Object> get props => super.props..addAll([century]);
+  List<Object> get props => [...super.props, century];
 }
 ```
 
