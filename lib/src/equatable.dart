@@ -46,7 +46,7 @@ abstract class Equatable {
     return identical(this, other) ||
         other is Equatable &&
             runtimeType == other.runtimeType &&
-            equals(props, other.props);
+            iterableEquals(props, other.props);
   }
 
   @override
