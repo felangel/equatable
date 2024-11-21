@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:equatable/src/equatable_utils.dart';
-import 'package:test/test.dart';
+import 'package:test/test.dart' hide equals;
 
 class Person with EquatableMixin {
   Person({required this.name});
@@ -16,19 +16,33 @@ void main() {
   final alice = Person(name: 'Alice');
   final aliceCopy = Person(name: 'Alice');
 
+  group('equals', () {
+    test('returns true when both are null', () {
+      expect(equals(null, null), isTrue);
+    });
+
+    test('returns false when one is null', () {
+      expect(equals(null, []), isFalse);
+      expect(equals([], null), isFalse);
+    });
+  });
+
   group('iterableEquals', () {
     test('returns true for identical props', () {
       final value = [Object()];
       expect(iterableEquals(value, value), isTrue);
+      expect(equals(value, value), isTrue);
     });
 
     test('returns true for empty iterables', () {
       expect(iterableEquals([], []), isTrue);
+      expect(equals([], []), isTrue);
     });
 
     test('returns false when props differ in length', () {
       final object = Object();
       expect(iterableEquals([object], [object, object]), isFalse);
+      expect(equals([object], [object, object]), isFalse);
     });
 
     test('uses == when props are equatable', () {
@@ -37,12 +51,19 @@ void main() {
       expect(iterableEquals([alice], [bob]), isFalse);
       expect(iterableEquals([bob], [alice]), isFalse);
       expect(iterableEquals([alice, null], [alice, -1]), isFalse);
+
+      expect(equals([alice], [aliceCopy]), isTrue);
+      expect(equals([bob], [bob]), isTrue);
+      expect(equals([alice], [bob]), isFalse);
+      expect(equals([bob], [alice]), isFalse);
+      expect(equals([alice, null], [alice, -1]), isFalse);
     });
 
     test('returns false for iterables with different elements', () {
       final iterable1 = [1, 2, 3];
       final iterable2 = [1, 2, 4];
       expect(iterableEquals(iterable1, iterable2), isFalse);
+      expect(equals(iterable1, iterable2), isFalse);
     });
 
     test(
@@ -51,6 +72,7 @@ void main() {
       final iterable1 = [1, 2, 3];
       final iterable2 = [1, 3, 2];
       expect(iterableEquals(iterable1, iterable2), isFalse);
+      expect(equals(iterable1, iterable2), isFalse);
     });
 
     test('returns true for nested identical iterables', () {
@@ -63,6 +85,7 @@ void main() {
         [alice, bob],
       ];
       expect(iterableEquals(iterable1, iterable2), isTrue);
+      expect(equals(iterable1, iterable2), isTrue);
     });
 
     test('returns false for nested iterables with different elements', () {
@@ -75,6 +98,7 @@ void main() {
         [3, 5],
       ];
       expect(iterableEquals(iterable1, iterable2), isFalse);
+      expect(equals(iterable1, iterable2), isFalse);
     });
   });
 
