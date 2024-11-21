@@ -1,3 +1,16 @@
+# 2.0.6
+
+- perf: improve equality comparison performance ([#173](https://github.com/felangel/equatable/issues/173))
+- docs: improve snippet in `README` ([#184](https://github.com/felangel/equatable/issues/184))
+- chore: upgrade example to Dart >=3.5.0
+- chore: add funding and topics to `pubspec.yaml` ([#176](https://github.com/felangel/equatable/issues/176))
+- chore: add performance benchmarks
+- chore: fix typo in inline API docs ([#170](https://github.com/felangel/equatable/issues/170))
+- refactor: simplify `toString` logic ([#140](https://github.com/felangel/equatable/issues/140))
+- docs: add nullable props example to `README`
+- refactor: update `analysis_options.yaml` ([#169](https://github.com/felangel/equatable/issues/169))
+- fix: add `@immutable` to `EquatableMixin` ([#154](https://github.com/felangel/equatable/issues/154))
+
 # 2.0.5
 
 - fix: resolves `T not a subtype of type 'Comparable<dynamic>'` when computing `hashCode`
