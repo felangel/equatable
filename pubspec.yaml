@@ -9,7 +9,7 @@ topics: [equality, equals]
 funding: [https://github.com/sponsors/felangel]
 
 environment:
-  sdk: ">=2.12.0 <3.0.0"
+  sdk: ">=2.12.0 <4.0.0"
 
 dependencies:
   collection: ^1.15.0
