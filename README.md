@@ -17,9 +17,6 @@
   <a href="https://github.com/felangel/equatable">
     <img src="https://img.shields.io/github/stars/felangel/equatable.svg?style=flat&logo=github&colorB=deeppink&label=stars" alt="Star on GitHub">
   </a>
-  <a href="https://github.com/tenhobi/effective_dart">
-    <img alt="style: effective dart" src="https://img.shields.io/badge/style-effective_dart-40c4ff.svg">
-  </a>  
   <a href="https://discord.gg/Hc5KD3g">
     <img src="https://img.shields.io/discord/649708778631200778.svg?logo=discord&color=blue" alt="Discord">
   </a>
