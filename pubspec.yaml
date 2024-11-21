@@ -17,3 +17,7 @@ dependencies:
 
 dev_dependencies:
   test: ^1.16.0
+
+screenshots:
+  - description: The equatable package logo.
+    path: doc/assets/equatable_logo.png
