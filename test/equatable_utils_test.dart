@@ -262,5 +262,22 @@ void main() {
     test('returns false for different types', () {
       expect(objectsEquals(1, '1'), isFalse);
     });
+
+    test('returns true when two nums have the same value (int and double)', () {
+      const num a = 0;
+      const num b = 0.0;
+      expect(objectsEquals(a, b), isTrue);
+    });
+
+    test('returns true when two nums are identical', () {
+      const num a = 0;
+      expect(objectsEquals(a, a), isTrue);
+    });
+
+    test('returns false when two nums have different values', () {
+      const num a = 0;
+      const num b = 1;
+      expect(objectsEquals(a, b), isFalse);
+    });
   });
 }
