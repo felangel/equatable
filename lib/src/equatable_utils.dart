@@ -22,10 +22,8 @@ bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
 }
 
 /// Determines whether two numbers are equal.
-bool numEquals(num a, num b) {
-  if (identical(a, b)) return true;
-  return a == b;
-}
+@pragma('vm:prefer-inline')
+bool numEquals(num a, num b) => a == b;
 
 /// Determines whether two sets are equal.
 bool setEquals(Set<Object?> a, Set<Object?> b) {
