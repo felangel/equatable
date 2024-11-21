@@ -53,8 +53,6 @@ bool objectsEquals(Object? a, Object? b) {
     return iterableEquals(a, b);
   } else if (a is Map && b is Map) {
     return mapEquals(a, b);
-  } else if (a?.runtimeType != b?.runtimeType) {
-    return false;
   } else if (a != b) {
     return false;
   }
