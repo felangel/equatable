@@ -46,13 +46,12 @@ void main() {
     });
 
     test(
-      'returns false for iterable with same elements but different order',
-      () {
-        final iterable1 = [1, 2, 3];
-        final iterable2 = [1, 3, 2];
-        expect(iterableEquals(iterable1, iterable2), isFalse);
-      },
-    );
+        'returns false for iterable with same elements '
+        'but different order', () {
+      final iterable1 = [1, 2, 3];
+      final iterable2 = [1, 3, 2];
+      expect(iterableEquals(iterable1, iterable2), isFalse);
+    });
 
     test('returns true for nested identical iterables', () {
       final iterable1 = [
@@ -86,14 +85,12 @@ void main() {
       expect(setEquals(set1, set2), isTrue);
     });
 
-    test(
-      'returns true for identical sets with elements in different order',
-      () {
-        final set1 = {1, 3, 2};
-        final set2 = {1, 2, 3};
-        expect(setEquals(set1, set2), isTrue);
-      },
-    );
+    test('returns true for identical sets with elements in different order',
+        () {
+      final set1 = {1, 3, 2};
+      final set2 = {1, 2, 3};
+      expect(setEquals(set1, set2), isTrue);
+    });
 
     test('returns false for sets of different lengths', () {
       final set1 = {1, 2, 3};
