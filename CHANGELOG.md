@@ -1,3 +1,8 @@
+# 2.0.7
+
+- revert: `equals` in `equatable_utils` ([#190](https://github.com/felangel/equatable/issues/190))
+- fix: explicitly handle num equality comparisons ([#189](https://github.com/felangel/equatable/issues/189))
+
 # 2.0.6
 
 - perf: improve equality comparison performance ([#173](https://github.com/felangel/equatable/issues/173))

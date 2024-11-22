@@ -6,6 +6,15 @@ int mapPropsToHashCode(Iterable<Object?>? props) {
   return _finish(props == null ? 0 : props.fold(0, _combine));
 }
 
+/// Determines whether two lists ([a] and [b]) are equal.
+// See https://github.com/felangel/equatable/issues/187.
+@pragma('vm:prefer-inline')
+bool equals(List<Object?>? a, List<Object?>? b) {
+  if (identical(a, b)) return true;
+  if (a == null || b == null) return false;
+  return iterableEquals(a, b);
+}
+
 /// Determines whether two iterables are equal.
 @pragma('vm:prefer-inline')
 bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
@@ -20,6 +29,10 @@ bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
   }
   return true;
 }
+
+/// Determines whether two numbers are equal.
+@pragma('vm:prefer-inline')
+bool numEquals(num a, num b) => a == b;
 
 /// Determines whether two sets are equal.
 bool setEquals(Set<Object?> a, Set<Object?> b) {
@@ -45,7 +58,9 @@ bool mapEquals(Map<Object?, Object?> a, Map<Object?, Object?> b) {
 @pragma('vm:prefer-inline')
 bool objectsEquals(Object? a, Object? b) {
   if (identical(a, b)) return true;
-  if (_isEquatable(a) && _isEquatable(b)) {
+  if (a is num && b is num) {
+    return numEquals(a, b);
+  } else if (_isEquatable(a) && _isEquatable(b)) {
     return a == b;
   } else if (a is Set && b is Set) {
     return setEquals(a, b);
