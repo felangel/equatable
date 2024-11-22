@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:equatable/src/equatable_utils.dart';
+import 'package:meta/meta.dart';
 import 'package:test/test.dart' hide equals;
 
 class Person with EquatableMixin {
@@ -11,10 +12,71 @@ class Person with EquatableMixin {
   List<Object?> get props => [name];
 }
 
+@immutable
+abstract class CustomString {
+  String get stringValue;
+
+  @override
+  bool operator ==(Object other) {
+    if (other is CustomString) {
+      return other.stringValue == stringValue;
+    }
+    if (other is String) {
+      return other == stringValue;
+    }
+    return false;
+  }
+
+  @override
+  int get hashCode => stringValue.hashCode;
+}
+
+class PlainString extends CustomString {
+  PlainString(this.stringValue);
+
+  @override
+  final String stringValue;
+}
+
+class TranslatableString extends CustomString {
+  TranslatableString({
+    required Map<String, String> translations,
+    required String defaultLanguage,
+  })  : _translations = translations,
+        _defaultLanguage = defaultLanguage;
+
+  final Map<String, String> _translations;
+  final String _defaultLanguage;
+
+  String? inLanguage(String language) => _translations[language];
+  @override
+  String get stringValue => _translations[_defaultLanguage]!;
+}
+
+class Dog with EquatableMixin {
+  Dog({required this.name});
+
+  final CustomString name;
+
+  @override
+  List<Object?> get props => [name];
+}
+
+class Cat with EquatableMixin {
+  Cat({required this.name});
+
+  final CustomString name;
+
+  @override
+  List<Object?> get props => [name];
+}
+
 void main() {
   final bob = Person(name: 'Bob');
   final alice = Person(name: 'Alice');
   final aliceCopy = Person(name: 'Alice');
+  final fluffyCat = Cat(name: PlainString('fluffy'));
+  final fluffyDog = Dog(name: PlainString('fluffy'));
 
   group('equals', () {
     test('returns true when both are null', () {
@@ -267,6 +329,68 @@ void main() {
     test('returns false for different objects', () {
       expect(objectsEquals(alice, bob), isFalse);
       expect(objectsEquals(bob, alice), isFalse);
+    });
+
+    test(
+        'returns false for different Equatable classes '
+        'with same property values', () {
+      expect(objectsEquals(fluffyDog, fluffyCat), isFalse);
+      expect(objectsEquals(fluffyCat, fluffyDog), isFalse);
+    });
+
+    test('returns true for Equatables with custom equality members ', () {
+      expect(
+        objectsEquals(
+          Dog(name: PlainString('fluffy')),
+          Dog(name: PlainString('fluffy')),
+        ),
+        isTrue,
+      );
+    });
+
+    test(
+        'returns true for Equatables with custom equality members '
+        'that are equal but have a different runtimeType', () {
+      final plainName = PlainString('fluffy');
+      final translatableName = TranslatableString(
+        translations: const {
+          'en': 'fluffy',
+          'de': 'flauschi',
+        },
+        defaultLanguage: 'en',
+      );
+      //cross check
+      expect(plainName == translatableName, isTrue);
+      //actual check
+      expect(
+        objectsEquals(
+          Dog(name: plainName),
+          Dog(name: translatableName),
+        ),
+        isTrue,
+      );
+    });
+    test(
+        'returns false for Equatables with custom equality members '
+        'that are not equal and have a different runtimeType', () {
+      final plainName = PlainString('fluffy');
+      final translatableName = TranslatableString(
+        translations: const {
+          'en': 'fluffy',
+          'de': 'flauschi',
+        },
+        defaultLanguage: 'de',
+      );
+      //cross check
+      expect(plainName == translatableName, isFalse);
+      //actual check
+      expect(
+        objectsEquals(
+          Dog(name: plainName),
+          Dog(name: translatableName),
+        ),
+        isFalse,
+      );
     });
 
     test('returns true for int and double in a num variable', () {
