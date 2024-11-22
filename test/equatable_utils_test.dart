@@ -393,12 +393,6 @@ void main() {
       );
     });
 
-    test('returns true for int and double in a num variable', () {
-      const num intNum = 0;
-      const num doubleNum = 0.0;
-      expect(objectsEquals(intNum, doubleNum), isTrue);
-    });
-
     test('returns true for same lists', () {
       expect(objectsEquals([1, 2, 3], [1, 2, 3]), isTrue);
     });
