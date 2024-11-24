@@ -13,50 +13,52 @@ class Person with EquatableMixin {
 }
 
 @immutable
-abstract class CustomString {
-  String get stringValue;
+abstract class AnimalName {
+  const AnimalName();
+
+  String get normalized;
 
   @override
   bool operator ==(Object other) {
-    if (other is CustomString) {
-      return other.stringValue == stringValue;
-    }
-    if (other is String) {
-      return other == stringValue;
+    if (other is AnimalName) {
+      return normalized == other.normalized;
     }
     return false;
   }
 
   @override
-  int get hashCode => stringValue.hashCode;
+  int get hashCode => normalized.hashCode;
 }
 
-class PlainString extends CustomString {
-  PlainString(this.stringValue);
+class SimpleName extends AnimalName {
+  const SimpleName(this.name);
+
+  final String name;
 
   @override
-  final String stringValue;
+  String get normalized => name.replaceAll(' ', '').toLowerCase();
 }
 
-class TranslatableString extends CustomString {
-  TranslatableString({
-    required Map<String, String> translations,
-    required String defaultLanguage,
-  })  : _translations = translations,
-        _defaultLanguage = defaultLanguage;
+class PedigreeName extends AnimalName {
+  const PedigreeName({
+    required this.prefix,
+    required this.name,
+    required this.suffix,
+  });
 
-  final Map<String, String> _translations;
-  final String _defaultLanguage;
+  final String prefix;
+  final String name;
+  final String suffix;
 
-  String? inLanguage(String language) => _translations[language];
   @override
-  String get stringValue => _translations[_defaultLanguage]!;
+  String get normalized =>
+      '$prefix$name$suffix'.replaceAll(' ', '').toLowerCase();
 }
 
 class Dog with EquatableMixin {
   Dog({required this.name});
 
-  final CustomString name;
+  final AnimalName name;
 
   @override
   List<Object?> get props => [name];
@@ -65,7 +67,7 @@ class Dog with EquatableMixin {
 class Cat with EquatableMixin {
   Cat({required this.name});
 
-  final CustomString name;
+  final AnimalName name;
 
   @override
   List<Object?> get props => [name];
@@ -75,8 +77,8 @@ void main() {
   final bob = Person(name: 'Bob');
   final alice = Person(name: 'Alice');
   final aliceCopy = Person(name: 'Alice');
-  final fluffyCat = Cat(name: PlainString('fluffy'));
-  final fluffyDog = Dog(name: PlainString('fluffy'));
+  final fluffyCat = Cat(name: const SimpleName('fluffy'));
+  final fluffyDog = Dog(name: const SimpleName('fluffy'));
 
   group('equals', () {
     test('returns true when both are null', () {
@@ -341,8 +343,8 @@ void main() {
     test('returns true for Equatables with custom equality members ', () {
       expect(
         objectsEquals(
-          Dog(name: PlainString('fluffy')),
-          Dog(name: PlainString('fluffy')),
+          Dog(name: const SimpleName('fluffy')),
+          Dog(name: const SimpleName('fluffy')),
         ),
         isTrue,
       );
@@ -351,21 +353,15 @@ void main() {
     test(
         'returns true for Equatables with custom equality members '
         'that are equal but have a different runtimeType', () {
-      final plainName = PlainString('fluffy');
-      final translatableName = TranslatableString(
-        translations: const {
-          'en': 'fluffy',
-          'de': 'flauschi',
-        },
-        defaultLanguage: 'en',
-      );
+      const nameSimple = SimpleName('fluffy');
+      const namePedigree = PedigreeName(prefix: '', name: 'Fluffy', suffix: '');
       //cross check
-      expect(plainName == translatableName, isTrue);
+      expect(nameSimple == namePedigree, isTrue);
       //actual check
       expect(
         objectsEquals(
-          Dog(name: plainName),
-          Dog(name: translatableName),
+          Dog(name: nameSimple),
+          Dog(name: namePedigree),
         ),
         isTrue,
       );
@@ -373,21 +369,19 @@ void main() {
     test(
         'returns false for Equatables with custom equality members '
         'that are not equal and have a different runtimeType', () {
-      final plainName = PlainString('fluffy');
-      final translatableName = TranslatableString(
-        translations: const {
-          'en': 'fluffy',
-          'de': 'flauschi',
-        },
-        defaultLanguage: 'de',
+      const nameSimple = SimpleName('fluffy');
+      const differentNamePedigree = PedigreeName(
+        prefix: 'Sir ',
+        name: 'Fluffy',
+        suffix: ' from Midgard',
       );
       //cross check
-      expect(plainName == translatableName, isFalse);
+      expect(nameSimple == differentNamePedigree, isFalse);
       //actual check
       expect(
         objectsEquals(
-          Dog(name: plainName),
-          Dog(name: translatableName),
+          Dog(name: nameSimple),
+          Dog(name: differentNamePedigree),
         ),
         isFalse,
       );
