@@ -366,6 +366,7 @@ void main() {
         isTrue,
       );
     });
+
     test(
         'returns false for Equatables with custom equality members '
         'that are not equal and have a different runtimeType', () {
@@ -389,6 +390,23 @@ void main() {
 
     test('returns true for same lists', () {
       expect(objectsEquals([1, 2, 3], [1, 2, 3]), isTrue);
+    });
+
+    test(
+        'returns true for List of custom equality objects '
+        'that are equal but have a different runtimeType', () {
+      const nameSimple = SimpleName('fluffy');
+      const namePedigree = PedigreeName(prefix: '', name: 'Fluffy', suffix: '');
+      //cross check
+      expect(nameSimple == namePedigree, isTrue);
+      //actual check
+      expect(
+        objectsEquals(
+          [nameSimple],
+          [namePedigree],
+        ),
+        isTrue,
+      );
     });
 
     test('returns true for same sets', () {
