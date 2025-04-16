@@ -18,12 +18,16 @@ bool equals(List<Object?>? a, List<Object?>? b) {
 /// Determines whether two iterables are equal.
 @pragma('vm:prefer-inline')
 bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
-  assert(
-    a is! Set && b is! Set,
-    "iterableEquals doesn't support Sets. Use setEquals instead.",
-  );
   if (identical(a, b)) return true;
   if (a.length != b.length) return false;
+  if (a is Set && b is Set) {
+    for (final element in a) {
+      if (!b.any((e) => objectsEquals(element, e))) return false;
+    }
+    return true;
+  }
+  if (a is Set != b is Set) return false;
+  if (a is List != b is List) return false;
   for (var i = 0; i < a.length; i++) {
     if (!objectsEquals(a.elementAt(i), b.elementAt(i))) return false;
   }
@@ -62,18 +66,14 @@ bool objectsEquals(Object? a, Object? b) {
     return numEquals(a, b);
   } else if (_isEquatable(a) && _isEquatable(b)) {
     return a == b;
-  } else if (a is Set && b is Set) {
-    return setEquals(a, b);
   } else if (a is Iterable && b is Iterable) {
     return iterableEquals(a, b);
   } else if (a is Map && b is Map) {
     return mapEquals(a, b);
   } else if (a?.runtimeType != b?.runtimeType) {
     return false;
-  } else if (a != b) {
-    return false;
   }
-  return true;
+  return a == b;
 }
 
 @pragma('vm:prefer-inline')
@@ -88,8 +88,8 @@ int _combine(int hash, Object? object) {
     object.keys
         .sorted((Object? a, Object? b) => a.hashCode - b.hashCode)
         .forEach((Object? key) {
-      hash = hash ^ _combine(hash, [key, (object! as Map)[key]]);
-    });
+          hash = hash ^ _combine(hash, [key, (object! as Map)[key]]);
+        });
     return hash;
   }
   if (object is Set) {
