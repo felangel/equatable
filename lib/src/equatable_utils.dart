@@ -15,6 +15,17 @@ bool equals(List<Object?>? a, List<Object?>? b) {
   return iterableEquals(a, b);
 }
 
+/// Determines whether two props list are equal.
+@pragma('vm:prefer-inline')
+bool propsEquals(List<Object?> a, List<Object?> b) {
+  if (identical(a, b)) return true;
+  if (a.length != b.length) return false;
+  for (var i = 0; i < a.length; i++) {
+    if (!objectsEquals(a.elementAt(i), b.elementAt(i))) return false;
+  }
+  return true;
+}
+
 /// Determines whether two iterables are equal.
 @pragma('vm:prefer-inline')
 bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
@@ -88,8 +99,8 @@ int _combine(int hash, Object? object) {
     object.keys
         .sorted((Object? a, Object? b) => a.hashCode - b.hashCode)
         .forEach((Object? key) {
-          hash = hash ^ _combine(hash, [key, (object! as Map)[key]]);
-        });
+      hash = hash ^ _combine(hash, [key, (object! as Map)[key]]);
+    });
     return hash;
   }
   if (object is Set) {

@@ -22,7 +22,7 @@ mixin EquatableMixin {
     return identical(this, other) ||
         other is EquatableMixin &&
             runtimeType == other.runtimeType &&
-            iterableEquals(props, other.props);
+            propsEquals(props, other.props);
   }
 
   @override
