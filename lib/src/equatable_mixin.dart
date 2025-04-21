@@ -21,9 +21,13 @@ mixin EquatableMixin {
   bool operator ==(Object other) {
     return identical(this, other) ||
         other is EquatableMixin &&
-            runtimeType == other.runtimeType &&
+            (!checkRuntimeTypeOnIdentical ||
+                runtimeType == other.runtimeType) &&
             iterableEquals(props, other.props);
   }
+
+  /// Whether to check runtimeType in order to consider two objects equal.
+  bool get checkRuntimeTypeOnIdentical => true;
 
   @override
   int get hashCode => runtimeType.hashCode ^ mapPropsToHashCode(props);
