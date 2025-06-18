@@ -26,7 +26,8 @@ bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
   if (identical(a, b)) return true;
   if (a.length != b.length) return false;
 
-  // If both iterables are Lists, compare them element by element using efficient indexing.
+  // If both iterables are Lists,
+  // compare them element by element using efficient indexing.
   if (a is List && b is List) {
     for (var i = 0; i < a.length; i++) {
       if (!objectsEquals(a[i], b[i])) return false;
