@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:equatable/equatable.dart';
 import 'package:equatable/src/equatable_utils.dart';
 import 'package:test/test.dart' hide equals;
@@ -100,6 +102,19 @@ void main() {
       expect(iterableEquals(iterable1, iterable2), isFalse);
       expect(equals(iterable1, iterable2), isFalse);
     });
+
+    test('returns true for two equal Queues', () {
+      final queue1 = Queue<int>()..addAll([1, 2, 3]);
+      final queue2 = Queue<int>()..addAll([1, 2, 3]);
+      expect(iterableEquals(queue1, queue2), isTrue);
+    });
+
+    test('returns false for two different Queues', () {
+      final queue1 = Queue<int>()..addAll([1, 2, 3]);
+      final queue2 = Queue<int>()..addAll([1, 2, 4]);
+      expect(iterableEquals(queue1, queue2), isFalse);
+    });
+
   });
 
   group('setEquals', () {
