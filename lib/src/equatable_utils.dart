@@ -19,8 +19,8 @@ bool equals(List<Object?>? a, List<Object?>? b) {
 @pragma('vm:prefer-inline')
 bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
   assert(
-  a is! Set && b is! Set,
-  "iterableEquals doesn't support Sets. Use setEquals instead.",
+    a is! Set && b is! Set,
+    "iterableEquals doesn't support Sets. Use setEquals instead.",
   );
 
   if (identical(a, b)) return true;
@@ -46,7 +46,6 @@ bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
   // If all elements match, the iterables are equal.
   return true;
 }
-
 
 /// Determines whether two numbers are equal.
 @pragma('vm:prefer-inline')
