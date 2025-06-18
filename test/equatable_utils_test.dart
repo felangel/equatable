@@ -114,7 +114,6 @@ void main() {
       final queue2 = Queue<int>()..addAll([1, 2, 4]);
       expect(iterableEquals(queue1, queue2), isFalse);
     });
-
   });
 
   group('setEquals', () {
