@@ -19,16 +19,34 @@ bool equals(List<Object?>? a, List<Object?>? b) {
 @pragma('vm:prefer-inline')
 bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
   assert(
-    a is! Set && b is! Set,
-    "iterableEquals doesn't support Sets. Use setEquals instead.",
+  a is! Set && b is! Set,
+  "iterableEquals doesn't support Sets. Use setEquals instead.",
   );
+
   if (identical(a, b)) return true;
   if (a.length != b.length) return false;
-  for (var i = 0; i < a.length; i++) {
-    if (!objectsEquals(a.elementAt(i), b.elementAt(i))) return false;
+
+  // If both iterables are Lists, compare them element by element using efficient indexing.
+  if (a is List && b is List) {
+    for (var i = 0; i < a.length; i++) {
+      if (!objectsEquals(a[i], b[i])) return false;
+    }
+    return true;
   }
+
+  // For other types of iterables, compare elements using iterators.
+  final iteratorA = a.iterator;
+  final iteratorB = b.iterator;
+
+  // Iterate through both iterables and compare corresponding elements.
+  while (iteratorA.moveNext() && iteratorB.moveNext()) {
+    if (!objectsEquals(iteratorA.current, iteratorB.current)) return false;
+  }
+
+  // If all elements match, the iterables are equal.
   return true;
 }
+
 
 /// Determines whether two numbers are equal.
 @pragma('vm:prefer-inline')
