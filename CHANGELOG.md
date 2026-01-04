@@ -1,3 +1,8 @@
+# 2.0.8
+
+- chore: bump license year ([#208](https://github.com/felangel/equatable/pull/208))
+- fix: `mapEquals` when comparing maps with different keys and null values ([#207](https://github.com/felangel/equatable/pull/207))
+
 # 2.0.7
 
 - revert: `equals` in `equatable_utils` ([#190](https://github.com/felangel/equatable/issues/190))
