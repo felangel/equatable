@@ -244,6 +244,13 @@ void main() {
       final map2 = {'a': 1, 'b': 2, 'c': 3};
       expect(mapEquals(map1, map2), isFalse);
     });
+
+    test('returns false for maps with different keys containing null values',
+        () {
+      expect(mapEquals({'x': null}, {'y': 42}), isFalse);
+      expect(mapEquals({'x': null}, {'y': null}), isFalse);
+      expect(mapEquals({'a': 1, 'b': null}, {'a': 1, 'c': null}), isFalse);
+    });
   });
 
   group('objectsEquals', () {
