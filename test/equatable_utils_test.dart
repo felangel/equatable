@@ -109,6 +109,11 @@ void main() {
       expect(setEquals(set1, set2), isTrue);
     });
 
+    test('returns true for same set instance', () {
+      final set = {1, 2, 3};
+      expect(setEquals(set, set), isTrue);
+    });
+
     test('returns true for identical sets with elements in different order',
         () {
       final set1 = {1, 3, 2};
@@ -176,6 +181,11 @@ void main() {
       final map1 = {'a': 1, 'b': 2, 'c': 3};
       final map2 = {'a': 1, 'b': 2, 'c': 3};
       expect(mapEquals(map1, map2), isTrue);
+    });
+
+    test('returns true for same map instance', () {
+      final map = {'a': 1, 'b': 2, 'c': 3};
+      expect(mapEquals(map, map), isTrue);
     });
 
     test(
@@ -310,6 +320,56 @@ void main() {
       const num a = 0;
       const num b = 1;
       expect(objectsEquals(a, b), isFalse);
+    });
+  });
+
+  group('mapPropsToHashCode', () {
+    test('returns 0 for null properties', () {
+      expect(mapPropsToHashCode(null), 0);
+    });
+
+    test('returns consistent hashCode for List properties', () {
+      final list = [1, 2, 3];
+      expect(
+        mapPropsToHashCode([list]),
+        mapPropsToHashCode([
+          [1, 2, 3],
+        ]),
+      );
+    });
+
+    test('returns consistent hashCode for Map properties', () {
+      final map1 = {'a': 1, 'b': 2};
+      final map2 = {'b': 2, 'a': 1};
+      expect(mapPropsToHashCode([map1]), mapPropsToHashCode([map2]));
+      expect(mapPropsToHashCode([map1]), isNotNull);
+    });
+
+    test('returns consistent hashCode for Set properties', () {
+      final set1 = {1, 2, 3};
+      final set2 = {3, 2, 1};
+      expect(mapPropsToHashCode([set1]), mapPropsToHashCode([set2]));
+      expect(mapPropsToHashCode([set1]), isNotNull);
+    });
+
+    test('returns consistent hashCode for nested structures', () {
+      final nested1 = [
+        {'a': 1, 'b': 2},
+        {1, 2},
+      ];
+      final nested2 = [
+        {'b': 2, 'a': 1},
+        {2, 1},
+      ];
+      expect(mapPropsToHashCode([nested1]), mapPropsToHashCode([nested2]));
+    });
+  });
+
+  group('mapPropsToString', () {
+    test('returns correct string representation', () {
+      expect(mapPropsToString(Person, ['Bob']), 'Person(Bob)');
+      expect(mapPropsToString(Person, ['Bob', 123]), 'Person(Bob, 123)');
+      expect(mapPropsToString(Person, []), 'Person()');
     });
   });
 }

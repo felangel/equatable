@@ -91,16 +91,14 @@ class Credentials extends EquatableBase {
 }
 
 class ComplexStringify extends ComplexEquatable {
-  ComplexStringify({String? name, int? age, Color? hairColor})
-      : super(name: name, age: age, hairColor: hairColor);
+  ComplexStringify({super.name, super.age, super.hairColor});
 
   @override
   bool get stringify => true;
 }
 
 class ExplicitStringifyFalse extends ComplexEquatable {
-  ExplicitStringifyFalse({String? name, int? age, Color? hairColor})
-      : super(name: name, age: age, hairColor: hairColor);
+  ExplicitStringifyFalse({super.name, super.age, super.hairColor});
 
   @override
   List<Object?> get props => [name, age, hairColor];

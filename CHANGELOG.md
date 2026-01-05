@@ -1,3 +1,9 @@
+# 3.0.0
+
+- **BREAKING**: Upgrade Dart SDK constraints to `^3.0.0`.
+- refactor: Modernize `hashCode` implementation using `Object.hashAll`.
+- test: Added missing test cases to improve coverage.
+
 # 2.0.8
 
 - chore: bump license year ([#208](https://github.com/felangel/equatable/pull/208))
