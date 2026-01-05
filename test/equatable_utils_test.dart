@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:equatable/src/equatable_utils.dart';
+import 'package:meta/meta.dart';
 import 'package:test/test.dart' hide equals;
 
 class Person with EquatableMixin {
@@ -11,10 +12,73 @@ class Person with EquatableMixin {
   List<Object?> get props => [name];
 }
 
+@immutable
+abstract class AnimalName {
+  const AnimalName();
+
+  String get normalized;
+
+  @override
+  bool operator ==(Object other) {
+    if (other is AnimalName) {
+      return normalized == other.normalized;
+    }
+    return false;
+  }
+
+  @override
+  int get hashCode => normalized.hashCode;
+}
+
+class SimpleName extends AnimalName {
+  const SimpleName(this.name);
+
+  final String name;
+
+  @override
+  String get normalized => name.replaceAll(' ', '').toLowerCase();
+}
+
+class PedigreeName extends AnimalName {
+  const PedigreeName({
+    required this.prefix,
+    required this.name,
+    required this.suffix,
+  });
+
+  final String prefix;
+  final String name;
+  final String suffix;
+
+  @override
+  String get normalized =>
+      '$prefix$name$suffix'.replaceAll(' ', '').toLowerCase();
+}
+
+class Dog with EquatableMixin {
+  Dog({required this.name});
+
+  final AnimalName name;
+
+  @override
+  List<Object?> get props => [name];
+}
+
+class Cat with EquatableMixin {
+  Cat({required this.name});
+
+  final AnimalName name;
+
+  @override
+  List<Object?> get props => [name];
+}
+
 void main() {
   final bob = Person(name: 'Bob');
   final alice = Person(name: 'Alice');
   final aliceCopy = Person(name: 'Alice');
+  final fluffyCat = Cat(name: const SimpleName('fluffy'));
+  final fluffyDog = Dog(name: const SimpleName('fluffy'));
 
   group('equals', () {
     test('returns true when both are null', () {
@@ -277,8 +341,80 @@ void main() {
       expect(objectsEquals(bob, alice), isFalse);
     });
 
+    test(
+        'returns false for different Equatable classes '
+        'with same property values', () {
+      expect(objectsEquals(fluffyDog, fluffyCat), isFalse);
+      expect(objectsEquals(fluffyCat, fluffyDog), isFalse);
+    });
+
+    test('returns true for Equatables with custom equality members ', () {
+      expect(
+        objectsEquals(
+          Dog(name: const SimpleName('fluffy')),
+          Dog(name: const SimpleName('fluffy')),
+        ),
+        isTrue,
+      );
+    });
+
+    test(
+        'returns true for Equatables with custom equality members '
+        'that are equal but have a different runtimeType', () {
+      const nameSimple = SimpleName('fluffy');
+      const namePedigree = PedigreeName(prefix: '', name: 'Fluffy', suffix: '');
+      //cross check
+      expect(nameSimple == namePedigree, isTrue);
+      //actual check
+      expect(
+        objectsEquals(
+          Dog(name: nameSimple),
+          Dog(name: namePedigree),
+        ),
+        isTrue,
+      );
+    });
+
+    test(
+        'returns false for Equatables with custom equality members '
+        'that are not equal and have a different runtimeType', () {
+      const nameSimple = SimpleName('fluffy');
+      const differentNamePedigree = PedigreeName(
+        prefix: 'Sir ',
+        name: 'Fluffy',
+        suffix: ' from Midgard',
+      );
+      //cross check
+      expect(nameSimple == differentNamePedigree, isFalse);
+      //actual check
+      expect(
+        objectsEquals(
+          Dog(name: nameSimple),
+          Dog(name: differentNamePedigree),
+        ),
+        isFalse,
+      );
+    });
+
     test('returns true for same lists', () {
       expect(objectsEquals([1, 2, 3], [1, 2, 3]), isTrue);
+    });
+
+    test(
+        'returns true for List of custom equality objects '
+        'that are equal but have a different runtimeType', () {
+      const nameSimple = SimpleName('fluffy');
+      const namePedigree = PedigreeName(prefix: '', name: 'Fluffy', suffix: '');
+      //cross check
+      expect(nameSimple == namePedigree, isTrue);
+      //actual check
+      expect(
+        objectsEquals(
+          [nameSimple],
+          [namePedigree],
+        ),
+        isTrue,
+      );
     });
 
     test('returns true for same sets', () {
