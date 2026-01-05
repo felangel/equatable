@@ -1,4 +1,3 @@
-// ignore_for_file: unrelated_type_equality_checks
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
@@ -91,14 +90,16 @@ class Credentials extends EquatableBase {
 }
 
 class ComplexStringify extends ComplexEquatable {
-  ComplexStringify({super.name, super.age, super.hairColor});
+  ComplexStringify({String? name, int? age, Color? hairColor})
+      : super(name: name, age: age, hairColor: hairColor);
 
   @override
   bool get stringify => true;
 }
 
 class ExplicitStringifyFalse extends ComplexEquatable {
-  ExplicitStringifyFalse({super.name, super.age, super.hairColor});
+  ExplicitStringifyFalse({String? name, int? age, Color? hairColor})
+      : super(name: name, age: age, hairColor: hairColor);
 
   @override
   List<Object?> get props => [name, age, hairColor];
@@ -160,7 +161,7 @@ void main() {
     test('should return false when compared to non-equatable', () {
       final instanceA = EmptyEquatable();
       final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
+      expect(instanceA == (instanceB as Object), false);
     });
   });
 
@@ -199,7 +200,7 @@ void main() {
     test('should return false when compared to non-equatable', () {
       final instanceA = SimpleEquatable('simple');
       final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
+      expect(instanceA == (instanceB as Object), false);
     });
 
     test('should return false when compared to different equatable', () {
@@ -244,7 +245,7 @@ void main() {
     test('should return false when compared to non-equatable', () {
       final instanceA = SimpleEquatable(0);
       final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
+      expect(instanceA == (instanceB as Object), false);
     });
 
     test('should return false when values are different', () {
@@ -283,7 +284,7 @@ void main() {
     test('should return false when compared to non-equatable', () {
       final instanceA = SimpleEquatable(true);
       final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
+      expect(instanceA == (instanceB as Object), false);
     });
 
     test('should return false when values are different', () {
@@ -354,7 +355,7 @@ void main() {
         ),
       );
       final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
+      expect(instanceA == (instanceB as Object), false);
     });
 
     test('should return false when values are different', () {
@@ -367,7 +368,7 @@ void main() {
       final instanceB = SimpleEquatable(
         EquatableData(
           key: 'foo',
-          value: 'barz',
+          value: 'bars',
         ),
       );
       expect(instanceA == instanceB, false);
@@ -410,7 +411,7 @@ void main() {
     test('should return false when compared to non-equatable', () {
       final instanceA = MultipartEquatable('s1', 's2');
       final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
+      expect(instanceA == (instanceB as Object), false);
     });
 
     test('should return false when values are different', () {
@@ -485,7 +486,7 @@ void main() {
         children: ['Bob'],
       );
       final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
+      expect(instanceA == (instanceB as Object), false);
     });
 
     test('should return false when values are different', () {
@@ -604,7 +605,7 @@ void main() {
         ) as Map<String, dynamic>,
       );
       final instanceB = NonEquatable();
-      expect(instanceA == instanceB, false);
+      expect(instanceA == (instanceB as Object), false);
     });
 
     test('should return false when values are different', () {
