@@ -33,6 +33,6 @@ mixin EquatableMixin {
     if (stringify ?? EquatableConfig.stringify) {
       return mapPropsToString(runtimeType, props);
     }
-    return '$runtimeType';
+    return super.toString();
   }
 }
