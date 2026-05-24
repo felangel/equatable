@@ -15,9 +15,9 @@ import 'package:meta/meta.dart';
 ///   List<Object> get props => [name];
 /// }
 /// ```
-/// 
+///
 /// Equatable can also be used as a mixin
-/// 
+///
 /// ```dart
 /// class Person with Equatable {...}
 /// ```
