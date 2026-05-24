@@ -20,6 +20,7 @@ class Credentials extends Equatable {
   bool? get stringify => shouldStringify;
 }
 
+// ignore: deprecated_member_use_from_same_package
 abstract class EquatableBase with EquatableMixin {}
 
 class CredentialsMixin extends EquatableBase {

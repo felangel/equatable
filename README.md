@@ -271,17 +271,17 @@ class Person extends Equatable {
 }
 ```
 
-## EquatableMixin
+## Mixin Usage
 
 Sometimes it isn't possible to extend `Equatable` because your class already has a superclass.
-In this case, you can still get the benefits of `Equatable` by using the `EquatableMixin`.
+In this case, you can still get the benefits of `Equatable` by using `Equatable` as a `mixin`.
 
 ### Usage
 
-Let's say we want to make an `EquatableDateTime` class, we can use `EquatableMixin` like so:
+Let's say we want to make an `EquatableDateTime` class, we can use `Equatable` like so:
 
 ```dart
-class EquatableDateTime extends DateTime with EquatableMixin {
+class EquatableDateTime extends DateTime with Equatable {
   EquatableDateTime(
     int year, [
     int month = 1,

@@ -1,8 +1,7 @@
 // ignore_for_file: avoid_print
-
 import 'package:equatable/equatable.dart';
 
-class Credentials extends Equatable {
+class Credentials with Equatable {
   const Credentials({required this.username, required this.password});
 
   final String username;
@@ -15,7 +14,7 @@ class Credentials extends Equatable {
   bool get stringify => false;
 }
 
-class EquatableDateTime extends DateTime with EquatableMixin {
+class EquatableDateTime extends DateTime with Equatable {
   EquatableDateTime(
     super.year, [
     super.month,
@@ -49,7 +48,7 @@ void main() {
   print(credentialsB == credentialsC); // true
   print(credentialsA); // Credentials
 
-  // Equatable Mixin
+  // Mixin Equatable
   final dateTimeA = EquatableDateTime(2019);
   final dateTimeB = EquatableDateTime(2019, 2, 20, 19, 46);
   final dateTimeC = EquatableDateTime(2019, 2, 20, 19, 46);
