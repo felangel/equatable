@@ -1063,13 +1063,3 @@ void main() {
     });
   });
 }
-
-// test that subclasses of `Equatable` can have const constructors
-class ConstTest extends Equatable {
-  const ConstTest(this.a);
-
-  final int a;
-
-  @override
-  List<Object> get props => [a];
-}

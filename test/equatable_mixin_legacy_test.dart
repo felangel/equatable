@@ -1,4 +1,4 @@
-// ignore_for_file: unrelated_type_equality_checks
+// ignore_for_file: lines_longer_than_80_chars, deprecated_member_use_from_same_package, unrelated_type_equality_checks
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 
 class NonEquatable {}
 
-abstract class EquatableBase with Equatable {}
+abstract class EquatableBase with EquatableMixin {}
 
 class EmptyEquatable extends EquatableBase {
   @override
@@ -107,7 +107,7 @@ class ExplicitStringifyFalse extends ComplexEquatable {
   bool get stringify => false;
 }
 
-class IterableWithFlag<T> extends Iterable<T> with Equatable {
+class IterableWithFlag<T> extends Iterable<T> with EquatableMixin {
   IterableWithFlag({required this.list, required this.flag});
 
   final bool flag;
