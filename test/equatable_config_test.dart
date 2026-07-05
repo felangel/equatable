@@ -63,11 +63,11 @@ void main() {
         EquatableConfig.stringify = false;
         expect(
           Credentials(username: 'joe', password: 'pass').toString(),
-          'Credentials',
+          "Instance of 'Credentials'",
         );
         expect(
           CredentialsMixin(username: 'joe', password: 'pass').toString(),
-          'CredentialsMixin',
+          "Instance of 'CredentialsMixin'",
         );
       });
 
@@ -114,7 +114,7 @@ void main() {
             password: 'pass',
             shouldStringify: false,
           ).toString(),
-          'Credentials',
+          "Instance of 'Credentials'",
         );
         expect(
           CredentialsMixin(
@@ -122,7 +122,7 @@ void main() {
             password: 'pass',
             shouldStringify: false,
           ).toString(),
-          'CredentialsMixin',
+          "Instance of 'CredentialsMixin'",
         );
       });
     });

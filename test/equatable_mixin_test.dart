@@ -173,7 +173,7 @@ void main() {
     test('should correct toString when EquatableConfig.stringify is false', () {
       EquatableConfig.stringify = false;
       final instance = SimpleEquatable('simple');
-      expect(instance.toString(), 'SimpleEquatable<String>');
+      expect(instance.toString(), "Instance of 'SimpleEquatable<String>'");
     });
 
     test('should return true when instance is the same', () {
@@ -658,9 +658,12 @@ void main() {
           ExplicitStringifyFalse(name: 'Bob', hairColor: Color.black);
       final instanceC =
           ExplicitStringifyFalse(name: 'Joe', age: 50, hairColor: Color.blonde);
-      expect(instanceA.toString(), 'ExplicitStringifyFalse');
-      expect(instanceB.toString(), 'ExplicitStringifyFalse');
-      expect(instanceC.toString(), 'ExplicitStringifyFalse');
+
+      const expected = "Instance of 'ExplicitStringifyFalse'";
+
+      expect(instanceA.toString(), expected);
+      expect(instanceB.toString(), expected);
+      expect(instanceC.toString(), expected);
     });
   });
 
