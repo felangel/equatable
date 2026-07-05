@@ -1,0 +1,21 @@
+name: equatable_lint
+description: Official lint rules for development when using the Equatable package.
+version: 0.0.1
+repository: https://github.com/felangel/equatable/tree/master/packages/equatable_lint
+issue_tracker: https://github.com/felangel/equatable/issues
+homepage: https://github.com/felangel/equatable
+documentation: https://github.com/felangel/equatable
+topics: [equality, equals, lint]
+funding: [https://github.com/sponsors/felangel]
+
+environment:
+  sdk: ^3.10.0
+
+dependencies:
+  analysis_server_plugin: ^0.3.0
+  analyzer: ^8.4.0
+
+dev_dependencies:
+  analyzer_testing: ^0.1.5
+  test: ^1.0.0
+  test_reflective_loader: ^0.4.0
