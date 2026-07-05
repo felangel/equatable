@@ -1,3 +1,14 @@
+# 2.1.0
+
+- feat: deprecate `EquatableMixin` ([#214](https://github.com/felangel/equatable/pull/214))
+  ```dart
+  class Foo with EquatableMixin {...} // OLD
+  class Foo with Equatable {...} // NEW
+  ```
+- refactor: update analysis options
+- deps: upgrade to Dart >=3.0.0
+- chore(example): upgrade to Dart >=3.12.0
+
 # 2.0.8
 
 - chore: bump license year ([#208](https://github.com/felangel/equatable/pull/208))
