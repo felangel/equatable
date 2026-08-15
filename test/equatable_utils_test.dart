@@ -3,6 +3,16 @@ import 'package:equatable/src/equatable_utils.dart';
 import 'package:test/test.dart' hide equals;
 
 // ignore: deprecated_member_use_from_same_package
+
+class NumInRecord with EquatableMixin {
+  NumInRecord(this.value);
+
+  final ({num value}) value;
+
+  @override
+  List<Object?> get props => [value];
+}
+
 class Person with EquatableMixin {
   Person({required this.name});
 
@@ -311,6 +321,17 @@ void main() {
       const num a = 0;
       const num b = 1;
       expect(objectsEquals(a, b), isFalse);
+    });
+
+    test('returns true for records whose nums compare equal (int and double)',
+        () {
+      const int i = 1;
+      const double d = 1.0;
+      expect(objectsEquals((value: i), (value: d)), isTrue);
+    });
+
+    test('returns true for Equatable props that are records of equal nums', () {
+      expect(NumInRecord((value: 1)) == NumInRecord((value: 1.0)), isTrue);
     });
   });
 }
