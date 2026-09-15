@@ -30,10 +30,6 @@ bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
   return true;
 }
 
-/// Determines whether two numbers are equal.
-@pragma('vm:prefer-inline')
-bool numEquals(num a, num b) => a == b;
-
 /// Determines whether two sets are equal.
 bool setEquals(Set<Object?> a, Set<Object?> b) {
   if (identical(a, b)) return true;
@@ -58,9 +54,7 @@ bool mapEquals(Map<Object?, Object?> a, Map<Object?, Object?> b) {
 @pragma('vm:prefer-inline')
 bool objectsEquals(Object? a, Object? b) {
   if (identical(a, b)) return true;
-  if (a is num && b is num) {
-    return numEquals(a, b);
-  } else if (_isEquatable(a) && _isEquatable(b)) {
+  if (_isEquatable(a) && _isEquatable(b)) {
     return a == b;
   } else if (a is Set && b is Set) {
     return setEquals(a, b);
@@ -68,8 +62,6 @@ bool objectsEquals(Object? a, Object? b) {
     return iterableEquals(a, b);
   } else if (a is Map && b is Map) {
     return mapEquals(a, b);
-  } else if (a?.runtimeType != b?.runtimeType) {
-    return false;
   } else if (a != b) {
     return false;
   }
