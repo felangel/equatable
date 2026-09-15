@@ -1,3 +1,9 @@
+# 3.0.0
+
+- **BREAKING** fix!: do not test for `runtimeType` in object comparison ([#219](https://github.com/felangel/equatable/pull/219))
+- **BREAKING** fix!: avoid custom `toString` override ([#218](https://github.com/felangel/equatable/pull/218))
+- **BREAKING** refactor!: remove `EquatableMixin` ([#217](https://github.com/felangel/equatable/pull/217))
+
 # 2.1.0
 
 - feat: deprecate `EquatableMixin` ([#214](https://github.com/felangel/equatable/pull/214))
