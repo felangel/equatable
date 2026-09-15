@@ -2,8 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:equatable/src/equatable_utils.dart';
 import 'package:test/test.dart' hide equals;
 
-// ignore: deprecated_member_use_from_same_package
-class Person with EquatableMixin {
+class Person with Equatable {
   Person({required this.name});
 
   final String name;

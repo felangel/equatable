@@ -77,10 +77,7 @@ bool objectsEquals(Object? a, Object? b) {
 }
 
 @pragma('vm:prefer-inline')
-bool _isEquatable(Object? object) {
-  // ignore: deprecated_member_use_from_same_package
-  return object is Equatable || object is EquatableMixin;
-}
+bool _isEquatable(Object? object) => object is Equatable;
 
 /// Jenkins Hash Functions
 /// https://en.wikipedia.org/wiki/Jenkins_hash_function
