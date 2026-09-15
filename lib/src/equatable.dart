@@ -15,9 +15,15 @@ import 'package:meta/meta.dart';
 ///   List<Object> get props => [name];
 /// }
 /// ```
+///
+/// Equatable can also be used as a mixin
+///
+/// ```dart
+/// class Person with Equatable {...}
+/// ```
 /// {@endtemplate}
 @immutable
-abstract class Equatable {
+abstract mixin class Equatable {
   /// {@macro equatable}
   const Equatable();
 
@@ -38,7 +44,6 @@ abstract class Equatable {
   /// `EquatableConfig.stringify` will be used instead. This defaults to
   /// `false`.
   /// {@endtemplate}
-  // ignore: avoid_returning_null
   bool? get stringify => null;
 
   @override
@@ -57,6 +62,6 @@ abstract class Equatable {
     if (stringify ?? EquatableConfig.stringify) {
       return mapPropsToString(runtimeType, props);
     }
-    return '$runtimeType';
+    return super.toString();
   }
 }

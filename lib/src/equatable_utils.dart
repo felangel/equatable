@@ -49,7 +49,7 @@ bool mapEquals(Map<Object?, Object?> a, Map<Object?, Object?> b) {
   if (identical(a, b)) return true;
   if (a.length != b.length) return false;
   for (final key in a.keys) {
-    if (!objectsEquals(a[key], b[key])) return false;
+    if (!b.containsKey(key) || !objectsEquals(a[key], b[key])) return false;
   }
   return true;
 }
@@ -75,9 +75,7 @@ bool objectsEquals(Object? a, Object? b) {
 }
 
 @pragma('vm:prefer-inline')
-bool _isEquatable(Object? object) {
-  return object is Equatable || object is EquatableMixin;
-}
+bool _isEquatable(Object? object) => object is Equatable;
 
 /// Jenkins Hash Functions
 /// https://en.wikipedia.org/wiki/Jenkins_hash_function

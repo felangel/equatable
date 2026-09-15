@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 
 class NonEquatable {}
 
-abstract class EquatableBase with EquatableMixin {}
+abstract class EquatableBase with Equatable {}
 
 class EmptyEquatable extends EquatableBase {
   @override
@@ -91,16 +91,14 @@ class Credentials extends EquatableBase {
 }
 
 class ComplexStringify extends ComplexEquatable {
-  ComplexStringify({String? name, int? age, Color? hairColor})
-      : super(name: name, age: age, hairColor: hairColor);
+  ComplexStringify({super.name, super.age, super.hairColor});
 
   @override
   bool get stringify => true;
 }
 
 class ExplicitStringifyFalse extends ComplexEquatable {
-  ExplicitStringifyFalse({String? name, int? age, Color? hairColor})
-      : super(name: name, age: age, hairColor: hairColor);
+  ExplicitStringifyFalse({super.name, super.age, super.hairColor});
 
   @override
   List<Object?> get props => [name, age, hairColor];
@@ -109,7 +107,7 @@ class ExplicitStringifyFalse extends ComplexEquatable {
   bool get stringify => false;
 }
 
-class IterableWithFlag<T> extends Iterable<T> with EquatableMixin {
+class IterableWithFlag<T> extends Iterable<T> with Equatable {
   IterableWithFlag({required this.list, required this.flag});
 
   final bool flag;
@@ -175,7 +173,7 @@ void main() {
     test('should correct toString when EquatableConfig.stringify is false', () {
       EquatableConfig.stringify = false;
       final instance = SimpleEquatable('simple');
-      expect(instance.toString(), 'SimpleEquatable<String>');
+      expect(instance.toString(), "Instance of 'SimpleEquatable<String>'");
     });
 
     test('should return true when instance is the same', () {
@@ -660,9 +658,12 @@ void main() {
           ExplicitStringifyFalse(name: 'Bob', hairColor: Color.black);
       final instanceC =
           ExplicitStringifyFalse(name: 'Joe', age: 50, hairColor: Color.blonde);
-      expect(instanceA.toString(), 'ExplicitStringifyFalse');
-      expect(instanceB.toString(), 'ExplicitStringifyFalse');
-      expect(instanceC.toString(), 'ExplicitStringifyFalse');
+
+      const expected = "Instance of 'ExplicitStringifyFalse'";
+
+      expect(instanceA.toString(), expected);
+      expect(instanceB.toString(), expected);
+      expect(instanceC.toString(), expected);
     });
   });
 
