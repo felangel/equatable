@@ -78,6 +78,7 @@ bool objectsEquals(Object? a, Object? b) {
 
 @pragma('vm:prefer-inline')
 bool _isEquatable(Object? object) {
+  // ignore: deprecated_member_use_from_same_package
   return object is Equatable || object is EquatableMixin;
 }
 

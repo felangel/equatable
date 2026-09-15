@@ -1,4 +1,4 @@
-// ignore_for_file: unrelated_type_equality_checks
+// ignore_for_file: lines_longer_than_80_chars, deprecated_member_use_from_same_package, unrelated_type_equality_checks
 import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
@@ -7,7 +7,7 @@ import 'package:test/test.dart';
 
 class NonEquatable {}
 
-abstract class EquatableBase with Equatable {}
+abstract class EquatableBase with EquatableMixin {}
 
 class EmptyEquatable extends EquatableBase {
   @override
@@ -107,7 +107,7 @@ class ExplicitStringifyFalse extends ComplexEquatable {
   bool get stringify => false;
 }
 
-class IterableWithFlag<T> extends Iterable<T> with Equatable {
+class IterableWithFlag<T> extends Iterable<T> with EquatableMixin {
   IterableWithFlag({required this.list, required this.flag});
 
   final bool flag;
@@ -173,7 +173,7 @@ void main() {
     test('should correct toString when EquatableConfig.stringify is false', () {
       EquatableConfig.stringify = false;
       final instance = SimpleEquatable('simple');
-      expect(instance.toString(), "Instance of 'SimpleEquatable<String>'");
+      expect(instance.toString(), 'SimpleEquatable<String>');
     });
 
     test('should return true when instance is the same', () {
@@ -658,12 +658,9 @@ void main() {
           ExplicitStringifyFalse(name: 'Bob', hairColor: Color.black);
       final instanceC =
           ExplicitStringifyFalse(name: 'Joe', age: 50, hairColor: Color.blonde);
-
-      const expected = "Instance of 'ExplicitStringifyFalse'";
-
-      expect(instanceA.toString(), expected);
-      expect(instanceB.toString(), expected);
-      expect(instanceC.toString(), expected);
+      expect(instanceA.toString(), 'ExplicitStringifyFalse');
+      expect(instanceB.toString(), 'ExplicitStringifyFalse');
+      expect(instanceC.toString(), 'ExplicitStringifyFalse');
     });
   });
 

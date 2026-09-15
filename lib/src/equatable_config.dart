@@ -1,4 +1,3 @@
-// ignore_for_file: avoid_classes_with_only_static_members
 import 'package:equatable/src/equatable.dart';
 
 /// The default configuration for all [Equatable] instances.

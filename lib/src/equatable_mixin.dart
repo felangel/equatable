@@ -8,13 +8,13 @@ import 'package:meta/meta.dart';
 ///
 /// Like with extending [Equatable], the [EquatableMixin] overrides the
 /// [operator ==] as well as the [hashCode] based on the provided [props].
+@Deprecated('use Equatable as a mixin instead')
 @immutable
 mixin EquatableMixin {
   /// {@macro equatable_props}
   List<Object?> get props;
 
   /// {@macro equatable_stringify}
-  // ignore: avoid_returning_null
   bool? get stringify => null;
 
   @override
