@@ -1,5 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:equatable/src/equatable_utils.dart';
+import 'package:meta/meta.dart';
 import 'package:test/test.dart' hide equals;
 
 class Person with Equatable {
@@ -9,6 +10,49 @@ class Person with Equatable {
 
   @override
   List<Object?> get props => [name];
+}
+
+@immutable
+abstract class AnimalName {
+  const AnimalName();
+
+  String get normalized;
+
+  @override
+  bool operator ==(Object other) {
+    if (other is AnimalName) {
+      return normalized == other.normalized;
+    }
+    return false;
+  }
+
+  @override
+  int get hashCode => normalized.hashCode;
+}
+
+class SimpleName extends AnimalName {
+  const SimpleName(this.name);
+
+  final String name;
+
+  @override
+  String get normalized => name.replaceAll(' ', '').toLowerCase();
+}
+
+class PedigreeName extends AnimalName {
+  const PedigreeName({
+    required this.prefix,
+    required this.name,
+    required this.suffix,
+  });
+
+  final String prefix;
+  final String name;
+  final String suffix;
+
+  @override
+  String get normalized =>
+      '$prefix$name$suffix'.replaceAll(' ', '').toLowerCase();
 }
 
 void main() {
@@ -291,8 +335,18 @@ void main() {
       expect(objectsEquals({'c': 3, 'b': 2}, {'b': 2, 'c': 3}), isTrue);
     });
 
-    test('returns false for different types', () {
+    test('returns false when == returns false', () {
       expect(objectsEquals(1, '1'), isFalse);
+    });
+
+    test('returns true when == returns true', () {
+      expect(
+        objectsEquals(
+          [const SimpleName('fluffy')],
+          [const PedigreeName(prefix: '', name: 'Fluffy', suffix: '')],
+        ),
+        isTrue,
+      );
     });
 
     test('returns true when two nums have the same value (int and double)', () {
