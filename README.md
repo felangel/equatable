@@ -112,7 +112,7 @@ Next, we need to install it:
 
 ```sh
 # Dart
-pub get
+dart pub get
 
 # Flutter
 flutter packages get
@@ -217,9 +217,9 @@ For the name `Bob`, the output will be:
 
 `Person(Bob)`
 
-This flag by default is false and `toString` will return just the type:
+This flag by default is false and `toString` will fallback to the default implementation:
 
-`Person`
+`Instance of Person`
 
 #### EquatableConfig
 
