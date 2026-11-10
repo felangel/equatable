@@ -25,7 +25,7 @@ bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
   if (identical(a, b)) return true;
   // Keep indexed access for lists, but avoid repeated elementAt(i) traversals
   // (and repeated length computation) on other Iterable implementations.
-  if (a is List && b is List) {
+  if (a is List<Object?> && b is List<Object?>) {
     if (a.length != b.length) return false;
     for (var i = 0; i < a.length; i++) {
       if (!objectsEquals(a[i], b[i])) return false;
