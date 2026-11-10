@@ -34,10 +34,46 @@ bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
 bool setEquals(Set<Object?> a, Set<Object?> b) {
   if (identical(a, b)) return true;
   if (a.length != b.length) return false;
+
+  // Custom Set equality can disagree with objectsEquals; validate each
+  // native match and use it only once.
+  if (!_requiresDeepMatching(a) && !_requiresDeepMatching(b)) {
+    final used = Set<Object?>.identity();
+    var allMatched = true;
+    for (final element in a) {
+      final match = b.lookup(element);
+      if ((match == null && !b.contains(element)) ||
+          !objectsEquals(element, match) ||
+          !used.add(match)) {
+        allMatched = false;
+        break;
+      }
+    }
+    if (allMatched) return true;
+  }
+
+  // Deep equality can match distinct objects with different native hashes.
+  // Use one-to-one matching when the native fast path cannot prove equality.
+  final unmatched = b.toList();
   for (final element in a) {
-    if (!b.any((e) => objectsEquals(element, e))) return false;
+    final index = unmatched.indexWhere(
+      (value) => objectsEquals(element, value),
+    );
+    if (index == -1) return false;
+    // Order is irrelevant; swap with the last candidate to remove in O(1).
+    unmatched[index] = unmatched.last;
+    unmatched.removeLast();
   }
   return true;
+}
+
+bool _requiresDeepMatching(Set<Object?> values) {
+  for (final value in values) {
+    if (value is Iterable<Object?> || value is Map<Object?, Object?>) {
+      return true;
+    }
+  }
+  return false;
 }
 
 /// Determines whether two maps are equal.

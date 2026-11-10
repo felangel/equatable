@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:equatable/equatable.dart';
 import 'package:equatable/src/equatable_utils.dart';
 import 'package:meta/meta.dart';
@@ -213,6 +215,46 @@ void main() {
       final set2 = {1, 2, 3};
       expect(setEquals(set1, set2), isFalse);
     });
+
+    test('returns true for numerically equal int and double elements', () {
+      expect(setEquals({1, 2}, {2.0, 1.0}), isTrue);
+    });
+
+    test('returns true for sets with null elements in different order', () {
+      expect(setEquals({null, 1}, {1, null}), isTrue);
+      expect(setEquals({null, 1}, {1, 2}), isFalse);
+    });
+
+    test('compares non-identical list elements deeply', () {
+      final set1 = {
+        [1, 2],
+        [3, 4],
+      };
+      final set2 = {
+        [3, 4],
+        [1, 2],
+      };
+      expect(setEquals(set1, set2), isTrue);
+    });
+
+    test('returns false for elements that are == but not deeply equal', () {
+      const list1 = _LengthEqualIterable([1, 2]);
+      const list2 = _LengthEqualIterable([3, 4]);
+      expect(list1 == list2, isTrue);
+      expect(setEquals({list1}, {list2}), isFalse);
+    });
+
+    test('returns true for an element found only by the deep scan', () {
+      final identitySet = Set<Object?>.identity()..add(Person(name: 'Alice'));
+      expect(setEquals({alice}, identitySet), isTrue);
+      expect(setEquals({bob}, identitySet), isFalse);
+    });
+
+    test('returns true for large equal sets', () {
+      final set1 = List.generate(100000, (i) => i).toSet();
+      final set2 = List.generate(100000, (i) => 99999 - i).toSet();
+      expect(setEquals(set1, set2), isTrue);
+    });
   });
 
   group('mapEquals', () {
@@ -366,4 +408,23 @@ void main() {
       expect(objectsEquals(a, b), isFalse);
     });
   });
+}
+
+/// An iterable whose `==` only compares lengths, unlike equatable's deep
+/// equality.
+@immutable
+class _LengthEqualIterable extends IterableBase<int> {
+  const _LengthEqualIterable(this._values);
+
+  final List<int> _values;
+
+  @override
+  Iterator<int> get iterator => _values.iterator;
+
+  @override
+  bool operator ==(Object other) =>
+      other is _LengthEqualIterable && other.length == length;
+
+  @override
+  int get hashCode => length;
 }
