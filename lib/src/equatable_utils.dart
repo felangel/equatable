@@ -23,11 +23,25 @@ bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
     "iterableEquals doesn't support Sets. Use setEquals instead.",
   );
   if (identical(a, b)) return true;
-  if (a.length != b.length) return false;
-  for (var i = 0; i < a.length; i++) {
-    if (!objectsEquals(a.elementAt(i), b.elementAt(i))) return false;
+  // Keep indexed access for lists, but avoid repeated elementAt(i) traversals
+  // (and repeated length computation) on other Iterable implementations.
+  if (a is List && b is List) {
+    if (a.length != b.length) return false;
+    for (var i = 0; i < a.length; i++) {
+      if (!objectsEquals(a[i], b[i])) return false;
+    }
+    return true;
   }
-  return true;
+
+  final iteratorA = a.iterator;
+  final iteratorB = b.iterator;
+  while (iteratorA.moveNext()) {
+    if (!iteratorB.moveNext() ||
+        !objectsEquals(iteratorA.current, iteratorB.current)) {
+      return false;
+    }
+  }
+  return !iteratorB.moveNext();
 }
 
 /// Determines whether two sets are equal.
@@ -86,10 +100,13 @@ int _combine(int hash, Object? object) {
     object = object.sorted((Object? a, Object? b) => a.hashCode - b.hashCode);
   }
   if (object is Iterable) {
+    var length = 0;
     for (final value in object) {
       hash = hash ^ _combine(hash, value);
+      length++;
     }
-    return hash ^ object.length;
+    // Generic/lazy Iterables may calculate length by traversing the sequence.
+    return hash ^ length;
   }
 
   hash = 0x1fffffff & (hash + object.hashCode);
