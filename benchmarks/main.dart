@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:benchmarking/benchmarking.dart';
 import 'package:equatable/equatable.dart';
 import 'package:meta/meta.dart';
@@ -8,7 +10,7 @@ class EmptyEquatable extends Equatable {
 }
 
 class PrimitiveEquatable extends Equatable {
-  const PrimitiveEquatable(this.integer, this.string, this.boolean);
+  const PrimitiveEquatable(this.integer, this.string, {required this.boolean});
 
   final int integer;
   final String string;
@@ -64,7 +66,7 @@ void main() {
   );
   _runBenchmark(
     'PrimitiveEquatable',
-    (index) => PrimitiveEquatable(index, '$index', index.isEven),
+    (index) => PrimitiveEquatable(index, '$index', boolean: index.isEven),
   );
 
   for (final size in [1, 10, 100]) {
@@ -112,9 +114,7 @@ void main() {
   );
 }
 
-/// Pairs are independently constructed, never identical. The equal benchmark
-/// must traverse the whole props list; the unequal benchmark has an early exit.
-/// Hashing is benchmarked separately so cost is not hidden by that early exit.
+/// Independent equal pairs traverse all props; unequal pairs may exit early.
 void _runBenchmark(
   String name,
   Equatable Function(int index) create, {
@@ -163,10 +163,8 @@ void _runBenchmark(
     }
   }).report(units: poolSize);
 
-  assert(equalMatches > 0, 'Equal scenario was not exercised');
-  assert(
-    !supportsUnequal || unequalMatches > 0,
-    'Unequal scenario was not exercised',
-  );
-  assert(hashSink >= 0, 'Hash result must be observable');
+  if (equalMatches == 0 || (supportsUnequal && unequalMatches == 0)) {
+    throw StateError('$name: comparison was not exercised');
+  }
+  stdout.writeln('sinks: $equalMatches/$unequalMatches/$hashSink');
 }
