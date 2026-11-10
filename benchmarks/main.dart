@@ -41,6 +41,19 @@ class SingleCollectionEquatable extends Equatable {
   List<Object?> get props => [value];
 }
 
+class _CollidingKey {
+  const _CollidingKey(this.value);
+
+  final int value;
+
+  @override
+  bool operator ==(Object other) =>
+      other is _CollidingKey && other.value == value;
+
+  @override
+  int get hashCode => 1;
+}
+
 void main() {
   _runBenchmark(
     'EmptyEquatable',
@@ -73,7 +86,28 @@ void main() {
         Iterable<int>.generate(size, (i) => index + i),
       ),
     );
+    _runBenchmark(
+      'MapEquatable ($size items)',
+      (index) => SingleCollectionEquatable({
+        for (var i = 0; i < size; i++) '$i': index + i,
+      }),
+    );
   }
+
+  // Ensure that equal-key hash collisions and nested Sets are represented
+  // without making every benchmark operation quadratic at size 100.
+  _runBenchmark(
+    'CollidingMapEquatable (16 items)',
+    (index) => SingleCollectionEquatable({
+      for (var i = 0; i < 16; i++) _CollidingKey(i): index + i,
+    }),
+  );
+  _runBenchmark(
+    'NestedSetEquatable (10 lists)',
+    (index) => SingleCollectionEquatable(<List<int>>{
+      for (var i = 0; i < 10; i++) [index + i, i],
+    }),
+  );
 }
 
 /// Pairs are independently constructed, never identical. The equal benchmark
@@ -91,6 +125,18 @@ void _runBenchmark(
     poolSize,
     (index) => create(index + poolSize),
   );
+
+  // Check the scenario, rather than reporting misleading throughput for
+  // accidentally-identical references or accidentally-unequal fixtures.
+  for (var index = 0; index < poolSize; index++) {
+    if (identical(left[index], equalRight[index]) ||
+        left[index] != equalRight[index]) {
+      throw StateError('$name: equal fixture is invalid at $index');
+    }
+    if (supportsUnequal && left[index] == unequalRight[index]) {
+      throw StateError('$name: unequal fixture is invalid at $index');
+    }
+  }
 
   var equalMatches = 0;
   syncBenchmark('$name — equal', () {
