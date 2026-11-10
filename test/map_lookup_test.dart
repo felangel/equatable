@@ -24,7 +24,9 @@ class _TrackedMap<K, V> extends MapBase<K, V> {
   }
 
   @override
-  void operator []=(K key, V value) => _inner[key] = value;
+  void operator []=(K key, V value) {
+    _inner[key] = value;
+  }
 
   @override
   void clear() => _inner.clear();
