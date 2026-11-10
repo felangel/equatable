@@ -34,7 +34,13 @@ generated map entries all reused `'42'`.
 - `PrimitiveEquatable`: integer, string and boolean.
 - `CollectionEquatable`: list, map, set, each of 1/10/100 values.
 - `SetEquatable`: isolates set comparison/hash cost.
+- `MapEquatable`: isolates Map lookups and hashing.
 - `LazyIterableEquatable`: covers generic Iterable traversal.
+- `CollidingMapEquatable`: 16 entries whose keys share a hash code.
+- `NestedSetEquatable`: 10 lists in a Set, exercising structural matching.
+
+Every fixture is validated before timing begins, so an accidental identity
+match or an unexpectedly unequal case cannot silently bias measurements.
 
 Benchmarks provide comparative evidence, **not correctness validation**.
 Run `dart test` at the package root and `dart analyze` as well.
