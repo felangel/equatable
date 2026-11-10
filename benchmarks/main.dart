@@ -91,6 +91,12 @@ void main() {
       ),
     );
     _runBenchmark(
+      'FilteredIterableEquatable ($size items)',
+      (index) => SingleCollectionEquatable(
+        Iterable<int>.generate(size, (i) => index + i).where((_) => true),
+      ),
+    );
+    _runBenchmark(
       'MapEquatable ($size items)',
       (index) => SingleCollectionEquatable({
         for (var i = 0; i < size; i++) '$i': index + i,

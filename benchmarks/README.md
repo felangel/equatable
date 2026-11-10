@@ -36,6 +36,7 @@ generated map entries all reused `'42'`.
 - `SetEquatable`: isolates set comparison/hash cost.
 - `MapEquatable`: isolates Map lookups and hashing.
 - `LazyIterableEquatable`: covers generic Iterable traversal.
+- `FilteredIterableEquatable`: covers lazy traversal without efficient indexed access.
 - `CollidingMapEquatable`: 16 entries whose keys share a hash code.
 - `NestedSetEquatable`: 10 lists in a Set, exercising structural matching.
 
