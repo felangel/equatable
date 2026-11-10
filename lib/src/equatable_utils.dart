@@ -18,11 +18,12 @@ bool equals(List<Object?>? a, List<Object?>? b) {
 /// Determines whether two iterables are equal.
 @pragma('vm:prefer-inline')
 bool iterableEquals(Iterable<Object?> a, Iterable<Object?> b) {
-  assert(
-    a is! Set && b is! Set,
-    "iterableEquals doesn't support Sets. Use setEquals instead.",
-  );
   if (identical(a, b)) return true;
+  // Sets implement Iterable but must compare independent of iteration order.
+  // Comparing a Set with an ordered sequence is never value equality.
+  if (a is Set<Object?> || b is Set<Object?>) {
+    return a is Set<Object?> && b is Set<Object?> && setEquals(a, b);
+  }
   if (a.length != b.length) return false;
   for (var i = 0; i < a.length; i++) {
     if (!objectsEquals(a.elementAt(i), b.elementAt(i))) return false;
