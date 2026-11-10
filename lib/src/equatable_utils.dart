@@ -44,8 +44,14 @@ bool setEquals(Set<Object?> a, Set<Object?> b) {
 bool mapEquals(Map<Object?, Object?> a, Map<Object?, Object?> b) {
   if (identical(a, b)) return true;
   if (a.length != b.length) return false;
-  for (final key in a.keys) {
-    if (!b.containsKey(key) || !objectsEquals(a[key], b[key])) return false;
+  for (final entry in a.entries) {
+    // Reading the value also tests whether a non-null value is present.
+    // Only null values need containsKey to distinguish a missing key.
+    final otherValue = b[entry.key];
+    if (!objectsEquals(entry.value, otherValue) ||
+        (otherValue == null && !b.containsKey(entry.key))) {
+      return false;
+    }
   }
   return true;
 }
