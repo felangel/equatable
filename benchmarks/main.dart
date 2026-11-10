@@ -3,22 +3,18 @@ import 'package:equatable/equatable.dart';
 
 class EmptyEquatable extends Equatable {
   @override
-  List<Object> get props => [];
+  List<Object?> get props => const [];
 }
 
 class PrimitiveEquatable extends Equatable {
-  const PrimitiveEquatable({
-    required this.integer,
-    required this.string,
-    required this.boolean,
-  });
+  const PrimitiveEquatable(this.integer, this.string, this.boolean);
 
   final int integer;
   final String string;
   final bool boolean;
 
   @override
-  List<Object> get props => [integer, string, boolean];
+  List<Object?> get props => [integer, string, boolean];
 }
 
 class CollectionEquatable extends Equatable {
@@ -33,101 +29,96 @@ class CollectionEquatable extends Equatable {
   final Set<int> set;
 
   @override
-  List<Object> get props => [list, map, set];
+  List<Object?> get props => [list, map, set];
+}
+
+class SingleCollectionEquatable extends Equatable {
+  const SingleCollectionEquatable(this.value);
+
+  final Object value;
+
+  @override
+  List<Object?> get props => [value];
 }
 
 void main() {
-  _runBenchmark('EmptyEquatable', (_) => EmptyEquatable());
-
+  _runBenchmark(
+    'EmptyEquatable',
+    (_) => EmptyEquatable(),
+    supportsUnequal: false,
+  );
   _runBenchmark(
     'PrimitiveEquatable',
-    (index) => PrimitiveEquatable(
-      integer: index,
-      string: '$index',
-      boolean: index.isEven,
-    ),
+    (index) => PrimitiveEquatable(index, '$index', index.isEven),
   );
 
-  _runBenchmark(
-    'CollectionEquatable (static, small)',
-    (index) => CollectionEquatable(
-      list: List.generate(1, (_) => 42),
-      map: Map.fromEntries(
-        // ignore: prefer_const_constructors
-        List.generate(1, (_) => MapEntry('42', 42)),
+  for (final size in [1, 10, 100]) {
+    _runBenchmark(
+      'CollectionEquatable ($size items per collection)',
+      (index) => CollectionEquatable(
+        list: List.generate(size, (i) => index + i),
+        map: {for (var i = 0; i < size; i++) '$i': index + i},
+        set: {for (var i = 0; i < size; i++) index + i},
       ),
-      set: Set.from(List.generate(1, (_) => 42)),
-    ),
-  );
-
-  _runBenchmark(
-    'CollectionEquatable (static, medium)',
-    (index) => CollectionEquatable(
-      list: List.generate(10, (_) => 42),
-      map: Map.fromEntries(
-        // ignore: prefer_const_constructors
-        List.generate(10, (_) => MapEntry('42', 42)),
+    );
+    _runBenchmark(
+      'SetEquatable ($size items)',
+      (index) => SingleCollectionEquatable(
+        {for (var i = 0; i < size; i++) index + i},
       ),
-      set: Set.from(List.generate(10, (_) => 42)),
-    ),
-  );
-
-  _runBenchmark(
-    'CollectionEquatable (static, large)',
-    (index) => CollectionEquatable(
-      list: List.generate(100, (_) => 42),
-      map: Map.fromEntries(
-        // ignore: prefer_const_constructors
-        List.generate(100, (_) => MapEntry('42', 42)),
+    );
+    _runBenchmark(
+      'LazyIterableEquatable ($size items)',
+      (index) => SingleCollectionEquatable(
+        Iterable<int>.generate(size, (i) => index + i),
       ),
-      set: Set.from(List.generate(100, (_) => 42)),
-    ),
-  );
-
-  _runBenchmark(
-    'CollectionEquatable (dynamic, small)',
-    (index) => CollectionEquatable(
-      list: List.generate(1, (i) => index + i),
-      map: Map.fromEntries(
-        List.generate(1, (i) => MapEntry('${index + i}', index + i)),
-      ),
-      set: Set.from(List.generate(1, (i) => index + i)),
-    ),
-  );
-
-  _runBenchmark(
-    'CollectionEquatable (dynamic, medium)',
-    (index) => CollectionEquatable(
-      list: List.generate(10, (i) => index + i),
-      map: Map.fromEntries(
-        List.generate(10, (i) => MapEntry('${index + i}', index + i)),
-      ),
-      set: Set.from(List.generate(10, (i) => index + i)),
-    ),
-  );
-
-  _runBenchmark(
-    'CollectionEquatable (dynamic, large)',
-    (index) => CollectionEquatable(
-      list: List.generate(100, (i) => index + i),
-      map: Map.fromEntries(
-        List.generate(100, (i) => MapEntry('${index + i}', index + i)),
-      ),
-      set: Set.from(List.generate(100, (i) => index + i)),
-    ),
-  );
+    );
+  }
 }
 
-void _runBenchmark(String name, Object Function(int index) create) {
+/// Pairs are independently constructed, never identical. The equal benchmark
+/// must traverse the whole props list; the unequal benchmark has an early exit.
+/// Hashing is benchmarked separately so cost is not hidden by that early exit.
+void _runBenchmark(
+  String name,
+  Equatable Function(int index) create, {
+  bool supportsUnequal = true,
+}) {
   const poolSize = 100;
-  final pool = List.generate(poolSize, create);
-  final poolA = [...pool]..shuffle();
-  final poolB = [...pool]..shuffle();
-  bool? result; // so that the loop isn't optimized out
-  syncBenchmark(name, () {
+  final left = List<Equatable>.generate(poolSize, create);
+  final equalRight = List<Equatable>.generate(poolSize, create);
+  final unequalRight = List<Equatable>.generate(
+    poolSize,
+    (index) => create(index + poolSize),
+  );
+
+  var equalMatches = 0;
+  syncBenchmark('$name — equal', () {
     for (var i = 0; i < poolSize; i++) {
-      result = poolA[i] == poolB[i];
+      if (left[i] == equalRight[i]) equalMatches++;
     }
   }).report(units: poolSize);
-  assert(result != null, 'result should be defined.');
+
+  var unequalMatches = 0;
+  if (supportsUnequal) {
+    syncBenchmark('$name — unequal', () {
+      for (var i = 0; i < poolSize; i++) {
+        if (left[i] != unequalRight[i]) unequalMatches++;
+      }
+    }).report(units: poolSize);
+  }
+
+  var hashSink = 0;
+  syncBenchmark('$name — hashCode', () {
+    for (final value in left) {
+      hashSink = 0x1fffffff & (hashSink + value.hashCode);
+    }
+  }).report(units: poolSize);
+
+  assert(equalMatches > 0, 'Equal scenario was not exercised');
+  assert(
+    !supportsUnequal || unequalMatches > 0,
+    'Unequal scenario was not exercised',
+  );
+  assert(hashSink >= 0, 'Hash result must be observable');
 }
