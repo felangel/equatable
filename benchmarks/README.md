@@ -22,7 +22,7 @@ mode, and power/performance settings. Run each version multiple times, compare
 the **units/second** field for the same benchmark case, and report both median
 and spread. Higher units/second is better.
 
-Do not compare the old results below with the new cases: the previous harness
+Do not compare the previous published results with the new cases: the old harness
 shuffled reference pools independently. Many comparisons exited on the first
 unequal property and did not exercise the deeper collection algorithms.
 Similarly, the old "static medium/large" maps always had one key because the
