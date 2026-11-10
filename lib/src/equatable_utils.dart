@@ -1,4 +1,3 @@
-import 'package:collection/collection.dart';
 import 'package:equatable/equatable.dart';
 
 /// Returns a `hashCode` for [props].
@@ -54,42 +53,59 @@ bool mapEquals(Map<Object?, Object?> a, Map<Object?, Object?> b) {
 @pragma('vm:prefer-inline')
 bool objectsEquals(Object? a, Object? b) {
   if (identical(a, b)) return true;
-  if (_isEquatable(a) && _isEquatable(b)) {
-    return a == b;
-  } else if (a is Set && b is Set) {
-    return setEquals(a, b);
-  } else if (a is Iterable && b is Iterable) {
-    return iterableEquals(a, b);
-  } else if (a is Map && b is Map) {
-    return mapEquals(a, b);
-  } else if (a != b) {
-    return false;
+  // Equatable's own == must take precedence even when a subtype is
+  // iterable. Comparing it structurally would ignore its custom props.
+  if (a is Equatable || b is Equatable) {
+    return a is Equatable && b is Equatable && a == b;
   }
-  return true;
+  // Sets are unordered: never compare a Set as an ordered Iterable.
+  if (a is Set<Object?> || b is Set<Object?>) {
+    return a is Set<Object?> && b is Set<Object?> && setEquals(a, b);
+  }
+  if (a is Iterable<Object?> && b is Iterable<Object?>) {
+    return iterableEquals(a, b);
+  }
+  if (a is Map<Object?, Object?> && b is Map<Object?, Object?>) {
+    return mapEquals(a, b);
+  }
+  return a == b;
 }
-
-@pragma('vm:prefer-inline')
-bool _isEquatable(Object? object) => object is Equatable;
 
 /// Jenkins Hash Functions
 /// https://en.wikipedia.org/wiki/Jenkins_hash_function
 int _combine(int hash, Object? object) {
-  if (object is Map) {
-    object.keys
-        .sorted((Object? a, Object? b) => a.hashCode - b.hashCode)
-        .forEach((Object? key) {
-      hash = hash ^ _combine(hash, [key, (object! as Map)[key]]);
-    });
-    return hash;
+  // Equatable objects can also implement Iterable. Their value semantics
+  // come from props, not from their iterator.
+  if (object is Equatable) {
+    return _combine(hash, object.hashCode);
   }
-  if (object is Set) {
-    object = object.sorted((Object? a, Object? b) => a.hashCode - b.hashCode);
+  if (object is Map<Object?, Object?>) {
+    var unorderedHash = 0;
+    for (final entry in object.entries) {
+      // Map keys are compared by native ==/hashCode (containsKey), unlike
+      // map values, which are compared structurally by objectsEquals.
+      final entryHash = _finish(
+        _combine(_combine(0, entry.key.hashCode), entry.value),
+      );
+      unorderedHash = 0x1fffffff & (unorderedHash + entryHash);
+    }
+    return _combine(hash, unorderedHash ^ object.length);
   }
-  if (object is Iterable) {
+  if (object is Set<Object?>) {
+    var unorderedHash = 0;
+    for (final element in object) {
+      unorderedHash =
+          0x1fffffff & (unorderedHash + _finish(_combine(0, element)));
+    }
+    return _combine(hash, unorderedHash ^ object.length);
+  }
+  if (object is Iterable<Object?>) {
+    var length = 0;
     for (final value in object) {
       hash = hash ^ _combine(hash, value);
+      length++;
     }
-    return hash ^ object.length;
+    return hash ^ length;
   }
 
   hash = 0x1fffffff & (hash + object.hashCode);
