@@ -1,5 +1,6 @@
 import 'package:benchmarking/benchmarking.dart';
 import 'package:equatable/equatable.dart';
+import 'package:meta/meta.dart';
 
 class EmptyEquatable extends Equatable {
   @override
@@ -41,6 +42,7 @@ class SingleCollectionEquatable extends Equatable {
   List<Object?> get props => [value];
 }
 
+@immutable
 class _CollidingKey {
   const _CollidingKey(this.value);
 
